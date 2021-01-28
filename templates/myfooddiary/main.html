@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+    <style>
+    </style>
+    <header>
+        <h1><a href="{% url 'main' %}">MyFoodDiary</a></h1>
+    </header>
+    <nav>
+        <ul>
+            <h1>{{message}}</h1>
+
+            {% if u_nick %}
+                <h1>{{u_nick}} 님, 환영합니다</h1>
+            {% endif %}
+
+            <li><a href="{% url 'userreg' %}">회원가입</a></li>
+        </ul>
+    </nav>
+    <section>
+    {% if section == 'userreg' %}
+        {% include  "myfooddiary/userreg.html" %}
+    {% endif %}
+    </section>
+    <footer></footer>
+{% endblock %}
+
+
+
+
