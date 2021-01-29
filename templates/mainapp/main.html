@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<h1>main.html</h1>
+<h1>{{message}}</h1>
+{% if section == 'userreg' %}
+    {% include  "mainapp/userreg.html" %}
+{% endif %}
+
+
+{% endblock %}
+
+
+
+

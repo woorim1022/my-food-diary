@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+
     </style>
 </head>
 <body>
+    <h1><a href="{% url 'main' %}">MyFoodDiary</a></h1>
+    <ul>
+
+
+            {% if u_nick %}
+                <h1>{{u_nick}} 님, 환영합니다</h1>
+            {% endif %}
+            <li><a href="{% url 'userreg' %}">회원가입</a></li>
+            <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
+            <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
+            <li><a href="#">나만의 레시피 만들기</a></li>
+            <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+        </ul>
+    </nav>
+
+
     {% block content %}
     {% endblock %}
+
+
+    <footer></footer>
+
 </body>
 </html>
 
