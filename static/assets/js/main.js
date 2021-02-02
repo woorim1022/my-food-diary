@@ -1,5 +1,5 @@
 /**
-* Template Name: Delicious - v2.2.0
+* Template Name: Delicious - v2.2.1
 * Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
@@ -16,6 +16,7 @@
         e.preventDefault();
 
         var scrollto = target.offset().top - scrolltoOffset;
+
 
         if ($(this).attr("href") == '#header') {
           scrollto = 0;

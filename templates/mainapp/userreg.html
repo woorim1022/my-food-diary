@@ -4,22 +4,89 @@
 
 
 <!--자바 스크립트로 아이디, 닉네임 중복여부 검사하고 메세지 띄우기 -->
+    <script>
+        var idcheck = false;
+        var nickcheck = false;
 
+        function submit(idcheck, nickcheck){
+            if(idcheck && nickcheck){
+                $('input[name="submit"]').prop("disabled",false);
+            };
+        };
 
+         $(document).ready(function(){
+            $('input[name="submit"]').prop("disabled",true);
+            // 얘를 클릭했을 때
+            $('input[name="idcheck"]').click(function(){
+                // 얘의 값을 가져온다
+                id = $('input[name="u_id"]').val();
+                // id에 저장한 값을 get 방식으로 날린다
+                $.ajax({
+                   url:{% url "idcheck" %},
+                   data:{'id':id},
+                   type:'get',
+                   success:function(data){
+                        if(data.trim() == 'ok'){
+                            alert('사용 가능한 아이디입니다');
+                            // 아이디 중복체크했다고 표시해
+                            idcheck = true;
+                            submit(idcheck, nickcheck);
+                        }else if(data.trim() == 'no'){
+                            alert('사용 불가능한 아이디입니다');
+                            // 폼 값 지워
+                            $('input[name="u_id"]').val('');
+                        }else if(data.trim() == 'empty'){
+                            alert('아이디 값이 비어있습니다');
+                        }else{
+                            alert('다시 입력하세요');
+                        };
 
+                   }
+                });
+            });
 
+            $('input[name="nickcheck"]').click(function(){
+                // 얘의 값을 가져온다
+                nickname = $('input[name="u_nick"]').val();
+                // id에 저장한 값을 get 방식으로 날린다
+                $.ajax({
+                   url:{% url "nickcheck" %},
+                   data:{'nickname':nickname},
+                   type:'get',
+                   success:function(data){
+                         if(data.trim() == 'ok'){
+                            alert('사용 가능한 닉네임입니다');
+                            // 닉네임 중복체크했다고 표시해
+                            nickcheck = true;
+                            submit(idcheck, nickcheck);
+                        }else if(data.trim() == 'no'){
+                            alert('사용 불가능한 닉네임입니다');
+                            // 폼 값 지워
+                            $('input[name="u_nick"]').val('');
+                        }else if(data.trim() == 'empty'){
+                            alert('닉네임 값이 비어있습니다');
+                        }else{
+                            alert('다시 입력하세요');
+                        };
+
+                   }
+                });
+            });
+        });
+    </script>
 
     <h1>userreg.html</h1>
     <h1>{{message}}</h1>
 
     <form action="{% url 'useraddimpl' %}" method="post">
         {% csrf_token %}
-        ID<input type="text" name="u_id"><input type="button" value="중복체크"><br>
-        NICKNAME<input type="text" name="u_nick"><input type="button" value="중복체크"><br>
-        PWD<input type="text" name="u_pwd"><br>
+        ID<input type="text" name="u_id"><input name='idcheck' type="button" value="중복체크"><br>
+        NICKNAME<input type="text" name="u_nick"><input name='nickcheck' type="button" value="중복체크"><br>
+        PWD<input type="text" name="u_pwd_1"><br>
+        PWDCONFIRM<input type="text" name="u_pwd_2"><br>
         NAME<input type="text" name="u_name"><br>
         AGE<input type="text" name="u_age"><br>
-        <input type="submit" value="REGISTER">
+        <input type="submit" name="submit" value="REGISTER">
     </form>
 
 

@@ -19,9 +19,14 @@ from mainapp import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('index', TemplateView.as_view(template_name='base.html'), name='index'),
+
     path('', views.main, name='main'),
     path('userreg', views.userreg, name='userreg'),
+
     path('useraddimpl', views.useraddimpl, name='useraddimpl'),
+    path('idcheck/', views.idcheck, name='idcheck'),
+    path('nickcheck/', views.nickcheck, name='nickcheck'),
 
     path('loginimpl', views.loginimpl, name='loginimpl'),
     path('logout', views.logout, name='logout'),

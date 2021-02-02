@@ -4,10 +4,19 @@ from frame.mainapp.mainapp_value import User
 
 
 class UserDb(Db):
-    def selectone(self,id):
+    def selectid(self,id):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.selectone % id);
+        cursor.execute(Sql.selectid % id);
+        u = cursor.fetchone();
+        user = User(u[0],u[1],u[2],u[3],u[4]);
+        super().close(conn,cursor);
+        return user;
+
+    def selectnick(self,nickname):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.selectnick % nickname);
         u = cursor.fetchone();
         user = User(u[0],u[1],u[2],u[3],u[4]);
         super().close(conn,cursor);
