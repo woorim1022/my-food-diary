@@ -1,2 +1,2 @@
-# class ErrorCode:
-#     e0001 = '';
+class ErrorCode:
+    e0001 = '';
