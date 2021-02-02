@@ -2,6 +2,97 @@
 
 {% load static %}
 {% block content %}
-    <h1>ingredient.html</h1>
+<style>
+    #green1{
+            color:green
+    }
+    #red1{
+            color:red
+    }
+    #green2{
+            color:green
+    }
+    #red2{
+            color:red
+    }
+</style>
+    <h2>식재료선택   <a href="ingredient">조회</a></h2>
+    <table id="ingredient">
+        <tr>
+            <th>상위 카테고리</th>
+            <th>하위 카테고리</th>
+            <th>재료이름</th>
+            <th>유통기한</th>
+        </tr>
+        {% for ingr in user_ingrlist %}
+        <tr>
+            <th>{{ingr.icp_name}}</th>
+            <th>{{ingr.ic_name}}</th>
+            <th>{{ingr.i_name}}</th>
+            <th>{{ingr.ui_exdate}}</th>
+            {% endfor %}
+        </tr>
+    </table>
+    <h2>유통기한 5일 이내 식재료 및 지난 식재료</h2>
+    <h3>빨간색: 지난 식재료</h3>
+    <h3>초록색: 5일 이내 식재료</h3>
+    <table>
+       <tr>
+            <th>상위 카테고리</th>
+            <th>하위 카테고리</th>
+            <th>재료이름</th>
+            <th>유통기한</th>
+        </tr>
+        {% for l in uigreenlist %}
+        <tr id="green1">
+            <th>{{l.icp_name}}</th>
+            <th>{{l.ic_name}}</th>
+            <th>{{l.i_name}}</th>
+            <th>{{l.ui_exdate}}</th>
+            {% endfor %}
+        </tr>
+        {% for l in uiredlist %}
+        <tr id="red1">
+            <th>{{l.icp_name}}</th>
+            <th>{{l.ic_name}}</th>
+            <th>{{l.i_name}}</th>
+            <th>{{l.ui_exdate}}</th>
+            {% endfor %}
+        </tr>
+    </table>
+    <h2>알레르기 유발 식재료</h2>
+    <table>
+       <tr>
+            <th>상위 카테고리</th>
+            <th>하위 카테고리</th>
+            <th>재료이름</th>
+            <th>유통기한</th>
+        </tr>
+            {% for l in uagreenlist %}
+            <tr id="green2">
+                <th>22</th>
+                <th>{{l.ic_name}}</th>
+                <th>{{l.i_name}}</th>
+                <th>{{l.ui_exdate}}</th>
+                {% endfor %}
+            </tr>
+            {% for l in uaredlist %}
+            <tr id="red2">
+                <th>{{l.icp_name}}</th>
+                <th>{{l.ic_name}}</th>
+                <th>{{l.i_name}}</th>
+                <th>{{l.ui_exdate}}</th>
+                {% endfor %}
+            </tr>
+            {% for l in ualist %}
+            <tr >
+                <th>{{l.icp_name}}</th>
+                <th>{{l.ic_name}}</th>
+                <th>{{l.i_name}}</th>
+                <th>{{l.ui_exdate}}</th>
+                {% endfor %}
+            </tr>
+    </table>
+
 
 {% endblock %}
