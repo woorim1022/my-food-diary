@@ -4,10 +4,19 @@ from frame.mainapp.mainapp_value import User
 
 
 class UserDb(Db):
-    def selectone(self,id):
+    def selectid(self,id):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.userlistone % id);
+        cursor.execute(Sql.selectid % id);
+        u = cursor.fetchone();
+        user = User(u[0],u[1],u[2],u[3],u[4]);
+        super().close(conn,cursor);
+        return user;
+
+    def selectnick(self,nickname):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.selectnick % nickname);
         u = cursor.fetchone();
         user = User(u[0],u[1],u[2],u[3],u[4]);
         super().close(conn,cursor);
@@ -16,7 +25,7 @@ class UserDb(Db):
     def select(self):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.userlist);
+        cursor.execute(Sql.selectall);
         result = cursor.fetchall();
         all = [];
         for u in result:
@@ -28,6 +37,7 @@ class UserDb(Db):
     def insert(self,u_id,u_nick,u_pwd,u_name,u_age):
         try:
             conn = super().getConnection();
+            print(conn)
             cursor = conn.cursor();
             cursor.execute(Sql.userinsert % (u_id,u_nick,u_pwd,u_name,u_age));
             conn.commit();

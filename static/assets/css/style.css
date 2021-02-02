@@ -1,5 +1,5 @@
 /**
-* Template Name: Delicious - v2.2.0
+* Template Name: Delicious - v2.2.1
 * Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu a {
   display: block;
   position: relative;
-  color: white;
+  color: black;
   padding: 9px 14px;
   transition: 0.3s;
   font-size: 15px;
@@ -544,7 +544,7 @@ section {
 }
 
 .section-bg {
-  background-color: white;
+  background-color: black;
 }
 
 .section-title {
@@ -892,7 +892,9 @@ section {
 }
 
 .menu .menu-content::after {
-  content: "......................................................................" "...................................................................." "....................................................................";
+  content: "......................................................................"
+ "...................................................................."
+ "....................................................................";
   position: absolute;
   left: 20px;
   right: 0;

@@ -1,4 +1,5 @@
 class Sql:
-    userlist = "SELECT * FROM users";
-    userlistone = "SELECT * FROM users WHERE id='%s'";
+    selectall = "SELECT * FROM users";
+    selectid = "SELECT * FROM users WHERE u_id='%s'";
+    selectnick = "SELECT * FROM users WHERE u_nick='%s'";
     userinsert = "INSERT INTO users VALUE ('%s','%s','%s','%s',%d)";
