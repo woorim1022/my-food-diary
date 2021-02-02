@@ -1,13 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
 {% load static %}
-<section>
-    <h1>User Add</h1>
+
+
+<!--자바 스크립트로 아이디, 닉네임 중복여부 검사하고 메세지 띄우기 -->
+
+
+
+
+
+    <h1>userreg.html</h1>
+    <h1>{{message}}</h1>
+
     <form action="{% url 'useraddimpl' %}" method="post">
         {% csrf_token %}
-        ID<input type="text" name="u_id"><br>
-        NICKNAME<input type="text" name="u_nick"><br>
+        ID<input type="text" name="u_id"><input type="button" value="중복체크"><br>
+        NICKNAME<input type="text" name="u_nick"><input type="button" value="중복체크"><br>
         PWD<input type="text" name="u_pwd"><br>
         NAME<input type="text" name="u_name"><br>
         AGE<input type="text" name="u_age"><br>
         <input type="submit" value="REGISTER">
     </form>
-</section>
+
+
+
+{% endblock %}
+

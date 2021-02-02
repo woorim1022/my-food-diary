@@ -19,7 +19,10 @@ from mainapp import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='mainapp/main.html'), name='main'),
+    path('', views.main, name='main'),
     path('userreg', views.userreg, name='userreg'),
     path('useraddimpl', views.useraddimpl, name='useraddimpl'),
+
+    path('loginimpl', views.loginimpl, name='loginimpl'),
+    path('logout', views.logout, name='logout'),
 ]
