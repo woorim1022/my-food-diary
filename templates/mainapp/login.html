@@ -1,15 +1,30 @@
+{% extends "inner-page.html" %}
+{% block content %}
+{% load static %}
 
 
+  <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Login</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>로그인</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
 
   <!-- ======= Contact Section ======= -->
-  <section style="padding-left:20px; background:white; color:#35322d;" id="contact" class="contact">
-    <h2>&nbsp;</h2>
+  <section style="padding-left:60px; background:white; color:#35322d;" id="contact" class="contact">
     {% if request.session.suser %}
       <div style="padding:3px 0px 3px 20px;">
           <h3 style="padding:3px 0px 3px 0px;">{{request.session.snickname}} 님, 환영합니다</h3>
-          <h3 style="padding:3px 0px 3px 0px;">즐겨찾기</h3>
-          <h3 style="padding:3px 0px 3px 0px;">마이레시피</h3>
-<!--          <a href="{% url 'logout' %}">-->
+<!--          <h3 style="padding:3px 0px 3px 0px;">즐겨찾기</h3>-->
+<!--          <h3 style="padding:3px 0px 3px 0px;">마이레시피</h3>-->
             <nav class="nav-menu d-none d-lg-block" >
               <ul>
                 <li class="book-a-table text-center">
@@ -21,10 +36,8 @@
                 </li>
               </ul>
             </nav>
-<!--          </a>-->
       </div>
     {% else %}
-          <h1 style="padding:3px 0px 3px 20px;"><span>Login</span></h1>
           <p style="padding:0px 0px 3px 20px;">로그인 해주세요</p>
           <form action="{% url 'loginimpl' %}" method="post" role="form" >
             {% csrf_token %}
@@ -40,7 +53,6 @@
             </div>
             <div class="mb-3">
               <div class="error-message"></div>
-              <div class="sent-message">Login Complete. Welcome!</div>
             </div>
             <nav class="nav-menu d-none d-lg-block" >
               <ul>
@@ -51,3 +63,11 @@
      {% endif %}
     <h2>&nbsp;</h2>
   </section>
+
+
+
+
+
+
+
+{% endblock %}

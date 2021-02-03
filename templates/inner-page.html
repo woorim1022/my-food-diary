@@ -62,9 +62,13 @@
             <li><a href="#">나만의 레시피 만들기</a></li>
             <li><a href="{% url 'mypage' %}">마이페이지</a></li>
 
+            {% if request.session.suser %}
+              <li class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+              <li class="book-a-table text-center"><a href="{% url 'login' %}">Login</a></li>
+              <li class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
+            {% endif %}
 
-            <li class="book-a-table text-center"><a href="#book-a-table">Login</a></li>
-            <li class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
           </ul>
       </nav><!-- .nav-menu -->
 
@@ -73,25 +77,33 @@
 
   <main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Inner Page</h2>
-          <ol>
-            <li><a href="{% url 'main' %}">Home</a></li>
-            <li>Inner Page</li>
-          </ol>
-        </div>
 
-      </div>
-    </section><!-- End Breadcrumbs Section -->
+<!--    &lt;!&ndash; ======= Breadcrumbs Section ======= &ndash;&gt;-->
+<!--    <section class="breadcrumbs">-->
+<!--      <div class="container">-->
 
-    <section class="inner-page">
-    {% block content %}
-    {% endblock %}
-    </section>
+<!--        <div class="d-flex justify-content-between align-items-center">-->
+<!--          <h2>Inner Page</h2>-->
+<!--          <ol>-->
+<!--            <li><a href="{% url 'main' %}">Home</a></li>-->
+<!--            <li>Inner Page</li>-->
+<!--          </ol>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </section>&lt;!&ndash; End Breadcrumbs Section &ndash;&gt;-->
+
+
+
+
+
+      {% block content %}
+      {% endblock %}
+
+
+
+
 
 
 
@@ -146,13 +158,6 @@
 
         </div>
       </section><!-- End Chefs Section -->
-
-
-
-
-
-
-
 
 
 

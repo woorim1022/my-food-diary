@@ -70,6 +70,12 @@ def nickcheck(request):
     return HttpResponse('no')
 
 
+
+def login(request):
+    return render(request, 'mainapp/login.html')
+
+
+
 # 로그인 처리하는 함수
 def loginimpl(request):
     global login
