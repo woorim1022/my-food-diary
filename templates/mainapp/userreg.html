@@ -3,6 +3,8 @@
 {% load static %}
 
 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 <!--자바 스크립트로 아이디, 닉네임 중복여부 검사하고 메세지 띄우기 -->
     <script>
         var idcheck = false;
@@ -113,27 +115,27 @@
             {% csrf_token %}
             <div class="form-col">
                 <div class="col-md-2 form-group">
-                    <input type="text" name="id" class="form-control" id="name" placeholder="id"/><input name='idcheck' type="button" value="중복체크">
+                    <input type="text" name="id" class="form-control" id="u_id" placeholder="id"/><input name='idcheck' type="button" value="중복체크">
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="pwd" id="nickname" placeholder="nickname" data-rule="email"/><input name='idcheck' type="button" value="중복체크">
+                    <input type="text" class="form-control" name="u_nick" id="nickname" placeholder="nickname" data-rule="email"/><input name='nickcheck' type="button" value="중복체크">
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="password" data-rule="email"/>
+                    <input type="password" class="form-control" name="u_pwd_1" id="pwd" placeholder="password" data-rule="email"/>
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="pwd" id="pwd_2" placeholder="password confirm" data-rule="email"/>
+                    <input type="password" class="form-control" name="u_pwd_2" id="pwd_2" placeholder="password confirm" data-rule="email"/>
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="pwd" id="name" placeholder="name" data-rule="email"/>
+                    <input type="text" class="form-control" name="u_name" id="name" placeholder="name" data-rule="email"/>
                     <div class="validate"></div>
                 </div>
                 <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="pwd" id="age" placeholder="age" data-rule="email"/>
+                    <input type="number" class="form-control" name="u_age" id="age" placeholder="age" data-rule="email"/>
                     <div class="validate"></div>
                 </div>
             </div>

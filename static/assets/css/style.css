@@ -1,13 +1,6 @@
-/**
-* Template Name: Delicious - v2.2.1
-* Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
+
 body {
   font-family: "Poppins", sans-serif;
   color: #444444;
@@ -22,9 +15,11 @@ a:hover {
   text-decoration: none;
 }
 
+
 h1, h2, h3, h4, h5, h6 {
   font-family: "Satisfy", sans-serif;
 }
+
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -138,12 +133,14 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
   list-style: none;
+
 }
 
 .nav-menu > ul > li {
   position: relative;
   white-space: nowrap;
   float: left;
+
 }
 
 .nav-menu a {
@@ -152,10 +149,14 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   padding: 9px 14px;
   transition: 0.3s;
-  font-size: 15px;
+  font-size: 25px;
   font-weight: 500;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Nanum Pen Script', cursive;
 }
+
+
+
+
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
   color: #ffb03b;
