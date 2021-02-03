@@ -2,18 +2,10 @@ from datetime import date, timedelta
 
 from frame.ingredientapp.ingredientapp_db import Db
 from frame.ingredientapp.ingredientapp_sql import Sql
-from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid
+from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid, Ingr
 
 
 class User_IngrDb(Db):
-    # def selectone(self,i_id):
-    #     conn = super().getConnection();
-    #     cursor = conn.cursor();
-    #     cursor.execute(Sql.user_ingrlistone % i_id);
-    #     u = cursor.fetchone();
-    #     ingr = User_Ingr(u[0],u[1],u[2]);
-    #     super().close(conn,cursor);
-    #     return ingr;
 
     def select(self):
         conn = super().getConnection();
@@ -27,17 +19,39 @@ class User_IngrDb(Db):
         super().close(conn,cursor);
         return all;
 
-#     def insert(self,i_id,ic_id,i_name):
-#         try:
-#             conn = super().getConnection();
-#             cursor = conn.cursor();
-#             cursor.execute(Sql.ingrinsert % (i_id,ic_id,i_name));
-#             conn.commit();
-#         except:
-#             conn.rollback();
-#             raise Exception;
-#         finally:
-#             super().close(conn, cursor);
+    def insert(self,null,u_id,i_id,ui_regdate,ui_exdate):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.user_ingrinsert % (null,u_id,i_id,ui_regdate,ui_exdate));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+            # def selectone(self,i_id):
+            #     conn = super().getConnection();
+            #     cursor = conn.cursor();
+            #     cursor.execute(Sql.user_ingrlistone % i_id);
+            #     u = cursor.fetchone();
+            #     ingr = User_Ingr(u[0],u[1],u[2]);
+            #     super().close(conn,cursor);
+            #     return ingr;
+
+class IngrDb(Db):
+    def select(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            ingr = Ingr(u[0],u[1],u[2],u[3],u[4],u[5]);
+            all.append(ingr);
+        super().close(conn,cursor);
+        return all;
 #
 # class Ingr_ctDb(Db):
 #     def selectone(self,ic_id):
@@ -89,17 +103,12 @@ class User_AvoidDb(Db):
 # userlist Test Function ..........
 def user_ingrlist_test():
     user_ingrlist = User_IngrDb().select();
-    today = date.today()
-    ex = timedelta(days=5)
     list = [];
     for u in user_ingrlist:
          list.append(u)
-         # print(type(u))
     for l in list:
         print(l.ui_exdate)
-        # print(u.ui_exdate)
-        # if u.ui_exdate - today > ex:
-        #     print(u.ui_exdate)
+
 
 def user_avoidlist_test():
     user_avoidlist = User_AvoidDb().select();
@@ -109,14 +118,13 @@ def user_avoidlist_test():
     for u in user_avoidlist:
          list.append(u)
          print(u)
-         # print(type(u))
-    # for l in list:
-    #     print(l.ui_exdate)
 
-# def userlistone_test():
-#     users = UserDb().selectone('id01');
-#     print(users);
+def ingrlist_test():
+    ingrlist = IngrDb().select();
+    for u in ingrlist:
+        print(u.ic_name)
 
 if __name__ == '__main__':
     # user_ingrlist_test();
-    user_avoidlist_test();
+    # user_avoidlist_test();
+    ingrlist_test();

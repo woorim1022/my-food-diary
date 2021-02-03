@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from django.shortcuts import render
 
-from frame.ingredientapp.ingredientapp_ingrdb import User_IngrDb, User_AvoidDb
+from frame.ingredientapp.ingredientapp_ingrdb import User_IngrDb, User_AvoidDb, IngrDb
 
 
 def ingredient(request):
@@ -44,4 +44,13 @@ def ingredient(request):
 
 
 def ingredient_reg(request):
-    return render(request, 'ingredientapp/ingredient_reg.html');
+    user_ingrlist = User_IngrDb().select();
+    ingrlist = IngrDb().select();
+    today = date.today()
+
+    context = {
+        'user_ingrlist': user_ingrlist,
+        'ingrlist': ingrlist,
+        'today': today,
+    }
+    return render(request, 'ingredientapp/ingredient_reg.html', context);

@@ -2,5 +2,44 @@
 
 {% load static %}
 {% block content %}
-    <h1>ingredient_reg.html</h1>
+    <h1>재료 등록 수정</h1>
+    <table id="ingredient_reg">
+        <tr>현재등록재료
+            <th>등록번호</th>
+            <th>등록날짜</th>
+            <th>상위 카테고리</th>
+            <th>하위 카테고리</th>
+            <th>재료이름</th>
+            <th>유통기한</th>
+        </tr>
+        {% for ingr in user_ingrlist %}
+        <tr>
+            <th>{{ingr.ui_id}}</th>
+            <th>{{ingr.ui_regdate}}</th>
+            <th>{{ingr.icp_name}}</th>
+            <th>{{ingr.ic_name}}</th>
+            <th>{{ingr.i_name}}</th>
+            <th>{{ingr.ui_exdate}}</th>
+            {% endfor %}
+        </tr>
+    </table>
+    <form id="users_ingr_form">
+    {% csrf_token %}
+    상위카테고리<input list ="icp_name" name="icp_name">
+              <datalist id="icp_name">
+              {% for ingr in ingrlist %}
+                  {% if ingr.icp_name
+                <option value="{{ingr.icp_name}}">
+              {% endfor %}
+                </option>
+              </datalist><br>
+    하위카테고리<input list ="ic_name" name="ic_name">
+              <datalist id="ic_name">
+              {% for ingr in ingrlist %}
+                <option value="{{ingr.ic_name}}">
+              {% endfor %}
+                </option>
+              </datalist>
+              <input type="submit" value="등록"><br>
+    </form>
 {% endblock %}

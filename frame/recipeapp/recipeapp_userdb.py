@@ -50,3 +50,21 @@
 #
 # if __name__ == '__main__':
 #     userlistone_test();
+from frame.recipeapp.recipeapp_db import Db
+from frame.recipeapp.recipeapp_sql import Sql
+from frame.recipeapp.recipeapp_value import User_Ingr
+
+
+class User_IngrDb(Db):
+
+    def select(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.user_ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            user_ingr = User_Ingr(u[0],u[1],u[2],u[3],u[4],u[5]);
+            all.append(user_ingr);
+        super().close(conn,cursor);
+        return all;
