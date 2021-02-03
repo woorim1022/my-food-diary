@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Delicious Bootstrap Template - Index</title>
+  <title>Inner Page - Delicious Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -27,7 +27,7 @@
   <!-- Template Main CSS File -->
   <link href="static/assets/css/style.css" rel="stylesheet">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- =======================================================
   * Template Name: Delicious - v2.2.1
   * Template URL: https://bootstrapmade.com/delicious-free-restaurant-bootstrap-theme/
@@ -38,26 +38,25 @@
 
 <body>
 
-<!--  &lt;!&ndash; ======= Top Bar ======= &ndash;&gt;-->
-<!--  <section id="topbar" class="d-none d-lg-flex align-items-center fixed-top topbar-transparent">-->
-<!--    <div class="container text-right">-->
-<!--      <i class="icofont-phone"></i> +1 5589 55488 55-->
-<!--      <i class="icofont-clock-time icofont-rotate-180"></i> Mon-Sat: 11:00 AM - 23:00 PM-->
-<!--    </div>-->
-<!--  </section>-->
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-none d-lg-flex align-items-center fixed-top ">
+    <div class="container text-right">
+      <span>My Food Diary</span>
+    </div>
+  </section>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+  <header id="header" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
         <h1 class="text-light"><a href="{% url 'main' %}"><span>My Food Diary</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="base.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
-        <ul>
+         <ul>
             <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
             <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
             <li><a href="#">나만의 레시피 만들기</a></li>
@@ -72,19 +71,27 @@
     </div>
   </header><!-- End Header -->
 
-
   <main id="main">
 
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
 
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
 
+      </div>
+    </section><!-- End Breadcrumbs Section -->
 
-
-
-
-  {% block content %}
-  {% endblock %}
-
-
+    <section class="inner-page">
+    {% block content %}
+    {% endblock %}
+    </section>
 
 
 
@@ -146,13 +153,16 @@
 
 
 
+
+
+
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
       <h3>My Food Diary</h3>
-      <p></p>
+      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
       <div class="social-links">
         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>

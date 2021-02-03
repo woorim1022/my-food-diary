@@ -98,7 +98,10 @@ def loginimpl(request):
     return render(request, 'mainapp/main.html', context);
 
 def logout(request):
-    if request.session['suser']:
-        del request.session['suser']
-        del request.session['snickname']
+    if 'suser' in request.session:
+        if request.session['suser']:
+            del request.session['suser']
+    if 'snickname' in request.session:
+        if request.session['snickname']:
+            del request.session['snickname']
     return render(request, 'mainapp/main.html')

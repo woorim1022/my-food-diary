@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu a {
   display: block;
   position: relative;
-  color: black;
+  color: white;
   padding: 9px 14px;
   transition: 0.3s;
   font-size: 15px;
@@ -179,6 +179,34 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffa012;
   color: #fff;
 }
+
+
+
+
+
+.nav-menu .book-a-table button {
+  background: #ffb03b;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 0 0 20px;
+  padding: 10px 25px;
+  font-size: 13px;
+   text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+.nav-menu .book-a-table button:hover {
+  background: #ffa012;
+  color: #fff;
+}
+
+
+
+
+
+
+
 
 .nav-menu .drop-down ul {
   display: block;
@@ -319,7 +347,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50px;
   margin: 0 0 0 20px;
   padding: 10px 25px;
-  text-transform: uppercase;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -331,6 +358,44 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffa012;
   color: #fff;
 }
+
+
+
+
+
+
+
+
+
+.mobile-nav .book-a-table button {
+  background: #ffb03b;
+  color: #fff;
+  border-radius: 50px;
+  margin: 0 0 0 20px;
+  padding: 10px 25px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.mobile-nav .book-a-table button:hover {
+  background: #ffa012;
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .mobile-nav .drop-down > a:after {
   content: "\ea99";
@@ -536,6 +601,360 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------------
+# Hero2 Section
+--------------------------------------------------------------*/
+#hero2 {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(39, 37, 34, 0.8);
+  overflow: hidden;
+  padding: 0;
+}
+
+#hero2 .carousel-item {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#hero2 .carousel-item::before {
+  content: '';
+  background-color: rgba(12, 11, 10, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#hero2 .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero2 .carousel-content {
+  text-align: center;
+}
+
+#hero2 h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+#hero2 h2 span {
+  color: #ffb03b;
+}
+
+#hero2 p {
+  width: 80%;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+  margin: 0 auto 30px auto;
+  color: #fff;
+}
+
+#hero2 .carousel-inner .carousel-item {
+  transition-property: opacity;
+  background-position: center top;
+}
+
+#hero2 .carousel-inner .carousel-item,
+#hero2 .carousel-inner .active.carousel-item-left,
+#hero2 .carousel-inner .active.carousel-item-right {
+  opacity: 0;
+}
+
+#hero2 .carousel-inner .active,
+#hero2 .carousel-inner .carousel-item-next.carousel-item-left,
+#hero2 .carousel-inner .carousel-item-prev.carousel-item-right {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+#hero2 .carousel-inner .carousel-item-next,
+#hero2 .carousel-inner .carousel-item-prev,
+#hero2 .carousel-inner .active.carousel-item-left,
+#hero2 .carousel-inner .active.carousel-item-right {
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+#hero2 .carousel-control-prev, #hero2 .carousel-control-next {
+  width: 10%;
+  opacity: 1;
+}
+
+#hero2 .carousel-control-next-icon, #hero2 .carousel-control-prev-icon {
+  background: none;
+  font-size: 36px;
+  line-height: 1;
+  width: auto;
+  height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 10px;
+  transition: 0.3s;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#hero2 .carousel-control-next-icon:hover, #hero2 .carousel-control-prev-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#hero2 .carousel-indicators li {
+  cursor: pointer;
+}
+
+#hero2 .btn-menu, #hero2 .btn-book {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 0 10px;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  color: #fff;
+  border: 2px solid #ffb03b;
+}
+
+#hero2 .btn-menu:hover, #hero2 .btn-book:hover {
+  background: #ffb03b;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #hero2 h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #hero2 p {
+    width: 50%;
+  }
+  #hero2 .carousel-control-prev, #hero2 .carousel-control-next {
+    width: 5%;
+  }
+}
+
+
+
+
+
+
+/*--------------------------------------------------------------
+# Hero3 Section
+--------------------------------------------------------------*/
+#hero3 {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(39, 37, 34, 0.8);
+  overflow: hidden;
+  padding: 0;
+}
+
+#hero3 .carousel-item {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#hero3 .carousel-item::before {
+  content: '';
+  background-color: rgba(12, 11, 10, 0.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#hero3 .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#hero3 .carousel-content {
+  text-align: center;
+}
+
+#hero3 h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+#hero3 h2 span {
+  color: #ffb03b;
+}
+
+#hero3 p {
+  width: 80%;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+  margin: 0 auto 30px auto;
+  color: #fff;
+}
+
+#hero3 .carousel-inner .carousel-item {
+  transition-property: opacity;
+  background-position: center top;
+}
+
+#hero3 .carousel-inner .carousel-item,
+#hero3 .carousel-inner .active.carousel-item-left,
+#hero3 .carousel-inner .active.carousel-item-right {
+  opacity: 0;
+}
+
+#hero3 .carousel-inner .active,
+#hero3 .carousel-inner .carousel-item-next.carousel-item-left,
+#hero3 .carousel-inner .carousel-item-prev.carousel-item-right {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+#hero3 .carousel-inner .carousel-item-next,
+#hero3 .carousel-inner .carousel-item-prev,
+#hero3 .carousel-inner .active.carousel-item-left,
+#hero3 .carousel-inner .active.carousel-item-right {
+  left: 0;
+  transform: translate3d(0, 0, 0);
+}
+
+#hero3 .carousel-control-prev, #hero3 .carousel-control-next {
+  width: 10%;
+  opacity: 1;
+}
+
+#hero3 .carousel-control-next-icon, #hero3 .carousel-control-prev-icon {
+  background: none;
+  font-size: 36px;
+  line-height: 1;
+  width: auto;
+  height: auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 10px;
+  transition: 0.3s;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#hero3 .carousel-control-next-icon:hover, #hero3 .carousel-control-prev-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+#hero3 .carousel-indicators li {
+  cursor: pointer;
+}
+
+#hero3 .btn-menu, #hero3 .btn-book {
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  line-height: 1;
+  margin: 0 10px;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+  color: #fff;
+  border: 2px solid #ffb03b;
+}
+
+#hero3 .btn-menu:hover, #hero3 .btn-book:hover {
+  background: #ffb03b;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  #hero3 h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #hero3 p {
+    width: 50%;
+  }
+  #hero3 .carousel-control-prev, #hero3 .carousel-control-next {
+    width: 5%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
@@ -544,7 +963,7 @@ section {
 }
 
 .section-bg {
-  background-color: black;
+  background-color: white;
 }
 
 .section-title {

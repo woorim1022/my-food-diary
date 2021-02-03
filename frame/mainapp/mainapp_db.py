@@ -1,7 +1,7 @@
 import MySQLdb
 
 config = {
-    'database': 'myfooddiary',
+    'database': 'my_food_diary',
     'user': 'root',
     'password': '111111',
     'host':'127.0.0.1',

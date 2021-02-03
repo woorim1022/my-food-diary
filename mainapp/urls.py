@@ -19,7 +19,7 @@ from mainapp import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('index', TemplateView.as_view(template_name='base.html'), name='index'),
+    path('inner-page', TemplateView.as_view(template_name='inner-page.html'), name='inner-page'),
 
     path('', views.main, name='main'),
     path('userreg', views.userreg, name='userreg'),
