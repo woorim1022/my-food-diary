@@ -1,45 +1,144 @@
-{% extends "base.html" %}
+{% extends "inner-page.html" %}
 
 {% load static %}
 {% block content %}
-    <h1>재료 등록 수정</h1>
-    <table id="ingredient_reg">
-        <tr>현재등록재료
-            <th>등록번호</th>
-            <th>등록날짜</th>
-            <th>상위 카테고리</th>
-            <th>하위 카테고리</th>
-            <th>재료이름</th>
-            <th>유통기한</th>
-        </tr>
-        {% for ingr in user_ingrlist %}
-        <tr>
-            <th>{{ingr.ui_id}}</th>
-            <th>{{ingr.ui_regdate}}</th>
-            <th>{{ingr.icp_name}}</th>
-            <th>{{ingr.ic_name}}</th>
-            <th>{{ingr.i_name}}</th>
-            <th>{{ingr.ui_exdate}}</th>
-            {% endfor %}
-        </tr>
-    </table>
-    <form id="users_ingr_form">
-    {% csrf_token %}
-    상위카테고리<input list ="icp_name" name="icp_name">
-              <datalist id="icp_name">
+<style>
+  #ingredient_reg{
+          witdh:100%;
+          text-align: center;
+          padding: 30px;
+        }
+  #ingredient_reg > form{
+          display: inline-block;
+          padding: 5px 10px;
+          margin: 0 auto;
+          border: 1px solid #00000;
+          border-radius: 10px;
+          background-color:#FFB03B;
+          color:white;
+          }
+  #ingredient_reg > a:hover{
+          background-color:white;
+          color:#FFB03B;
+          border: 1px solid #FFB03B;
+          }
+</style>
+<script>
+$(document).ready(function(){
+    $('#users_ingr_form > input[type="button"]').click(function(){
+       $('#users_ingr_form').attr({
+            'action':'{% url "ingredient_regimpl" %}',
+            'method':'POST'
+       });
+       $('#users_ingr_form').submit();
+    });
+});
+</script>
+ <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>재료 수정하기</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li><a href="{% url 'ingredient' %}">Back</a></li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
+<!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>다이어리 내<span> 재료</span></h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters">
+              <li data-filter=".filter-all" class="filter-active">전체</li>
+              <li data-filter=".filter-ex_date_higher">유통기한 5일 이상</li>
+              <li data-filter=".filter-ex_date_within">유통기한 5일 이내</li>
+              <li data-filter=".filter-ex_date_pass">유통기한 지남</li>
+              <li data-filter=".filter-allergy">알레르기 유발</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row menu-container">
+        {% for l in uigreenlist %}
+          <div class="col-lg-6 menu-item filter-ex_date_within">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in uiredlist %}
+          <div class="col-lg-6 menu-item filter-ex_date_pass">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in ualist %}
+          <div class="col-lg-6 menu-item filter-allergy">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in uilist %}
+          <div class="col-lg-6 menu-item filter-ex_date_higher">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in ingrlist %}
+        <div class="col-lg-6 menu-item filter-all">
+          <div class="menu-content">
+            <a href="#">{{l.i_name}}</a>
+          </div>
+          <div class="menu-ingredients">
+            {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+          </div>
+        </div>
+        {% endfor %}
+
+        </div>
+
+      </div>
+    <div id="ingredient_reg">
+      <form id="users_ingr_form">
+          {% csrf_token %}
+          재료이름<input list ="i_name" name="i_name">
+              <datalist id="i_name" name="i_name">
               {% for ingr in ingrlist %}
-                  {% if ingr.icp_name
-                <option value="{{ingr.icp_name}}">
-              {% endfor %}
-                </option>
-              </datalist><br>
-    하위카테고리<input list ="ic_name" name="ic_name">
-              <datalist id="ic_name">
-              {% for ingr in ingrlist %}
-                <option value="{{ingr.ic_name}}">
+                <option value="{{ingr.i_name}}">
               {% endfor %}
                 </option>
               </datalist>
-              <input type="submit" value="등록"><br>
-    </form>
+          유통기한<input type="date" name="ui_exdate">
+              <input type="button" value="등록"><br>
+      </form>
+    </div>
+    </section>
 {% endblock %}
