@@ -2,11 +2,7 @@
 
 {% load static %}
 {% block content %}
-{%if error != None %}
-<!--<script>window.onload = function(){-->
-<!--alert('{{error}}');-->
-<!--};</script>-->
-<!--{% endif %}-->
+
 <style>
   #ingredient_reg{
           witdh:100%;
@@ -28,23 +24,25 @@
           border: 1px solid #FFB03B;
           }
 </style>
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
+<!-- ======= Breadcrumbs Section ======= -->
+   <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>내 재료 확인하기</h2>
+          <h2>재료 확인하기</h2>
           <ol>
             <li><a href="{% url 'main' %}">Home</a></li>
-            <li>Inner Page</li>
+            <li><a href="{% url 'ingredient' %}">Back</a></li>
           </ol>
         </div>
 
       </div>
-    </section><!-- End Breadcrumbs Section -->
-<!-- ======= Menu Section ======= -->
-    <section id="menu" class="menu">
+   </section>
+<!-- End Breadcrumbs Section -->
 
+<!-- ======= Menu Section ======= -->
+{% if request.session.suser %}
+    <section id="menu" class="menu">
       <div class="container">
 
         <div class="section-title">
@@ -124,8 +122,10 @@
       <div id="ingredient_reg">
       <a href="{% url 'ingredient_reg' %}">수정하러가기</a>
       </div>
-    </section><!-- End Menu Section -->
-
+    </section>
+{% else %}
+{% endif %}
+<!-- End Menu Section -->
 
 
 {% endblock %}
