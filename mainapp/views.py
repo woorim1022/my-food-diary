@@ -2,17 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from frame.mainapp.mainapp_userdb import UserDb, RecipeDb
+from frame.mainapp.mainapp_userdb import UserDb
 
 
 
 
 def main(request):
-    recipes = RecipeDb().select()
-    context = {
-        'recipes': recipes
-    };
-    return render(request, 'mainapp/main.html', context)
+    return render(request, 'mainapp/main.html')
 
 # 회원가입 페이지로 넘어가는 함수
 def userreg(request):
@@ -106,7 +102,6 @@ def loginimpl(request):
         };
         return render(request, 'mainapp/main.html', context);
     return render(request, 'mainapp/main.html', context);
-
 
 def logout(request):
     if 'suser' in request.session:

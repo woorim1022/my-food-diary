@@ -1,25 +1,8 @@
-from frame.recipeapp.recipeapp_db import Db
-from frame.recipeapp.recipeapp_sql import Sql
-from frame.recipeapp.recipeapp_value import Recipe
-# from recipeapp.views import recipe
-
-
-
-class RecipeDb(Db):
-    def select(self):
-        conn = super().getConnection();
-        cursor = conn.cursor();
-        cursor.execute(Sql.recipe);
-        result = cursor.fetchall();
-        all = [];
-        for u in result:
-            recipe = Recipe(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17],u[18],u[19],u[20]);
-            all.append(recipe);
-        super().close(conn,cursor);
-        return all;
-
-
-
+# from frame.sql import Sql
+# from frame.db import Db
+# from frame.value import User
+#
+#
 # class UserDb(Db):
 #     def selectone(self,id):
 #         conn = super().getConnection();
@@ -55,11 +38,33 @@ class RecipeDb(Db):
 #             super().close(conn, cursor);
 #
 #
-# # recipe Test Function ..........
-def recipe_test():
-    recipe_test = RecipeDb().select();
-    for u in recipe_test:
-        print(u);
+# # userlist Test Function ..........
+# def userlist_test():
+#     users = UserDb().select();
+#     for u in users:
+#         print(u);
+#
+# def userlistone_test():
+#     users = UserDb().selectone('id01');
+#     print(users);
+#
+# if __name__ == '__main__':
+#     userlistone_test();
+from frame.recipeapp.recipeapp_db import Db
+from frame.recipeapp.recipeapp_sql import Sql
+from frame.recipeapp.recipeapp_value import User_Ingr
 
-if __name__ == '__main__':
-     recipe_test();
+
+class User_IngrDb(Db):
+
+    def select(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.user_ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            user_ingr = User_Ingr(u[0],u[1],u[2],u[3],u[4],u[5]);
+            all.append(user_ingr);
+        super().close(conn,cursor);
+        return all;

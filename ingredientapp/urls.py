@@ -21,4 +21,5 @@ urlpatterns = [
     path('ingredient', views.ingredient, name='ingredient'),
     path('ingredient_reg', views.ingredient_reg, name='ingredient_reg'),
     path('ingredient_regimpl', views.ingredient_regimpl, name='ingredient_regimpl'),
+    path('ingredient_regdel', views.ingredient_regdel, name='ingredient_regdel'),
 ]

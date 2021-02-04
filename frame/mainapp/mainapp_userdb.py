@@ -1,6 +1,6 @@
 from frame.mainapp.mainapp_sql import Sql
 from frame.mainapp.mainapp_db import Db
-from frame.mainapp.mainapp_value import User, Recipe
+from frame.mainapp.mainapp_value import User
 
 
 class UserDb(Db):
@@ -48,29 +48,15 @@ class UserDb(Db):
             super().close(conn, cursor);
 
 
-class RecipeDb(Db):
-    def select(self):
-        conn = super().getConnection();
-        cursor = conn.cursor();
-        cursor.execute(Sql.selectallrecipe);
-        result = cursor.fetchall();
-        all = [];
-        for r in result:
-            recipe = Recipe(r[0], r[1], r[2], r[3], r[4], r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15]);
-            all.append(recipe);
-        super().close(conn, cursor);
-        return all;
-
-
 # userlist Test Function ..........
 def userlist_test():
     users = UserDb().select();
     for u in users:
         print(u);
 
-# def userlistone_test():
-#     users = UserDb().selectone('id01');
-#     print(users);
+def userlistone_test():
+    users = UserDb().selectone('id01');
+    print(users);
 
 if __name__ == '__main__':
-    userlist_test();
+    userlistone_test();

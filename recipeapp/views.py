@@ -1,20 +1,16 @@
 from django.shortcuts import render
 
 # Create your views here.
-from frame.recipeapp.recipeapp_userdb import RecipeDb
+from frame.recipeapp.recipeapp_userdb import User_IngrDb
 
 
 def recipe(request):
-    recipe = RecipeDb().select();
+    user_ingrlist = User_IngrDb().select();
     context = {
-        'recipes': recipe,
+        'user_ingrlist': user_ingrlist,
     }
     return render(request, 'recipeapp/recipe.html', context);
 
 
 def recipe_detail(request):
-    recipe = RecipeDb().select();
-    context = {
-        'recipe_detail': recipe,
-    }
-    return render(request, 'recipeapp/recipe_detail.html', context)
+    return render(request, 'recipeapp/recipe_detail.html')

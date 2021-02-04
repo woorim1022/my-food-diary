@@ -22,6 +22,16 @@
           color:#FFB03B;
           border: 1px solid #FFB03B;
           }
+  button {
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  padding: 0 10px;
+  font-weight: 600;
+  border: 2px solid #ffb03b;
+  color: grey;
+  border-radius: 50px;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -29,11 +39,20 @@ $(document).ready(function(){
        $('#users_ingr_form').attr({
             'action':'{% url "ingredient_regimpl" %}',
             'method':'POST'
-       });
+        });
        $('#users_ingr_form').submit();
+        });
+
+     $('form[class="users_ingr_delete"] > button').click(function(){
+        $('form[class="users_ingr_delete"]').attr({
+            'action':'{% url "ingredient_regdel" %}',
+            'method':'POST'
+        });
+       $('form[class="users_ingr_delete"]').submit();
     });
 });
 </script>
+
  <!-- ======= Breadcrumbs Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
@@ -49,6 +68,7 @@ $(document).ready(function(){
       </div>
     </section><!-- End Breadcrumbs Section -->
 <!-- ======= Menu Section ======= -->
+
     <section id="menu" class="menu">
       <div class="container">
 
@@ -72,6 +92,20 @@ $(document).ready(function(){
           <div class="col-lg-6 menu-item filter-ex_date_within">
             <div class="menu-content">
               <a href="#">{{l.i_name}}</a>
+            <div>
+                <form class="users_ingr_update">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>수정</button>
+                </form>
+                <form class="users_ingr_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>삭제</button>
+                </form>
+            </div>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -83,6 +117,20 @@ $(document).ready(function(){
           <div class="col-lg-6 menu-item filter-ex_date_pass">
             <div class="menu-content">
               <a href="#">{{l.i_name}}</a>
+            <div>
+                <form class="users_ingr_update">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>수정</button>
+                </form>
+                <form class="users_ingr_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>삭제</button>
+                </form>
+            </div>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -94,6 +142,20 @@ $(document).ready(function(){
           <div class="col-lg-6 menu-item filter-allergy">
             <div class="menu-content">
               <a href="#">{{l.i_name}}</a>
+            <div>
+                <form class="users_ingr_update">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>수정</button>
+                </form>
+                <form class="users_ingr_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>삭제</button>
+                </form>
+            </div>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -105,6 +167,20 @@ $(document).ready(function(){
           <div class="col-lg-6 menu-item filter-ex_date_higher">
             <div class="menu-content">
               <a href="#">{{l.i_name}}</a>
+            <div>
+                <form class="users_ingr_update">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>수정</button>
+                </form>
+                <form class="users_ingr_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>삭제</button>
+                </form>
+            </div>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -116,6 +192,20 @@ $(document).ready(function(){
         <div class="col-lg-6 menu-item filter-all">
           <div class="menu-content">
             <a href="#">{{l.i_name}}</a>
+            <div>
+                <form class="users_ingr_update">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>수정</button>
+                </form>
+                <form class="users_ingr_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="i_name" value="{{l.i_name}}">
+                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
+                  <button>삭제</button>
+                </form>
+            </div>
           </div>
           <div class="menu-ingredients">
             {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -131,7 +221,7 @@ $(document).ready(function(){
           {% csrf_token %}
           재료이름<input list ="i_name" name="i_name">
               <datalist id="i_name" name="i_name">
-              {% for ingr in ingrlist %}
+              {% for ingr in ingrlist_i_name %}
                 <option value="{{ingr.i_name}}">
               {% endfor %}
                 </option>

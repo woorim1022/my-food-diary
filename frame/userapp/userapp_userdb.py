@@ -5,46 +5,17 @@ from frame.userapp.userapp_value import User
 
 
 class UserDb(Db):
-    def update(self, u_id, u_nick, u_pwd, u_name, u_age):
+    def update(self, id, nick, pwd, name, age):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.userupdate % (u_nick,u_pwd,u_name,u_age,u_id));
+            cursor.execute(Sql.userupdate % (nick,pwd,name,age,id));
             conn.commit();
         except:
             conn.rollback();
             raise Exception;
         finally:
             super().close(conn, cursor);
-
-    def select(self):
-        conn = super().getConnection();
-        cursor = conn.cursor();
-        cursor.execute(Sql.userlist)
-        result = cursor.fetchall();
-        all = [];
-        for u in result:
-            user = User(u[0],u[1],u[2],u[3],u[4]);
-            all.append(user);
-        super().close(conn,cursor);
-        return all;
-
-    def nickselect(self):
-        conn = super().getConnection();
-        cursor = conn.cursor();
-        cursor.execute(Sql.userlist)
-        result = cursor.fetchall();
-        all = [];
-        for n in result:
-            all.append(n[1]);
-        super().close(conn,cursor);
-        return all
-
-
-
-# if __name__ == '__main__':
-#     nicklist = UserDb().ncheck();
-# print(nicklist);
 
 # from frame.userapp.userapp_sql import Sql
 # from frame.userapp.userapp_db import Db
