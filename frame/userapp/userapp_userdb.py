@@ -1,3 +1,4 @@
+
 from frame.userapp.userapp_sql import Sql
 from frame.userapp.userapp_db import Db
 from frame.userapp.userapp_value import User
@@ -15,6 +16,14 @@ class UserDb(Db):
             raise Exception;
         finally:
             super().close(conn, cursor);
+
+# from frame.userapp.userapp_sql import Sql
+# from frame.userapp.userapp_db import Db
+# from frame.userapp.userapp_value import User
+#
+#
+# class UserDb(Db):
+
 #     def selectone(self,id):
 #         conn = super().getConnection();
 #         cursor = conn.cursor();

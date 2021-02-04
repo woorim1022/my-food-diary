@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+        aside {
+            width:200px;
+            height: 450px;
+            background:green;
+            float:right;
+        }
+        footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <h1><a href="{% url 'main' %}">MyFoodDiary</a></h1>
+    <nav style="border:solid black">
+        <ul>
+            <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
+            <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
+            <li><a href="#">나만의 레시피 만들기</a></li>
+            <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+        </ul>
+    </nav>
+    <!--사이드바 : 최근기록 표시될 곳-->
+    <aside>
+        <h2>최근 방문 레시피</h2>
+    </aside>
+
+
+
+
+
+
+    <section style="border:solid red;">
+    <!--로그인 성공시-->
+        {% if request.session.suser %}
+            <h3>{{request.session.snickname}} 님, 환영합니다</h3>
+            <h3>즐겨찾기</h3>
+            <h3>마이레시피</h3>
+            <form action="{% url 'logout' %}">
+                    <input type="submit" value="LOGOUT"><br>
+                </form>
+        <!--로그인 실패시-->
+        {% else %}
+                <h1>로그인 해주세요</h1>
+                {% if login == 'fail' %}
+                {% endif %}
+
+                <!--로그인 폼-->
+                <form action="{% url 'loginimpl' %}" method="POST">
+                    {% csrf_token %}
+                    ID<input type="text" name="id"><br>
+                    PWD<input type="password" name="pwd"><br>
+                    <input type="submit" value="LOGIN"><br>
+                </form>
+
+                <!--회원가입 버튼-->
+                <a href="{% url 'userreg' %}"><input type="button" value="REGISTER"></a><br>
+                </form>
+        {% endif %}
+    </section>
+
+
+
+    <!--    base_1.html 에 포함시킬 다른 페이지들이 들어가는 영역-->
+    <section style="border:solid blue">
+    {% block content %}
+    {% endblock %}
+    </section>
+
+    <!--    개발자정보 등 페이지 하단에 들어갈 내용-->
+    <footer>개발자 : IoT 4조</footer>
+</body>
+</html>
+

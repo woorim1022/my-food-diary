@@ -30,3 +30,4 @@ class UserView:
                 return HttpResponse('2');
         except:
             return HttpResponse('1')
+
