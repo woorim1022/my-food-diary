@@ -2,7 +2,8 @@ from datetime import date, timedelta
 
 from frame.ingredientapp.ingredientapp_db import Db
 from frame.ingredientapp.ingredientapp_sql import Sql
-from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid, Ingr, Ingr_Icp_Name, Ingr_Ic_Name, Ingr_Id
+from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid, Ingr, Ingr_Icp_Name, Ingr_Ic_Name, Ingr_Id, \
+    Ingr_I_Name
 
 
 class User_IngrDb(Db):
@@ -24,6 +25,18 @@ class User_IngrDb(Db):
             conn = super().getConnection();
             cursor = conn.cursor();
             cursor.execute(Sql.user_ingrinsert % (null,u_id,i_id,ui_regdate,ui_exdate));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+    def delete(self,i_id,ui_exdate):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.user_ingrdelete % (i_id,ui_exdate));
             conn.commit();
         except:
             conn.rollback();
@@ -82,6 +95,19 @@ class IngrDb(Db):
             all.append(ingr);
         super().close(conn,cursor);
         return all;
+
+    def select_i_name(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.i_name_ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            ingr = Ingr_I_Name(u[0]);
+            all.append(ingr);
+        super().close(conn,cursor);
+        return all;
+
 #
 # class Ingr_ctDb(Db):
 #     def selectone(self,ic_id):
@@ -167,6 +193,10 @@ def select_id():
 def insert_test(null,u_id,i_id,ui_regdate,ui_exdate):
     User_IngrDb().insert(null,u_id,i_id,ui_regdate,ui_exdate)
 
+def delete_test(i_id,ui_exdate):
+    User_IngrDb().delete(i_id,ui_exdate);
+
+
 if __name__ == '__main__':
     # user_ingrlist_test();
     # user_avoidlist_test();
@@ -175,3 +205,4 @@ if __name__ == '__main__':
     # today = date.today()
     # i_id = User_IngrDb().select_id('계란');
     # insert_test(8,'id01',i_id,today,'2021-02-09');
+    delete_test(3,'2021-02-08')
