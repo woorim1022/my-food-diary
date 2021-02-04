@@ -24,11 +24,10 @@ urlpatterns = [
     path('mypage', TemplateView.as_view(template_name='userapp/mypage.html'), name='mypage'),
     path('profile', views.UserView.profile, name='profile'),
     path('userupdateimple', views.UserView.userupdateimple,name='userupdateimple'),
-
-    path('ncheck',views.UserView.ncheck,name='ncheck'),
+    path('ncheck/',views.UserView.ncheck,name='ncheck'),
 
     path('myrecipereg',TemplateView.as_view(template_name='myrecipereg.html'),name='myrecipereg'),
-    path('ingredient', TemplateView.as_view(template_name='ingredientapp/ingredient.html'),name='ingredient'),
+
     path('like',TemplateView.as_view(template_name='like.html'),name='like'),
     path('review',TemplateView.as_view(template_name='review.html'),name='review'),
     path('allergy',TemplateView.as_view(template_name='allergy.html'),name='allergy'),

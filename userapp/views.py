@@ -9,13 +9,13 @@ class UserView:
         return render(request,'userapp/profile.html')
 
     def userupdateimple(request):
-        id = request.POST['id'];
-        nick = request.POST['nick'];
-        pwd = request.POST['reusepwd'];
-        name = request.POST['name'];
-        age = request.POST['age'];
+        u_id = request.POST['id'];
+        u_nick = request.POST['nick'];
+        u_pwd = request.POST['reusepwd'];
+        u_name = request.POST['name'];
+        u_age = request.POST['age'];
         try:
-            UserDb().update(id, nick, pwd, name, int(age))
+            UserDb().update(u_id, u_nick, u_pwd, u_name, int(u_age))
         except:
             return render(request,'userapp/profile.html');
         return render(request,'userapp/mypage.html')

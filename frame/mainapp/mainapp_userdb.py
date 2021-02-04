@@ -54,9 +54,9 @@ def userlist_test():
     for u in users:
         print(u);
 
-def userlistone_test():
-    users = UserDb().selectone('id01');
-    print(users);
+# def userlistone_test():
+#     users = UserDb().selectone('id01');
+#     print(users);
 
 if __name__ == '__main__':
-    userlistone_test();
+    userlist_test();
