@@ -1,99 +1,131 @@
-{% extends "base.html" %}
+{% extends "inner-page.html" %}
 
 {% load static %}
 {% block content %}
+{%if error != None %}
+<!--<script>window.onload = function(){-->
+<!--alert('{{error}}');-->
+<!--};</script>-->
+<!--{% endif %}-->
 <style>
-    #green1{
-            color:green
-    }
-    #red1{
-            color:red
-    }
-    #green2{
-            color:green
-    }
-    #red2{
-            color:yellow
-    }
+  #ingredient_reg{
+          witdh:100%;
+          text-align: center;
+          padding: 30px;
+        }
+  #ingredient_reg > a{
+          display: inline-block;
+          padding: 5px 10px;
+          margin: 0 auto;
+          border: 1px solid #00000;
+          border-radius: 10px;
+          background-color:#FFB03B;
+          color:white;
+          }
+  #ingredient_reg > a:hover{
+          background-color:white;
+          color:#FFB03B;
+          border: 1px solid #FFB03B;
+          }
 </style>
-    <h2>식재료선택   <a href="ingredient">조회</a></h2>
-    <table id="ingredient">
-        <tr>
-            <th>상위 카테고리</th>
-            <th>하위 카테고리</th>
-            <th>재료이름</th>
-            <th>유통기한</th>
-        </tr>
-        {% for ingr in user_ingrlist %}
-        <tr>
-            <th>{{ingr.icp_name}}</th>
-            <th>{{ingr.ic_name}}</th>
-            <th>{{ingr.i_name}}</th>
-            <th>{{ingr.ui_exdate}}</th>
-            {% endfor %}
-        </tr>
-    </table>
-    <h2>유통기한 5일 이내 식재료 및 지난 식재료</h2>
-    <h3>빨간색: 지난 식재료</h3>
-    <h3>초록색: 5일 이내 식재료</h3>
-    <table>
-       <tr>
-            <th>상위 카테고리</th>
-            <th>하위 카테고리</th>
-            <th>재료이름</th>
-            <th>유통기한</th>
-        </tr>
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>내 재료 확인하기</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
+<!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+
+      <div class="container">
+
+        <div class="section-title">
+          <h2>다이어리 내<span> 재료</span></h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters">
+              <li data-filter=".filter-all" class="filter-active">전체</li>
+              <li data-filter=".filter-ex_date_higher">유통기한 5일 이상</li>
+              <li data-filter=".filter-ex_date_within">유통기한 5일 이내</li>
+              <li data-filter=".filter-ex_date_pass">유통기한 지남</li>
+              <li data-filter=".filter-allergy">알레르기 유발</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row menu-container">
         {% for l in uigreenlist %}
-        <tr id="green1">
-            <th>{{l.icp_name}}</th>
-            <th>{{l.ic_name}}</th>
-            <th>{{l.i_name}}</th>
-            <th>{{l.ui_exdate}}</th>
-            {% endfor %}
-        </tr>
+          <div class="col-lg-6 menu-item filter-ex_date_within">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
         {% for l in uiredlist %}
-        <tr id="red1">
-            <th>{{l.icp_name}}</th>
-            <th>{{l.ic_name}}</th>
-            <th>{{l.i_name}}</th>
-            <th>{{l.ui_exdate}}</th>
-            {% endfor %}
-        </tr>
-    </table>
-    <h2>알레르기 유발 식재료</h2>
-    <table>
-       <tr>
-            <th>상위 카테고리</th>
-            <th>하위 카테고리</th>
-            <th>재료이름</th>
-            <th>유통기한</th>
-        </tr>
-            {% for l in uagreenlist %}
-            <tr id="green2">
-                <th>22</th>
-                <th>{{l.ic_name}}</th>
-                <th>{{l.i_name}}</th>
-                <th>{{l.ui_exdate}}</th>
-                {% endfor %}
-            </tr>
-            {% for l in uaredlist %}
-            <tr id="red2">
-                <th>{{l.icp_name}}</th>
-                <th>{{l.ic_name}}</th>
-                <th>{{l.i_name}}</th>
-                <th>{{l.ui_exdate}}</th>
-                {% endfor %}
-            </tr>
-            {% for l in ualist %}
-            <tr >
-                <th>{{l.icp_name}}</th>
-                <th>{{l.ic_name}}</th>
-                <th>{{l.i_name}}</th>
-                <th>{{l.ui_exdate}}</th>
-                {% endfor %}
-            </tr>
-    </table>
-<a href="ingredient_reg">등록재료 수정</a>
+          <div class="col-lg-6 menu-item filter-ex_date_pass">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in ualist %}
+          <div class="col-lg-6 menu-item filter-allergy">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in uilist %}
+          <div class="col-lg-6 menu-item filter-ex_date_higher">
+            <div class="menu-content">
+              <a href="#">{{l.i_name}}</a>
+            </div>
+            <div class="menu-ingredients">
+              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for l in ingrlist %}
+        <div class="col-lg-6 menu-item filter-all">
+          <div class="menu-content">
+            <a href="#">{{l.i_name}}</a>
+          </div>
+          <div class="menu-ingredients">
+            {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+          </div>
+        </div>
+        {% endfor %}
+
+        </div>
+
+      </div>
+      <div id="ingredient_reg">
+      <a href="{% url 'ingredient_reg' %}">수정하러가기</a>
+      </div>
+    </section><!-- End Menu Section -->
+
 
 
 {% endblock %}

@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 from frame.ingredientapp.ingredientapp_db import Db
 from frame.ingredientapp.ingredientapp_sql import Sql
-from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid, Ingr
+from frame.ingredientapp.ingredientapp_value import User_Ingr, User_Avoid, Ingr, Ingr_Icp_Name, Ingr_Ic_Name, Ingr_Id
 
 
 class User_IngrDb(Db):
@@ -31,9 +31,15 @@ class User_IngrDb(Db):
         finally:
             super().close(conn, cursor);
 
-            # def selectone(self,i_id):
-            #     conn = super().getConnection();
-            #     cursor = conn.cursor();
+    def select_id(self,i_name):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ingr_id % i_name);
+        u = cursor.fetchone();
+        ingr_id = Ingr_Id(u[0]);
+        super().close(conn,cursor);
+        return ingr_id;
+
             #     cursor.execute(Sql.user_ingrlistone % i_id);
             #     u = cursor.fetchone();
             #     ingr = User_Ingr(u[0],u[1],u[2]);
@@ -49,6 +55,30 @@ class IngrDb(Db):
         all = [];
         for u in result:
             ingr = Ingr(u[0],u[1],u[2],u[3],u[4],u[5]);
+            all.append(ingr);
+        super().close(conn,cursor);
+        return all;
+
+    def select_icp_name(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.icp_name_ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            ingr = Ingr_Icp_Name(u[0]);
+            all.append(ingr);
+        super().close(conn,cursor);
+        return all;
+
+    def select_ic_name(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ic_name_ingrlist);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            ingr = Ingr_Ic_Name(u[0]);
             all.append(ingr);
         super().close(conn,cursor);
         return all;
@@ -123,8 +153,25 @@ def ingrlist_test():
     ingrlist = IngrDb().select();
     for u in ingrlist:
         print(u.ic_name)
+    icp_name = IngrDb().select_icp_name();
+    for u in icp_name:
+        print(u)
+    ic_name = IngrDb().select_ic_name();
+    for u in ic_name:
+        print(u)
+
+def select_id():
+    i_id = User_IngrDb().select_id('계란');
+    print(i_id.i_id)
+
+def insert_test(null,u_id,i_id,ui_regdate,ui_exdate):
+    User_IngrDb().insert(null,u_id,i_id,ui_regdate,ui_exdate)
 
 if __name__ == '__main__':
     # user_ingrlist_test();
     # user_avoidlist_test();
-    ingrlist_test();
+    # ingrlist_test();
+    select_id()
+    # today = date.today()
+    # i_id = User_IngrDb().select_id('계란');
+    # insert_test(8,'id01',i_id,today,'2021-02-09');

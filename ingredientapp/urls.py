@@ -20,4 +20,5 @@ from ingredientapp import views
 urlpatterns = [
     path('ingredient', views.ingredient, name='ingredient'),
     path('ingredient_reg', views.ingredient_reg, name='ingredient_reg'),
+    path('ingredient_regimpl', views.ingredient_regimpl, name='ingredient_regimpl'),
 ]
