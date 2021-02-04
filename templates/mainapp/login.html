@@ -18,53 +18,43 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
-  <!-- ======= Contact Section ======= -->
-  <section style="background:white; color:#35322d;" id="contact" class="contact">
-    {% if request.session.suser %}
-      <div style="padding:3px 0px 3px 20px;  box-shadow: 5px 5px 5px 5px gray;">
-          <h3 style="padding:3px 0px 3px 0px;">{{request.session.snickname}} 님, 환영합니다</h3>
-<!--          <h3 style="padding:3px 0px 3px 0px;">즐겨찾기</h3>-->
-<!--          <h3 style="padding:3px 0px 3px 0px;">마이레시피</h3>-->
-            <nav class="nav-menu d-none d-lg-block" >
-              <ul>
-                <li class="book-a-table text-center">
-                  <a style="margin:0px;padding:0px;" href="{% url 'logout'%}">
-                  <button style="margin:0px; border:white; outline:0;" type="submit">
-                    Logout
-                  </button>
-                  </a>
-                </li>``
-              </ul>
-            </nav>
+
+
+
+
+ <!-- ======= Book A Table Section ======= -->
+ <section id="book-a-table" class="book-a-table">
+    <div class="container" style="border-radius: 15px; box-shadow: 5px 5px 5px 5px gray; padding:20px 50px 80px 50px">
+
+      <div class="section-title">
+        <h2 style="font-size:55px;"><span>Login</span></h2>
+        <p>로그인 해주세요.</p>
       </div>
-    {% else %}
-     <div class="container" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
-          <p style="padding:0px 0px 3px 20px;">로그인 해주세요</p>
-          <form action="{% url 'loginimpl' %}" method="post" role="form" >
-            {% csrf_token %}
-            <div class="form-col">
-              <div class="col-md-2 form-group">
-                <input type="text" name="id" class="form-control" id="name" placeholder="id"/>
-                <div class="validate"></div>
-              </div>
-              <div class="col-md-2 form-group">
-                <input type="password" class="form-control" name="pwd" id="email" placeholder="password" data-rule="email"/>
-                <div class="validate"></div>
-              </div>
-            </div>
-            <div class="mb-3">
-              <div class="error-message"></div>
-            </div>
-            <nav class="nav-menu d-none d-lg-block" >
+
+      <form action="{% url 'loginimpl' %}" method="post" role="form" >
+           {% csrf_token %}
+        <div class="form-col">
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="text" name="id" class="form-control" id="name" placeholder="id"/>
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="password" class="form-control" name="pwd" id="email" placeholder="password" data-rule="email"/>
+            <div class="validate"></div>
+          </div>
+
+        </div>
+         <nav class="nav-menu d-none d-lg-block" >
               <ul>
                 <li class="book-a-table text-center"><button style="border:white; outline:0;" type="submit">Login</button></li>
               </ul>
-            </nav>
-          </form>
-     </div>
-     {% endif %}
-    <h2>&nbsp;</h2>
-  </section>
+         </nav>
+      </form>
+
+    </div>
+  </section><!-- End Book A Table Section -->
+
+
 
 
 

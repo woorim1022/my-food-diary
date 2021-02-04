@@ -34,6 +34,7 @@
                             // 아이디 중복체크했다고 표시해
                             idcheck = true;
                             submit(idcheck, nickcheck);
+                            $('input[name="u_id"]').prop("disabled",true);
                         }else if(data.trim() == 'no'){
                             alert('사용 불가능한 아이디입니다');
                             // 폼 값 지워
@@ -63,6 +64,7 @@
                             // 닉네임 중복체크했다고 표시해
                             nickcheck = true;
                             submit(idcheck, nickcheck);
+                            $('input[name="u_nick"]').prop("disabled",true);
                         }else if(data.trim() == 'no'){
                             alert('사용 불가능한 닉네임입니다');
                             // 폼 값 지워
@@ -113,22 +115,18 @@
 
  <!-- ======= Book A Table Section ======= -->
  <section id="book-a-table" class="book-a-table">
-    <div class="container" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
+    <div class="container" style="border-radius: 15px;box-shadow: 5px 5px 5px 5px gray; padding:30px;">
 
       <div class="section-title">
-        <h2><span>Register</span></h2>
-        <p>회원 가입을 해주세요.</p>
+        <h2 style="font-size:55px;"><span>Register</span></h2>
+        <p>회원 가입 해주세요.</p>
       </div>
 
       <form action="{% url 'useraddimpl' %}" method="post" role="form" >
            {% csrf_token %}
         <div class="form-row">
           <div class="col-lg-4 col-md-6 form-group">
-            <input type="text" name="u_id" class="form-control" id="u_id" placeholder="id"/><input name='idcheck' type="button" value="중복체크">
-            <div class="validate"></div>
-          </div>
-          <div class="col-lg-4 col-md-6 form-group">
-            <input type="text" class="form-control" name="u_nick" id="nickname" placeholder="nickname" /><input name='nickcheck' type="button" value="중복체크">
+            <input type="text" name="u_id" class="form-control" id="u_id" placeholder="id"/><input style="margin:5px 0px 0px 0px;" name='idcheck' type="button" value="중복체크">
             <div class="validate"></div>
           </div>
           <div class="col-lg-4 col-md-6 form-group">
@@ -136,11 +134,15 @@
             <div class="validate"></div>
           </div>
           <div class="col-lg-4 col-md-6 form-group">
-            <input type="password" class="form-control" name="u_pwd_2" id="pwd_2" placeholder="password confirm" />
+              <input type="text" class="form-control" name="u_name" id="name" placeholder="name" />
             <div class="validate"></div>
           </div>
           <div class="col-lg-4 col-md-6 form-group">
-            <input type="text" class="form-control" name="u_name" id="name" placeholder="name" />
+              <input type="text" class="form-control" name="u_nick" id="nickname" placeholder="nickname" /><input  style="margin:5px 0px 0px 0px;" name='nickcheck' type="button" value="중복체크">
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+              <input type="password" class="form-control" name="u_pwd_2" id="pwd_2" placeholder="password confirm" />
             <div class="validate"></div>
           </div>
           <div class="col-lg-4 col-md-6 form-group">
