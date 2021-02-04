@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+
+
+
+
+
+<!-- ======= 오늘의 추천 Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        <div class="carousel-inner" role="listbox">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background: url(static/assets/img/slide/slide-1.jpg);">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h1>{{message}}</h1><h1>메세지 표시될곳</h1>
+                <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <div>
+                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
+                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item" style="background: url(static/assets/img/slide/slide-2.jpg);">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <div>
+                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
+                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item" style="background: url(static/assets/img/slide/slide-3.jpg);">
+            <div class="carousel-background"><img src="static/assets/img/slide/slide-3.jpg" alt=""></div>
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <div>
+                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
+                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon icofont-simple-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon icofont-simple-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+
+
+      <!-- ======= Gallery Section ======= -->
+      <section id="gallery" class="gallery">
+        <div class="container-fluid">
+
+          <div class="section-title">
+            <h2><span>맛뿌다</span>에서 다양한 레시피를 만나보세요!</h2>
+            <p></p>
+          </div>
+
+          <div class="row no-gutters">
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-2.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-3.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-4.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-5.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-6.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-7.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4">
+              <div class="gallery-item">
+                <a href="static/assets/img/gallery/gallery-8.jpg" class="venobox" data-gall="gallery-item">
+                  <img src="static/assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section><!-- End Gallery Section -->
+
+
+
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+        <div class="container">
+
+          <div class="section-title">
+            <h2>최근 작성된 <span>리뷰</span></h2>
+          </div>
+
+          <div class="owl-carousel events-carousel">
+
+            <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">갈비찜</h3>
+                <div class="price">
+                  <p><span>9.5 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                </p>
+              </div>
+            </div>
+
+            <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-private.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">김치찌개</h3>
+                <div class="price">
+                  <p><span>5.0 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                  그냥그래요
+                </p>
+              </div>
+            </div>
+
+            <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-custom.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">소세지야채볶음</h3>
+                <div class="price">
+                  <p><span>6.5 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                  나쁘지 않아요
+                </p>
+              </div>
+            </div>
+
+             <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">매운 등갈비찜</h3>
+                <div class="price">
+                  <p><span>9.5 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                </p>
+              </div>
+            </div> <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">까르보나라 떡볶이</h3>
+                <div class="price">
+                  <p><span>9.5 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                </p>
+              </div>
+            </div> <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3 style="margin:20px 0px 0px 0px;">해물매운탕</h3>
+                <div class="price">
+                  <p><span>9.5 점</span></p>
+                </div>
+                <p style="margin:23px 0px 0px 0px; font-size:20px">
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                   완전 맛있어요
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section><!-- End Events Section -->
+
+
+
+
+
+{% endblock %}
+
+
+
+

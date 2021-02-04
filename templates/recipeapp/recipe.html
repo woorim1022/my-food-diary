@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+<style>
+    #green1{
+            color:green
+    }
+    #red1{
+            color:red
+    }
+    #green2{
+            color:green
+    }
+    #red2{
+            color:yellow
+    }
+</style>
+    <h2>식재료선택   <a href="recipe">조회</a></h2>
+    {% for ingr in user_ingrlist %}
+    <tr>
+        <th>{{ingr.i_name}}</th>
+        {% endfor %}
+    </tr>
+
+
+{% endblock %}
