@@ -11,7 +11,6 @@ class Sql:
                     INNER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id""";
 
     user_ingrinsert = "INSERT INTO users_ingr VALUE (%d,'%s',%d,'%s','%s')"
-    user_ingrdelete = "DELETE FROM users_ingr WHERE i_id=%d AND ui_exdate='%s'";
 
 
     ingr_id = "SELECT i_id FROM ingr WHERE i_name='%s'";
@@ -26,8 +25,6 @@ class Sql:
                 INNER JOIN ingr_ct ic ON i.ic_id = ic.ic_id
                 INNER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id
                 group by ic.ic_name""";
-    i_name_ingrlist = """SELECT i_name FROM ingr
-                        group by i_name""";
 
 
     ingr_ctlist = "SELECT * FROM ingr_ct";
