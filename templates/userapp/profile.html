@@ -1,5 +1,128 @@
-{% extends "base.html" %}
+{% extends "inner-page.html" %}
 
 {% load static %}
 {% block content %}
-    <h1>profile.html</h1>
+<style>
+
+    #nickduple{
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    #nickduple:hover{
+        background: #ffa012;
+    }
+    button[type="submit"]{
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    button[type="submit"]:hover{
+        background: #ffa012;
+    }
+</style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('input[name="reusepwd"]').blur(function(){
+                pwd1 = $('input[name="usepwd"]').val();
+                pwd2 = $('input[name="reusepwd"]').val();
+                if(pwd1 != pwd2){
+                    alert('비밀번호가 일치하지 않습니다.');
+                    $('input[name="usepwd"]').val('');
+                    $('input[name="reusepwd"]').val('');
+                }else if(pwd1 == '' || pwd2 == ''){
+                    alert('비밀번호를 입력하세요.');
+                    $('input[name="usepwd"]').focus();
+                }else{
+                    alert('비밀번호가 일치합니다.')
+                };
+            });
+        });
+    </script>
+    <script>
+        $('document').ready(function(){
+            $('button').click(function(){
+                nck = $('input[name="nick"]').val();
+                alert(nck);
+                $.ajax({
+                    url:{% url "ncheck" %},
+                    data:{"nck":nck},
+                    type: 'get',
+                    success:function(data){
+                        if(data.trim() == '2'){
+                            alert('사용할 수 있는 닉네임입니다.');
+                        }else if(data.trim() == '1'){
+                            alert('중복된 닉네임입니다.');
+                            $('input[name="nick"]').val('');
+                            $('input[name="nick"]').focus();
+                        }else{
+                            alert('다시 입력하세요.');
+                            $('input[name="nick"]').focus();
+                        };
+                    };
+                });
+            });
+        });
+    </script>
+    <div class="col-lg-6 menu-item filter-salads" style="position: absolute; left: 0px; top: 225px;">
+            <div class="menu-content">
+              <a href="#">Caesar Selections</a><span>$8.95</span>
+            </div>
+            <div class="menu-ingredients">
+              Lorem, deren, trataro, filede, nerada
+            </div>
+    </div>
+    <div id="whole" style="position: relative; top: 180px; height: 180px;">
+        <div class="section-title">
+            <h3>개인정보 수정</h3>
+        </div>
+        <form class="container" action="{% url 'userupdateimple' %}" method="post">
+            {% csrf_token %}
+            <div class="col-lg-4 col-md-6 form-group">
+                <input type="text"  name="id" value="{{request.session.suser}}" readonly="true">
+            </div>
+            <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                <input type="text" name="nick" placeholder="닉네임" value="">
+                <button id="nickduple">중복 체크</button>
+            </div>
+            <div>
+                <input type="password" placeholder="비밀번호" name="usepwd" id="pwd01"><br>
+            </div>
+            <div>
+                <input type="password" name="reusepwd" placeholder="비밀번호 재확인" id="pwd02"><br>
+            </div>
+            <div>
+                <input type="text" name="name" placeholder="이름" value=""><br>
+            </div>
+            <div>
+                <input type="number" name="age" placeholder="나이" value=""><br>
+            </div>
+            <div id="upsubmit" class="text-center">
+                <button type="submit">수정하기</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->

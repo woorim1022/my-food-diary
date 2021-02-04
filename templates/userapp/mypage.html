@@ -1,6 +1,135 @@
-{% extends "base.html" %}
+{% extends "inner-page.html" %}
 
 {% load static %}
 {% block content %}
-    <h1>mypage.html</h1>
+<style>
+    #mypagelist1 {
+        margin-top:100px;
+    }
+    div{
+        text-align:center;
+    }
+    .mypagelist1 .box{
+        padding: 50px 30px;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        transition: all ease-in-out 0.3s;
+        background-color: #fff;
+    }
+    .mypagelist1 .box span{
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        color: #ffcf88;
+    }
+    .mypagelist1 .box h3{
+        font-size: 24px;
+        font-weight: 600;
+        padding: 0;
+        margin: 20px 0;
+        color: #6c665c;
+    }
+    .mypagelist1 .box:hover{
+        background: #ffb03b;
+        padding: 30px 30px 70px 30px;
+        box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.18);
+    }
+    .mypagelist1 .box:hover span, .mypagelist1 .box:hover h3, .mypagelist1 .box:hover a{
+        color: #fff;
+    }
+
+    .mypagelist2 .box{
+        padding: 50px 30px;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        transition: all ease-in-out 0.3s;
+    }
+    .mypagelist2 .box span{
+        display: block;
+        font-size: 28px;
+        font-weight: 700;
+        color: #ffcf88;
+    }
+    .mypagelist2 .box h3{
+        font-size: 24px;
+        font-weight: 600;
+        padding: 0;
+        margin: 20px 0;
+        color: #6c665c;
+    }
+    .mypagelist2 .box:hover{
+        background: #ffb03b;
+        padding: 30px 30px 70px 30px;
+        box-shadow: 10px 15px 30px rgba(0, 0, 0, 0.18);
+    }
+    .mypagelist2 .box:hover span, .mypagelist2 .box:hover h3, .mypagelist2 .box:hover a{
+        color: #fff;
+    }
+    .mybag{
+        background : url(static/assets/img/userapp/mypage_cafe.jpg) center center / cover no-repeat;
+        width : 100%;
+        height : 100%;
+        padding-top : cal (300 / 1000 * 100%)
+    }
+</style>
+<body class="mybag">
+    <section id="mypagelist1" class="mypagelist1">
+        <div class="row">
+            <div class="col-lg-3 offset-lg-2 mt-4 mt-lg-4">
+                <div class="box">
+                    <span>01</span>
+                    <h3><a href = "{% url 'profile' %}">개인정보 수정</a></h3>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-4 mt-lg-4">
+                <div class="box">
+                    <span>02</span>
+                    <h3><a href="{% url 'myrecipereg' %}">마이 레시피 확인 및 수정</a></h3>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-4 mt-lg-4">
+                <div class="box">
+                    <span>03</span>
+                    <h3><a href="{% url 'ingredient' %}">내 식재료 확인 및 수정</a></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mypagelist2" class="mypagelist2">
+        <div class="row">
+            <div class="col-lg-3 offset-lg-2 mt-4 mt-lg-0">
+                <div class="box">
+                    <span>04</span>
+                    <h3><a href = "{% url 'profile' %}">즐겨찾기 목록</a></h3>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-4 mt-lg-0">
+                <div class="box">
+                    <span>05</span>
+                    <h3><a href="{% url 'myrecipereg' %}">리뷰 확인</a></h3>
+                </div>
+            </div>
+            <div class="col-lg-3 mt-4 mt-lg-0">
+                <div class="box">
+                    <span>06</span>
+                    <h3><a href="{% url 'ingredient' %}">내 알러지 확인 및 수정</a></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
 {% endblock %}
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
