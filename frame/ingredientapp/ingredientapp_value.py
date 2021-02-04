@@ -51,6 +51,21 @@ class Ingr_Ic_Name:
     def __str__(self):
         return self.ic_name + ' ';
 
+class Ingr_I_Name:
+    def __init__(self, i_name):
+        self.i_name = i_name;
+
+    def __str__(self):
+        return self.i_name + ' ';
+
+class Ingr_Delete:
+    def __init__(self, i_id,ui_exdate):
+        self.i_id = i_id;
+        self.ui_exdate = ui_exdate;
+
+    def __str__(self):
+        return self.i_name + ' ' + str(self.ui_exdate) + ' ';
+
 class Ingr_Id:
     def __init__(self, i_id):
         self.i_id = i_id;
