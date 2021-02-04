@@ -143,6 +143,7 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+
 .nav-menu a {
   display: block;
   position: relative;
@@ -153,9 +154,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   font-family: 'Nanum Pen Script', cursive;
 }
-
-
-
 
 
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
@@ -174,6 +172,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   letter-spacing: 1px;
   transition: 0.3s;
+  font-family: "Poppins", sans-serif;
 }
 
 .nav-menu .book-a-table a:hover {
@@ -196,6 +195,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   letter-spacing: 1px;
   transition: 0.3s;
+  font-family: "Poppins", sans-serif;
 }
 .nav-menu .book-a-table button:hover {
   background: #ffa012;

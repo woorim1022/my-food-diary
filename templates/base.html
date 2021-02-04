@@ -35,6 +35,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  <style>
+
+  </style>
 </head>
 
 <body>
@@ -52,26 +55,28 @@
     <div class="container d-flex align-items-center">
 
       <div class="logo mr-auto">
-        <h1 style="font-size:40px;" class="text-light"><a href="{% url 'main' %}"><span>My Food Diary</span></a></h1>
+        <h1 style="font-size:34px;" class="text-light"><a href="{% url 'main' %}"><span>My Food Diary</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="base.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          {% if request.session.snickname %}
-            <li><a href="#">{{request.session.snickname}} 님, 환영합니다</a></li>
-          {% endif %}
+            {% if request.session.snickname %}
+              <li><a href="#">{{request.session.snickname}} 님, 환영합니다</a></li>
+            {% endif %}
+
             <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
             <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
             <li><a href="#">나만의 레시피 만들기</a></li>
             <li><a href="{% url 'mypage' %}">마이페이지</a></li>
            {% if request.session.suser %}
-              <li id="button1" class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
+              <li style="margin:10px 0px 0px 0px; font-family: 'Poppins', sans-serif;" id="button1" class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-              <li id="button2" class="book-a-table text-center"><a href="{% url 'login' %}">Login</a></li>
-              <li id="button3" class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
+              <li style="margin:10px 0px 0px 0px; font-family: 'Poppins', sans-serif;" id="button2" class="book-a-table text-center"><a href="{% url 'login' %}">Login</a></li>
+              <li style="margin:10px 0px 0px 0px;" id="button3" class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
             {% endif %}
+
           </ul>
       </nav><!-- .nav-menu -->
 

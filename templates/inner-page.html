@@ -9,6 +9,10 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
   <!-- Favicons -->
   <link href="static/assets/img/favicon.png" rel="icon">
   <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -61,10 +65,10 @@
             <li><a href="{% url 'mypage' %}">마이페이지</a></li>
 
             {% if request.session.suser %}
-              <li class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
+              <li style="margin:10px 0px 0px 0px;" class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-              <li class="book-a-table text-center"><a href="{% url 'login' %}">Login</a></li>
-              <li class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
+              <li style="margin:10px 0px 0px 0px;" class="book-a-table text-center"><a href="{% url 'login' %}">Login</a></li>
+              <li style="margin:10px 0px 0px 0px;" class="book-a-table text-center"><a href="{% url 'userreg' %}">Register</a></li>
             {% endif %}
 
           </ul>

@@ -19,9 +19,9 @@
     </section><!-- End Breadcrumbs Section -->
 
   <!-- ======= Contact Section ======= -->
-  <section style="padding-left:60px; background:white; color:#35322d;" id="contact" class="contact">
+  <section style="background:white; color:#35322d;" id="contact" class="contact">
     {% if request.session.suser %}
-      <div style="padding:3px 0px 3px 20px;">
+      <div style="padding:3px 0px 3px 20px;  box-shadow: 5px 5px 5px 5px gray;">
           <h3 style="padding:3px 0px 3px 0px;">{{request.session.snickname}} 님, 환영합니다</h3>
 <!--          <h3 style="padding:3px 0px 3px 0px;">즐겨찾기</h3>-->
 <!--          <h3 style="padding:3px 0px 3px 0px;">마이레시피</h3>-->
@@ -33,11 +33,12 @@
                     Logout
                   </button>
                   </a>
-                </li>
+                </li>``
               </ul>
             </nav>
       </div>
     {% else %}
+     <div class="container" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
           <p style="padding:0px 0px 3px 20px;">로그인 해주세요</p>
           <form action="{% url 'loginimpl' %}" method="post" role="form" >
             {% csrf_token %}
@@ -60,6 +61,7 @@
               </ul>
             </nav>
           </form>
+     </div>
      {% endif %}
     <h2>&nbsp;</h2>
   </section>

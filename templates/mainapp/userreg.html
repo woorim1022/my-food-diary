@@ -3,7 +3,6 @@
 {% load static %}
 
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <!--자바 스크립트로 아이디, 닉네임 중복여부 검사하고 메세지 띄우기 -->
     <script>
@@ -12,12 +11,14 @@
 
         function submit(idcheck, nickcheck){
             if(idcheck && nickcheck){
-                $('input[name="submit"]').prop("disabled",false);
+                $('button[name="submit"]').prop("disabled",false);
             };
         };
 
          $(document).ready(function(){
-            $('input[name="submit"]').prop("disabled",true);
+            $('button[name="submit"]').prop("disabled",true);
+
+
             // 얘를 클릭했을 때
             $('input[name="idcheck"]').click(function(){
                 // 얘의 값을 가져온다
@@ -47,6 +48,7 @@
                 });
             });
 
+            // 얘를 클릭했을 때
             $('input[name="nickcheck"]').click(function(){
                 // 얘의 값을 가져온다
                 nickname = $('input[name="u_nick"]').val();
@@ -108,45 +110,49 @@
 <!--    </form>-->
 
 
-     <!-- ======= Contact Section ======= -->
-  <section style="padding-left:60px; background:white; color:#35322d;" id="contact" class="contact">
-          <p style="padding:0px 0px 3px 20px;">회원가입 해주세요</p>
-          <form action="{% url 'useraddimpl' %}" method="post" role="form" >
-            {% csrf_token %}
-            <div class="form-col">
-                <div class="col-md-2 form-group">
-                    <input type="text" name="id" class="form-control" id="u_id" placeholder="id"/><input name='idcheck' type="button" value="중복체크">
-                    <div class="validate"></div>
-                </div>
-                <div class="col-md-2 form-group">
-                    <input type="text" class="form-control" name="u_nick" id="nickname" placeholder="nickname" data-rule="email"/><input name='nickcheck' type="button" value="중복체크">
-                    <div class="validate"></div>
-                </div>
-                <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="u_pwd_1" id="pwd" placeholder="password" data-rule="email"/>
-                    <div class="validate"></div>
-                </div>
-                <div class="col-md-2 form-group">
-                    <input type="password" class="form-control" name="u_pwd_2" id="pwd_2" placeholder="password confirm" data-rule="email"/>
-                    <div class="validate"></div>
-                </div>
-                <div class="col-md-2 form-group">
-                    <input type="text" class="form-control" name="u_name" id="name" placeholder="name" data-rule="email"/>
-                    <div class="validate"></div>
-                </div>
-                <div class="col-md-2 form-group">
-                    <input type="number" class="form-control" name="u_age" id="age" placeholder="age" data-rule="email"/>
-                    <div class="validate"></div>
-                </div>
-            </div>
-            <nav class="nav-menu d-none d-lg-block" >
-              <ul>
-                <li class="book-a-table text-center"><button style="border:white; outline:0;" type="submit">Register</button></li>
-              </ul>
-            </nav>
-          </form>
-    <h2>&nbsp;</h2>
-  </section>
+
+ <!-- ======= Book A Table Section ======= -->
+ <section id="book-a-table" class="book-a-table">
+    <div class="container" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
+
+      <div class="section-title">
+        <h2><span>Register</span></h2>
+        <p>회원 가입을 해주세요.</p>
+      </div>
+
+      <form action="{% url 'useraddimpl' %}" method="post" role="form" >
+           {% csrf_token %}
+        <div class="form-row">
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="text" name="u_id" class="form-control" id="u_id" placeholder="id"/><input name='idcheck' type="button" value="중복체크">
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="text" class="form-control" name="u_nick" id="nickname" placeholder="nickname" /><input name='nickcheck' type="button" value="중복체크">
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="password" class="form-control" name="u_pwd_1" id="pwd" placeholder="password" />
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="password" class="form-control" name="u_pwd_2" id="pwd_2" placeholder="password confirm" />
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+            <input type="text" class="form-control" name="u_name" id="name" placeholder="name" />
+            <div class="validate"></div>
+          </div>
+          <div class="col-lg-4 col-md-6 form-group">
+           <input type="number" class="form-control" name="u_age" id="age" placeholder="age" />
+            <div class="validate"></div>
+          </div>
+        </div>
+        <div class="text-center"><button name="submit" type="submit">Register</button></div>
+      </form>
+
+    </div>
+  </section><!-- End Book A Table Section -->
 
 
 
