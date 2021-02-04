@@ -1,7 +1,8 @@
-{% extends "base.html" %}
+{% extends "inner-page.html" %}
 
 {% load static %}
 {% block content %}
+
 <style>
     #green1{
             color:green
@@ -16,12 +17,139 @@
             color:yellow
     }
 </style>
-    <h2>식재료선택   <a href="recipe">조회</a></h2>
-    {% for ingr in user_ingrlist %}
-    <tr>
-        <th>{{ingr.i_name}}</th>
-        {% endfor %}
-    </tr>
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Recipe Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Recipe Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->
 
 
+
+
+
+
+
+
+<!--============================내가 가진 식재료==================================================-->
+<!--{% if request.session.suser %}-->
+{% for r in recipes %}
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>{{r.u_id}}님이 가진 <span>식재료 고르기</span></h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="menu-flters">
+              <li data-filter="*" class="filter-active">Show All</li>
+              <li data-filter=".filter-close">Close</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row menu-container">
+
+          <div class="col-lg-6 menu-item filter-active">
+            <div class="menu-content">
+              <a href="#"><input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값'/> {{r.i_name}}</a>
+<!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+    </section><!-- End Menu Section -->
+
+<!--==================================레시피 목록=====================================================-->
+    <!-- ======= Gallery Section ======= -->
+    <section id="gallery" class="gallery">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>레시피 <span>목록</span></h2>
+          <p>Recipe list</p>
+        </div>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">
+<!--                <h1>이미지{{r.r_image1}}</h1>-->
+                <img src="static/assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+                <br></br>
+                <h2>{{r.r_name}}</h2>
+                <h3>★{{r.r_num}}</h3>
+                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
+                <h3>{{r.u_id}}</h3>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-2.jpg" class="venobox" data-gall="gallery-item">
+<!--                <h1>이미지{{r.r_image1}}</h1>-->
+                <img src="static/assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+                <br></br>
+                <h2>{{r.r_name}}</h2>
+                <h3>★{{r.r_num}}</h3>
+                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
+                <h3>{{r.u_id}}</h3>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-3.jpg" class="venobox" data-gall="gallery-item">
+<!--                <h1>이미지{{r.r_image1}}</h1>-->
+                <img src="static/assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
+                <br></br>
+                <h2>{{r.r_name}}</h2>
+                <h3>★{{r.r_num}}</h3>
+                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
+                <h3>{{r.u_id}}</h3>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="gallery-item">
+              <a href="assets/img/gallery/gallery-4.jpg" class="venobox" data-gall="gallery-item">
+<!--                <h1>이미지{{r.r_image1}}</h1>-->
+                <img src="static/assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+                <br></br>
+                <h2>{{r.r_name}}</h2>
+                <h3>★{{r.r_num}}</h3>
+                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
+                <h3>{{r.u_id}}</h3>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Gallery Section -->
+
+{% endfor %}
+<!--{% endif %}-->
 {% endblock %}
+
