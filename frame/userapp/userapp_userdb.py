@@ -40,11 +40,23 @@ class UserDb(Db):
         super().close(conn,cursor);
         return all
 
-
-
+# def nickselect_test():
+#     for n in UserDb().nickselect():
+#         print(n);
+#
+# def select_test():
+#     result = UserDb().select();
+#     for i in result:
+#         print(i);
+#
+# def update_test():
+#     UserDb().update('id04','nck04','pwd04','hong',31)
+#
 # if __name__ == '__main__':
-#     nicklist = UserDb().ncheck();
-# print(nicklist);
+#     update_test();
+#     select_test();
+
+#     nickselect_test();
 
 # from frame.userapp.userapp_sql import Sql
 # from frame.userapp.userapp_db import Db

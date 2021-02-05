@@ -5,6 +5,7 @@ from frame.userapp.userapp_userdb import UserDb
 
 
 class UserView:
+
     def profile(request):
         return render(request,'userapp/profile.html')
 
@@ -17,17 +18,19 @@ class UserView:
         try:
             UserDb().update(u_id, u_nick, u_pwd, u_name, int(u_age))
         except:
+            print('error');
             return render(request,'userapp/profile.html');
-        return render(request,'userapp/mypage.html')
+        return render(request,'userapp/mypage.html');
 
     def ncheck(request):
         nick = request.GET['nck'];
-        nicklist = UserDb().ncheck();
+        nicklist = UserDb().nickselect();
         if nick == '':
             return HttpResponse('0');
-        try:
-            if nick not in nicklist:
-                return HttpResponse('2');
-        except:
+        elif nick not in nicklist:
+            return HttpResponse('2');
+        else:
             return HttpResponse('1')
+
+
 
