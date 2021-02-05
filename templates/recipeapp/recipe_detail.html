@@ -22,20 +22,115 @@
     </section><!-- End Breadcrumbs Section -->
 
 
-{% for r in recipe_detail %}
-<h1>리뷰</h1>
-<div>
-    {{r.u_id}}
-    {{r.r_id}}
-    {{r.rv_regdate}}
-    {{r.num}}
-    {{r.rv_review}}
-</div>
+
 
 <!--===============================목록======================================================-->
+    <!-- ======= Specials Section ======= -->
+
+    <section id="specials" class="specials">
+      <div class="container">
+
+        <div class="section-title">
+          {% for r in recipe_detail %}
+          <h2>{{r.name}} <span>{{r.r_name}}</span></h2>
+          {% endfor %}<p>레시피 카테고리 아직 안넣음</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                {% for r in recipe_detail %}
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1">{{r.r_name}}</a>
+                {% endfor %}
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-2">2.조리방법</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-3">3.별점 및 리뷰</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab-4">4.추천 유튜브 영상</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tab-1">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <p class="font-italic">
+                    {% for r in recipe_detail %}
+                    <div>
+                    작성일: {{r.r_regdate}}<br>
+                    조회수: {{r.r_view}}  추천수: {{r.r_recommend}}
+                    </div>{% endfor %}
+                    </p>
+                    <div class="col-lg-8 text-center order-1 order-lg-2">
+                    <img src="static/assets/img/specials-1.jpg" alt="" class="img-fluid">
+                    </div>
+                    <p class="font-italic">
+                    {% for r in recipe_detail %}
+                    <div>조리시간: {{r.r_cooktime}}분<br>
+                         재료 recipe_ingr 테이블에서 {{ri.r_id}}, {{ri.i_id}}??? 아님 {{r.r_id}}, {{r.i_id}}?<br>
+                    </div>{% endfor %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="tab-pane" id="tab-2">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>조리방법</h3>
+                    <div class="col-lg-6 text-center order-1 order-lg-2">
+                    <img src="static/assets/img/specials-2.jpg" alt="" class="img-fluid"> 가로로 사진 넣는법? <img src="static/assets/img/specials-2.jpg" alt="" class="img-fluid">
+                    </div>{% for r in recipe_detail %}
+                    <p class="font-italic">
+                    {{r.r_detail}}</p>{% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              {% for r in review %} #selectone으로 class만든건 for문 나중에 지우기.....!!!!
+              <div class="tab-pane" id="tab-3">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>리뷰</h3>
+                    <p class="font-italic">
+                      <div>별점: ★{{r.r_num}}<br>
+                           리뷰: {{r.rv_review}} 작성일:{{r.rv_regdate}}</div></p>
+                    </p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+                    <img src="static/assets/img/specials-3.jpg" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>{% endfor %}
+
+
+              {% for r in recipe_detail %}
+              <div class="tab-pane" id="tab-4">
+                <div class="row">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+                    <h3>유튜브 레시피</h3>
+                    <p class="font-italic">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/bWdIP_gpCL4?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        {{r.r_video}}
+                    </p>
+                  </div>
+                </div>
+              </div>{% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Specials Section -->
 
 
 
 
-{% endfor %}
 {% endblock %}
