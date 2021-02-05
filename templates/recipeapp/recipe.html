@@ -40,16 +40,30 @@
 
 
 <!--============================내가 가진 식재료==================================================-->
-<!--{% if request.session.suser %}-->
-{% for r in recipes %}
+
+<!-- 이 부분은 현재 로그인되어 있는 사용자 한명에 대해서만 출력되어야 하므로 for문 안에 넣으면 안됨-->
+<!--데이터베이스에서 현재 로그인한 사용자가 가지고 있는 식재료를 select 문으로 가져와서 출력해주어야 한다.-->
+<!--( select * from users_ingr where u_id=(현재로그인한사용자의아이디) )-->
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
       <div class="container">
 
-        <div class="section-title">
-          <h2>{{r.u_id}}님이 가진 <span>식재료 고르기</span></h2>
-        </div>
 
+<!--  만약 세션의 snickname 라는 key에 value가 존재하면, 즉, 로그인이 되어있으면-->
+<!--  로그인이 되어있는 경우에만 세션에 값들이 저장되어있게 해놓았음 -->
+      {% if request.session.snickname %}
+        <div class="section-title">
+<!--      request.session.snickname : 현재 로그인한 사용자의 닉네임-->
+          <h2>{{request.session.snickname}}님이 가진 <span>식재료 고르기</span></h2>
+        </div>
+<!--  만약 세션의 snickname 라는 key에 value가 존재하지 않으면, 즉, 로그인이 되어있지 않으면-->
+      {% else %}
+        <div class="section-title">
+            <h2><span>식재료 고르기</span></h2>
+        </div>
+      {% endif %}
+
+<!--    버튼 출력하는 영역, 반복될 필요 없음-->
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
@@ -59,19 +73,31 @@
           </div>
         </div>
 
+      <form action="{% url 'filtering' %}" method="post">
+        {% csrf_token %}
         <div class="row menu-container">
-
-          <div class="col-lg-6 menu-item filter-active">
-            <div class="menu-content">
-              <a href="#"><input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값'/> {{r.i_name}}</a>
-<!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
-            </div>
-          </div>
-
-
-
-
+    <!--    이 부분이 식재료 표시하는 부분(체크박스랑 식재료 리스트 표시되는 부분) 이므로 여기만 for문을 돌려준다-->
+            <br><br><br><br>
+            <br><br><br><br>
+            {% for ui in ingredients %}
+              <div class="col-lg-4 menu-item filter-active">
+                <div class="menu-content">
+                  <a><input type='checkbox' name='ingrcheck[]' value={{ui.i_id}}>
+                      <label>{{ui.i_name}}</label></a>
+    <!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
+                </div>
+                <div class="menu-ingredients">
+                    {{ui.icp_name}} > {{ui.ic_name}}
+                </div>
+              </div>
+            {% endfor %}
         </div>
+        <nav class="nav-menu d-none d-lg-block" >
+              <ul>
+                <li class="book-a-table text-center"><button style="margin:40px 0px 0px 423px;border:white; outline:0;" type="submit">선택한 식재료 포함한 레시피 보기</button></li>
+              </ul>
+        </nav>
+      </form>
 
       </div>
     </section><!-- End Menu Section -->
@@ -88,68 +114,33 @@
 
         <div class="row no-gutters">
 
+<!--    딱 이 부분만 for문 돌려서 한개의 영역 안에 한개의 레시피에 대한 정보가 출력되게끔 해야됨 -->
+        {% for r in recipes %}
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">
+<!--            원래 이렇게 되어있던 코드를-->
+<!--            <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">-->
+<!--            이렇게 바꿔줘서 음식을 클릭하면 해당 음식의 detail 페이지로 넘어가게끔 해놓음(아직은 에러남)-->
+                <a href="{% url 'recipe_detail' %}">
 <!--                <h1>이미지{{r.r_image1}}</h1>-->
-                <img src="static/assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+<!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
+                <img src="static/img/{{r.r_image1}}" alt="" class="img-fluid">
                 <br></br>
                 <h2>{{r.r_name}}</h2>
+<!--            이 레시피의 평균 별점-->
                 <h3>★{{r.r_num}}</h3>
                 <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
-                <h3>{{r.u_id}}</h3>
+                <h3>레시피 작성자 아이디 : {{r.u_id}}</h3>
               </a>
             </div>
           </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-2.jpg" class="venobox" data-gall="gallery-item">
-<!--                <h1>이미지{{r.r_image1}}</h1>-->
-                <img src="static/assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
-                <br></br>
-                <h2>{{r.r_name}}</h2>
-                <h3>★{{r.r_num}}</h3>
-                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
-                <h3>{{r.u_id}}</h3>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-3.jpg" class="venobox" data-gall="gallery-item">
-<!--                <h1>이미지{{r.r_image1}}</h1>-->
-                <img src="static/assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
-                <br></br>
-                <h2>{{r.r_name}}</h2>
-                <h3>★{{r.r_num}}</h3>
-                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
-                <h3>{{r.u_id}}</h3>
-              </a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-              <a href="assets/img/gallery/gallery-4.jpg" class="venobox" data-gall="gallery-item">
-<!--                <h1>이미지{{r.r_image1}}</h1>-->
-                <img src="static/assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
-                <br></br>
-                <h2>{{r.r_name}}</h2>
-                <h3>★{{r.r_num}}</h3>
-                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
-                <h3>{{r.u_id}}</h3>
-              </a>
-            </div>
-          </div>
+        {% endfor %}
 
         </div>
 
       </div>
     </section><!-- End Gallery Section -->
 
-{% endfor %}
-<!--{% endif %}-->
+
 {% endblock %}
 

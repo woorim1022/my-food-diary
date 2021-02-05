@@ -20,4 +20,5 @@ from recipeapp import views
 urlpatterns = [
     path('recipe', views.recipe, name='recipe'),
     path('recipe_detail', views.recipe_detail, name='recipe_detail'),
+    path('filtering', views.filtering, name='filtering'),
 ]

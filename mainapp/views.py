@@ -8,9 +8,9 @@ from frame.mainapp.mainapp_userdb import UserDb, RecipeDb
 
 
 def main(request):
-    recipes = RecipeDb().select()
+    allrecipes = RecipeDb().select()
     context = {
-        'recipes': recipes
+        'allrecipes': allrecipes
     };
     return render(request, 'mainapp/main.html', context)
 
@@ -47,6 +47,7 @@ def useraddimpl(request):
         };
         request.session['suser'] = u_id
         request.session['snickname'] = u_nick
+        # HttpResponseRedirect()로 바꿔야되나.......?
         return render(request,'mainapp/main.html',context);
 
 
@@ -105,6 +106,7 @@ def loginimpl(request):
             'message': '로그인 실패',
         };
         return render(request, 'mainapp/main.html', context);
+    # HttpResponseRedirect()로 바꿔야되나.......?
     return render(request, 'mainapp/main.html', context);
 
 
@@ -115,4 +117,5 @@ def logout(request):
     if 'snickname' in request.session:
         if request.session['snickname']:
             del request.session['snickname']
+    # HttpResponseRedirect()로 바꿔야되나.......?
     return render(request, 'mainapp/main.html')
