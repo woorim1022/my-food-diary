@@ -31,14 +31,14 @@
         <p>로그인 해주세요.</p>
       </div>
 
-      <form action="{% url 'loginimpl' %}" method="post" role="form" >
+      <form style="margin:0px 0px 0px 345px;" action="{% url 'loginimpl' %}" method="post" role="form" >
            {% csrf_token %}
         <div class="form-col">
-          <div class="col-lg-4 col-md-6 form-group">
+          <div class="col-lg-6 col-md-6 form-group">
             <input type="text" name="id" class="form-control" id="name" placeholder="id"/>
             <div class="validate"></div>
           </div>
-          <div class="col-lg-4 col-md-6 form-group">
+          <div class="col-lg-6 col-md-6 form-group">
             <input type="password" class="form-control" name="pwd" id="email" placeholder="password" data-rule="email"/>
             <div class="validate"></div>
           </div>
@@ -46,7 +46,7 @@
         </div>
          <nav class="nav-menu d-none d-lg-block" >
               <ul>
-                <li class="book-a-table text-center"><button style="border:white; outline:0;" type="submit">Login</button></li>
+                <li class="book-a-table text-center"><button style="margin:0px 0px 0px 120px;border:white; outline:0;" type="submit">Login</button></li>
               </ul>
          </nav>
       </form>
