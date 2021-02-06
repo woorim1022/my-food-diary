@@ -1333,6 +1333,15 @@ section {
   color: #ff9b08;
 }
 
+.menu .menu-content form {
+  padding-right: 10px;
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  font-weight: 700;
+  color: #ff9b08;
+}
+
 .menu .menu-content span {
   background: #fff;
   position: relative;
@@ -1344,7 +1353,7 @@ section {
 
 .menu .menu-ingredients {
   font-style: italic;
-  font-size: 14px;
+font-size: 14px;
   font-family: "Comic Neue", sans-serif;
   color: #948c81;
 }
