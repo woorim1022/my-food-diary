@@ -23,15 +23,30 @@
           border: 1px solid #FFB03B;
           }
   button {
+          display: inline-block;
+          background: #fff;
+          position: relative;
+          z-index: 3;
+          padding: 0 10px;
+          font-weight: 600;
+          border: 2px solid #ffb03b;
+          color: grey;
+          border-radius: 50px;
+          }
+  .menu .menu-content form{
+  display: inline-block;
+  padding-right: 0px;
   background: #fff;
   position: relative;
   z-index: 3;
-  padding: 0 10px;
-  font-weight: 600;
-  border: 2px solid #ffb03b;
-  color: grey;
-  border-radius: 50px;
+  font-weight: 700;
+  color: #ff9b08;
+    }
+
+    .menu .menu-content::after {
+  content: "";
 }
+
 </style>
 <script>
 $(document).ready(function(){
@@ -49,6 +64,14 @@ $(document).ready(function(){
             'method':'POST'
         });
        $('form[class="users_ingr_delete"]').submit();
+    });
+
+     $('form[class="users_ingr_update"] > button').click(function(){
+        $('form[class="users_ingr_update"]').attr({
+            'action':'{% url "ingredient_update" %}',
+            'method':'POST'
+        });
+       $('form[class="users_ingr_update"]').submit();
     });
 });
 </script>
@@ -73,7 +96,7 @@ $(document).ready(function(){
       <div class="container">
 
         <div class="section-title">
-          <h2>다이어리 내<span> 재료</span></h2>
+          <h2>다이어리 내<span> 재료 </span></h2>
         </div>
 
         <div class="row">
@@ -87,28 +110,36 @@ $(document).ready(function(){
             </ul>
           </div>
         </div>
+
+
         <div class="row menu-container">
         {% for l in uigreenlist %}
           <div class="col-lg-6 menu-item filter-ex_date_within">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
-            <div>
-                <form class="users_ingr_update">
-                  {% csrf_token %}
-                  <input type="hidden" name="i_name" value="{{l.i_name}}">
-                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
-                  <button>수정</button>
-                </form>
-                <form class="users_ingr_delete">
+            <div class="update and delete">
+              <form class="users_ingr_update">
+                {% csrf_token %}
+                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist name="i_name">
+                {% for ingr in ingrlist_i_name %}
+                    <option value="{{ingr.i_name}}">
+                    </option>
+                {% endfor %}
+                </datalist>
+                <input size="14" type="date" name="ui_exdate">
+                <input type="hidden" name="u_id" value="{{l.ui_id}}">
+              <button>수정</button>
+              </form>
+              <form class="users_ingr_delete">
                   {% csrf_token %}
                   <input type="hidden" name="i_name" value="{{l.i_name}}">
                   <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
                   <button>삭제</button>
-                </form>
+              </form>
             </div>
             </div>
             <div class="menu-ingredients">
-              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+              {{l.icp_name}} > {{l.ic_name}} > {{l.i_name}} 유통기한: {{l.ui_exdate}}
             </div>
           </div>
         {% endfor %}
@@ -116,24 +147,30 @@ $(document).ready(function(){
         {% for l in uiredlist %}
           <div class="col-lg-6 menu-item filter-ex_date_pass">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
-            <div>
-                <form class="users_ingr_update">
-                  {% csrf_token %}
-                  <input type="hidden" name="i_name" value="{{l.i_name}}">
-                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
-                  <button>수정</button>
-                </form>
-                <form class="users_ingr_delete">
+            <div class="update and delete">
+              <form class="users_ingr_update">
+                {% csrf_token %}
+                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist name="i_name">
+                {% for ingr in ingrlist_i_name %}
+                    <option value="{{ingr.i_name}}">
+                    </option>
+                {% endfor %}
+                </datalist>
+                <input size="14" type="date" name="ui_exdate">
+                <input type="hidden" name="u_id" value="{{l.ui_id}}">
+              <button>수정</button>
+              </form>
+              <form class="users_ingr_delete">
                   {% csrf_token %}
                   <input type="hidden" name="i_name" value="{{l.i_name}}">
                   <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
                   <button>삭제</button>
-                </form>
+              </form>
             </div>
             </div>
             <div class="menu-ingredients">
-              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+              {{l.icp_name}} > {{l.ic_name}} > {{l.i_name}} 유통기한: {{l.ui_exdate}}
             </div>
           </div>
         {% endfor %}
@@ -141,24 +178,30 @@ $(document).ready(function(){
         {% for l in ualist %}
           <div class="col-lg-6 menu-item filter-allergy">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
-            <div>
-                <form class="users_ingr_update">
-                  {% csrf_token %}
-                  <input type="hidden" name="i_name" value="{{l.i_name}}">
-                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
-                  <button>수정</button>
-                </form>
-                <form class="users_ingr_delete">
+             <div class="update and delete">
+              <form class="users_ingr_update">
+                {% csrf_token %}
+                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist name="i_name">
+                {% for ingr in ingrlist_i_name %}
+                    <option value="{{ingr.i_name}}">
+                    </option>
+                {% endfor %}
+                </datalist>
+                <input size="14" type="date" name="ui_exdate">
+                <input type="hidden" name="u_id" value="{{l.ui_id}}">
+              <button>수정</button>
+              </form>
+              <form class="users_ingr_delete">
                   {% csrf_token %}
                   <input type="hidden" name="i_name" value="{{l.i_name}}">
                   <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
                   <button>삭제</button>
-                </form>
+              </form>
             </div>
             </div>
             <div class="menu-ingredients">
-              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+              {{l.icp_name}} > {{l.ic_name}} > {{l.i_name}} 유통기한: {{l.ui_exdate}}
             </div>
           </div>
         {% endfor %}
@@ -166,24 +209,30 @@ $(document).ready(function(){
         {% for l in uilist %}
           <div class="col-lg-6 menu-item filter-ex_date_higher">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
-            <div>
-                <form class="users_ingr_update">
-                  {% csrf_token %}
-                  <input type="hidden" name="i_name" value="{{l.i_name}}">
-                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
-                  <button>수정</button>
-                </form>
-                <form class="users_ingr_delete">
+             <div class="update and delete">
+              <form class="users_ingr_update">
+                {% csrf_token %}
+                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist name="i_name">
+                {% for ingr in ingrlist_i_name %}
+                    <option value="{{ingr.i_name}}">
+                    </option>
+                {% endfor %}
+                </datalist>
+                <input size="14" type="date" name="ui_exdate">
+                <input type="hidden" name="u_id" value="{{l.ui_id}}">
+              <button>수정</button>
+              </form>
+              <form class="users_ingr_delete">
                   {% csrf_token %}
                   <input type="hidden" name="i_name" value="{{l.i_name}}">
                   <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
                   <button>삭제</button>
-                </form>
+              </form>
             </div>
             </div>
             <div class="menu-ingredients">
-              {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+              {{l.icp_name}} > {{l.ic_name}} > {{l.i_name}} 유통기한: {{l.ui_exdate}}
             </div>
           </div>
         {% endfor %}
@@ -191,28 +240,33 @@ $(document).ready(function(){
         {% for l in ingrlist %}
         <div class="col-lg-6 menu-item filter-all">
           <div class="menu-content">
-            <a href="#">{{l.i_name}}</a>
-            <div>
-                <form class="users_ingr_update">
-                  {% csrf_token %}
-                  <input type="hidden" name="i_name" value="{{l.i_name}}">
-                  <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
-                  <button>수정</button>
-                </form>
-                <form class="users_ingr_delete">
+            <div class="update and delete">
+              <form class="users_ingr_update">
+                {% csrf_token %}
+                <input size="14" style="height:30px;" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist name="i_name">
+                {% for ingr in ingrlist_i_name %}
+                    <option value="{{ingr.i_name}}">
+                    </option>
+                {% endfor %}
+                </datalist>
+                <input size="14" type="date" name="ui_exdate">
+                <input type="hidden" name="u_id" value="{{l.ui_id}}">
+              <button>수정</button>
+              </form>
+              <form class="users_ingr_delete">
                   {% csrf_token %}
                   <input type="hidden" name="i_name" value="{{l.i_name}}">
                   <input type="hidden" name="ui_exdate" value="{{l.ui_exdate}}">
                   <button>삭제</button>
-                </form>
+              </form>
             </div>
           </div>
           <div class="menu-ingredients">
-            {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
+              {{l.icp_name}} > {{l.ic_name}} > {{l.i_name}} 유통기한: {{l.ui_exdate}}
           </div>
         </div>
         {% endfor %}
-
         </div>
 
       </div>
