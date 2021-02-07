@@ -1,0 +1,107 @@
+{% extends "inner-page.html" %}
+
+{% load static %}
+{% block content %}
+
+<style>
+
+  .about {
+    background: white;
+  }
+
+  .row {
+    padding : 50px;
+    background: #fffaf3;
+    position: relative;
+    border: 10px solid white;
+  }
+  #title {
+    color:#FFB03B;
+    }
+  #recipeclick {
+    display: block;
+    font-size: 20px;
+    color:#ffb03b;
+    border-bottom: 2px solid #FFB03B;
+    }
+.about .content ul li {
+  position: relative;
+  padding-left: 26px;
+}
+.page-review{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding: 50px;
+    }
+.page-review > a{
+    color: black;
+    text-align: center;
+    margin: 0 5px;
+    }
+
+
+</style>
+<script>
+</script>
+
+   <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>리뷰 확인</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li><a href="{% url 'ingredient' %}">Back</a></li>
+          </ol>
+        </div>
+
+      </div>
+   </section>
+<section id="about" class="about">
+      <div class="container-fluid">
+        {% for rv in review %}
+        <div class="row">
+          <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("static/assets/img/reviewapp/food1.jpg"); cursor: pointer;'onclick="location.href='http://127.0.0.1/recipe_detail';">
+          </div>
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+
+            <div class="content">
+              <h3 id="title"><strong>{{rv.r_name}}</strong></h3>
+                <a id="recipeclick" href="{% url 'recipe_detail' %}">레시피 바로가기</a>
+                <h5>　</h5>
+
+              <ul>
+                <li><i class="bx bx-check-double"></i> 평점: {{rv.r_num}}점</li>
+              </ul>
+                 <p>
+                작성일 :　{{rv.rv_regdate}}
+              </p>
+              <p>
+                {{rv.rv_review}}글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+<!--          링크바 생성-->
+        {% endfor %}
+        <li class="page-review">
+            {% if before %}
+            <a class="page-link" href="?&page={{beforenum}}">이전</a>
+            {% endif %}
+            {% for l in pagelist %}
+            <a class="page-link" href="?&page={{l}}">{{l}}</a>
+            {% endfor %}
+            {% if next %}
+            <a class="page-link" href="?&page={{nextnum}}">다음</a>
+            {% endif %}
+        </li>
+      </div>
+
+    </section><!-- End About Section -->
+
+{% endblock %}

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'mainapp',
     'userapp',
     'recipeapp',
-    'ingredientapp'
+    'ingredientapp',
+    'reviewapp',
 ]
 
 MIDDLEWARE = [
