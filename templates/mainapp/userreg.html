@@ -15,6 +15,11 @@
             };
         };
 
+        function toEnabled() {
+           $('input[name="u_id"]').attr("disabled",false);
+           $('input[name="u_nick"]').attr("disabled",false);
+        }
+
          $(document).ready(function(){
             $('button[name="submit"]').prop("disabled",true);
 
@@ -34,7 +39,8 @@
                             // 아이디 중복체크했다고 표시해
                             idcheck = true;
                             submit(idcheck, nickcheck);
-                            $('input[name="u_id"]').prop("disabled",true);
+                            //아이디 폼 비활성화
+                            $('input[name="u_id"]').attr("disabled",true);
                         }else if(data.trim() == 'no'){
                             alert('사용 불가능한 아이디입니다');
                             // 폼 값 지워
@@ -64,7 +70,8 @@
                             // 닉네임 중복체크했다고 표시해
                             nickcheck = true;
                             submit(idcheck, nickcheck);
-                            $('input[name="u_nick"]').prop("disabled",true);
+                            //닉네임 폼 비활성화
+                            $('input[name="u_nick"]').attr("disabled",true);
                         }else if(data.trim() == 'no'){
                             alert('사용 불가능한 닉네임입니다');
                             // 폼 값 지워
@@ -80,7 +87,7 @@
             });
         });
     </script>
-    <h1>{{message}}</h1>
+
 
 
     <!-- ======= Breadcrumbs Section ======= -->
@@ -119,10 +126,10 @@
 
       <div class="section-title">
         <h2 style="font-size:55px;"><span>Register</span></h2>
-        <p>회원 가입 해주세요.</p>
+        <p>회원 가입 해주세요.</p><h1>{{message}}</h1>
       </div>
 
-      <form action="{% url 'useraddimpl' %}" method="post" role="form" >
+      <form action="{% url 'useraddimpl' %}" method="post" role="form" onsubmit="toEnabled()">
            {% csrf_token %}
         <div class="form-row">
           <div class="col-lg-4 col-md-6 form-group">

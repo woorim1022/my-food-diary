@@ -1,10 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.utils.http import urlencode
+
 from frame.mainapp.mainapp_userdb import UserDb, RecipeDb
-
-
 
 
 def main(request):
@@ -26,6 +26,7 @@ def useraddimpl(request):
     u_pwd_2 = request.POST['u_pwd_2']
     u_name = request.POST['u_name']
     u_age = request.POST['u_age']
+    allrecipes = RecipeDb().select()
 
     if u_pwd_1 != u_pwd_2:
         context = {
@@ -43,12 +44,12 @@ def useraddimpl(request):
         context = {
             'login': 'success',
             'message': '회원가입 완료',
-            'nickname' : u_nick
+            'nickname' : u_nick,
+            'allrecipes': allrecipes
         };
         request.session['suser'] = u_id
         request.session['snickname'] = u_nick
-        # HttpResponseRedirect()로 바꿔야되나.......?
-        return render(request,'mainapp/main.html',context);
+        return render(request, 'mainapp/main.html', context)
 
 
 def idcheck(request):
@@ -83,9 +84,9 @@ def login(request):
 
 # 로그인 처리하는 함수
 def loginimpl(request):
-    global login
     id = request.POST['id']
     pwd = request.POST['pwd']
+    allrecipes = RecipeDb().select()
     try:
         user = UserDb().selectid(id);
         # 비밀번호가 일치하는 경우, 로그인 성공한 경우
@@ -95,7 +96,8 @@ def loginimpl(request):
             context = {
                 'login':'success',
                 'message': '로그인 완료',
-                'nickname': user.u_nick
+                'nickname': user.u_nick,
+                'allrecipes': allrecipes
             };
         else:
             raise Exception
@@ -104,10 +106,14 @@ def loginimpl(request):
         context = {
             'login':'fail',
             'message': '로그인 실패',
+            'allrecipes':allrecipes
         };
-        return render(request, 'mainapp/main.html', context);
-    # HttpResponseRedirect()로 바꿔야되나.......?
-    return render(request, 'mainapp/main.html', context);
+    #     qstr = urlencode({'conttomain': context})
+    #     return HttpResponseRedirect('%s?%s' % ('login', qstr))
+        return render(request, 'mainapp/main.html', context)
+    # qstr = urlencode({'conttomain': context})
+    # return HttpResponseRedirect('%s?%s' % ('', qstr))
+    return render(request, 'mainapp/main.html', context)
 
 
 def logout(request):
@@ -117,5 +123,4 @@ def logout(request):
     if 'snickname' in request.session:
         if request.session['snickname']:
             del request.session['snickname']
-    # HttpResponseRedirect()로 바꿔야되나.......?
-    return render(request, 'mainapp/main.html')
+    return redirect('main')

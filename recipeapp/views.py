@@ -34,15 +34,18 @@ def recipe_detail(request):
 
 def recipe(request):
     global ingredients
-    recipefiltered = request.GET.get('recipefiltered')
-    print(type(recipefiltered))
+    ingr_name_user = None
+    recipefiltered_str = request.GET.get('recipefiltered')
+    if recipefiltered_str != None:
+        recipefiltered = eval(recipefiltered_str)
     # eval사용하기
     # 세션에 suser 이라는 key가 존재하면
     if 'suser' in request.session:
         # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
         if request.session['suser']:
             # selectusersingr() 함수를 통해 현재 로그인한 사용자의 식재료"만" 가져온다
-            ingredients = IngredientDb().selectusersingr(request.session['suser'])
+            ingr_name_user = IngredientDb().selectusersingr(request.session['suser'])
+            ingredients = IngredientDb().selectall()
         # suser이라는 key에 value가 존재하지 않으면(즉, 로그인이 되어있지 않으면)
         else:
             # selectall() 함수를 통해 데이터베이스에 있는 모든 식재료를 가져온다
@@ -52,18 +55,19 @@ def recipe(request):
         # selectall() 함수를 통해 데이터베이스에 있는 모든 식재료를 가져온다
         ingredients = IngredientDb().selectall()
 
-    if recipefiltered == None or not recipefiltered:
+    if recipefiltered_str == None or not recipefiltered_str:
         recipes = RecipeDb().selectall();
+
     else:
         temp = [];
         for i in range(len(recipefiltered)):
-            print(recipefiltered[i])
-            # if recipefiltered[i] != '[' or recipefiltered[i] != ']' or recipefiltered[i] != ',' or recipefiltered[i] != ' ':
-            #     temp.append(RecipeDb().select_with_r_id(int(recipefiltered[i])))
+            # print(recipefiltered[i])
+            temp.append(RecipeDb().select_with_r_id(recipefiltered[i])[0])
         recipes = temp;
     context = {
         'recipes': recipes,
-        'ingredients': ingredients
+        'ingredients': ingredients,
+        'ingr_name_user':ingr_name_user
     }
 
     return render(request, 'recipeapp/recipe.html', context);
@@ -81,7 +85,7 @@ def filtering(request):
                continue
            else:
                recipefiltered.append(recipewithingr[j].r_id)
-    print(recipefiltered)
+    # print(recipefiltered)
     qstr = urlencode({'recipefiltered':recipefiltered})
     return HttpResponseRedirect('%s?%s' % ('recipe', qstr))
 
