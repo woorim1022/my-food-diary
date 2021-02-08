@@ -1,0 +1,199 @@
+{% extends "inner-page.html" %}
+
+{% load static %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<style>
+    .section-title {
+        margin-top: 125px;
+    }
+    .menu_bg{
+        width: 30%;
+        height: 200px;
+        position: fixed;
+        top:0;
+        left:0;
+        overflow: hidden;
+        display: none;
+    }
+    .menu{
+        position:absolute
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background-color:#DDD;
+    }
+    .menu > div{
+        padding: 2%;
+    }
+    .subcateg {
+        margin:0 0 0 5px;
+    }
+    button[type="submit"]{
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    button[type="submit"]:hover{
+        background: #ffa012;
+    }
+    .input-file-button{
+        cursor:pointer;
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    .input-file-button:hover{
+        background: #ffa012;
+    }
+    .ingrname{
+        cursor:pointer;
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    .ingrname:hover{
+        background: #ffa012;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $('#popingr').click(function(){
+            parent = window.open('popingr.html','child','width=400,height=400');
+        });
+    });
+</script>
+<script>
+    var giMenuDuration = 700;
+    function ShowMenu(){
+        $('.menu_bg').css({'display':'block'});
+        $('.menu').css({'left:'-100%''});
+        $('.menu').animate({left:'0px'},{duration:giMenuDuration});
+    }
+    function HideMenu(){
+        $('.menu').animate({left:'-100%'},{ duration: giMenuDuration, complete:function(){ $('.menu_bg' ).css( { 'display' : 'none' } ); } });
+    }
+    function ShowSubMenu( strId ){
+        var lySubMenu = $( strId );
+
+        if( lySubMenu.first().is( ":hidden" ) ){
+            $( strId ).slideDown( 300 );
+        }
+        else{
+            $( strId ).slideUp( 300 );
+        }
+    }
+    $( document ).ready( function(){
+        $('.menu_2').hide();
+    });
+</script>
+<body class="myrecipereg">
+    <section id="myrecipepage1" class="myrecipepage1">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    {{request.session.snickname}} 님 레시피 <span>등록하기</span>
+                </h2>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <input type="text"  name="myrectitle" value="" placeholder="나의 레시피 제목" class="form-control">
+                    </div>
+                    <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                        <input type="number" name="cooktime" placeholder="조리 시간(분)" class="form-control" value="">
+                    </div>
+                    <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                        <button type="button" id="rect" class="ingrname" onclick="ShowMenu()">레시피 카테고리</button>
+                        <div class="menu_bg">
+                            <div class="menu">
+                                <div style="width: 96%; text-align: right" onclick="HideMenu()">닫기</div>
+                                <div>
+                                    한식  <button onclick="ShowSubMenu('#sub1')">+</button>
+                                    <div class="menu_2" id="sub1">
+                                        <div>메인요리</div>
+                                        <div>밑반찬</div>
+                                        <div>간식</div>
+                                        <div>초대요리</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="text" name="recateg" value="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic1">사진 1</label>
+                        <input type="file" id="pic1" name="img01" style="display: none;" class="pic">
+                    </div>
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic1">사진 2</label>
+                        <input type="file" id="pic2" name="img02" style="display: none;" class="pic">
+                    </div>
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic1">사진 3</label>
+                        <input type="file" id="pic3" name="img03" style="display: none;" class="pic">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic1">사진 4</label>
+                        <input type="file" id="pic4" name="img04" style="display: none;" class="pic">
+                    </div>
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic1">사진 5</label>
+                        <input type="file" id="pic5" name="img05" style="display: none;" class="pic">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        재료 이름, 계량, 단위 (삭제 기능)
+                    </div>
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <button id="popingr" class="ingrname" type="button">식재료 등록</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 form-group">
+                        <label><input type="radio" name="public" value="1">나의 레시피 공개</label><br>
+                        <label><input type="radio" name="public" value="0">나의 레시피 비공개</label>
+                    </div>
+                </div>
+                <div class="text-center">
+                        <button type="submit">나의 레시피 등록하기</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+
+{% endblock %}
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->

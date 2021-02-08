@@ -26,7 +26,8 @@ urlpatterns = [
     path('userupdateimple', views.UserView.userupdateimple,name='userupdateimple'),
     path('ncheck/',views.UserView.ncheck,name='ncheck'),
 
-    path('myrecipereg',TemplateView.as_view(template_name='myrecipereg.html'),name='myrecipereg'),
+    path('myrecipe_reg',views.UserView.myrecipereg,name='myrecipe_reg'),
+    path('popingr.html',views.UserView.popingr, name='popingr'),
 
     path('like',TemplateView.as_view(template_name='like.html'),name='like'),
     path('allergy',TemplateView.as_view(template_name='allergy.html'),name='allergy'),

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script>
+    $(document).ready(function(){
+        $('#inval').click(function(){
+            window.opener.document.getElementById('pInput').value = document.getElementById("value").value;
+        });
+    });
+
+</script>
+<style>
+    body{
+      margin: 0;
+      padding: 0;
+      font-family: "Montserrat";
+    }
+    .searchbox{
+      width: 90%;
+      margin: 10px auto;
+    }
+    .header{
+      background: #ff9933;
+      overflow: hidden;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1{
+      text-transform: uppercase;
+      color: white;
+      margin: 0;
+      margin-bottom: 8px;
+    }
+    #footer{
+      background: #ff9933;
+      overflow: hidden;
+      padding: 20px;
+      text-align: center;
+    }
+    #value{
+      border: none;
+      background: #ffb03b;
+      padding: 6px;
+      font-size: 18px;
+      width: 80%;
+      border-radius: 6px;
+      color: white;
+    }
+    #value:focus{
+      outline: none;
+    }
+    .container{
+      background: #FFFFF5;
+      padding: 1%;
+    }
+    .item{
+      margin: 3% 0px;
+      display: flex;
+      align-items: center;
+    }
+    .icon{
+      width: 100px;
+      height: 25px;
+      background: #ff9900;
+      color: #fff;
+      font-size: 15px;
+      text-align: center;
+      line-height: 25px;
+      border-radius: 50px;
+      transition: 0.4s;
+      margin-right: 8px;
+    }
+    .name{
+      font-size: 17px;
+      font-weight: 470;
+      color: #333;
+    }
+    .ingr-input{
+        width: 90%;
+        margin: 10px auto;
+    }
+</style>
+<script>
+    function filter(){
+
+        var value, name, item, i;
+
+        value = document.getElementById("value").value.toUpperCase();
+        item = document.getElementsByClassName("item");
+
+        for(i=0;i<item.length;i++){
+          name = item[i].getElementsByClassName("name");
+          if(name[0].innerHTML.toUpperCase().indexOf(value) > -1){
+            item[i].style.display = "flex";
+          }else{
+            item[i].style.display = "none";
+          }
+        }
+      }
+</script>
+<body>
+    <div class="searchbox">
+        <div class="header">
+            <h1>Search</h1>
+            <input onkeyup="filter()" type="text" id="value" placeholder="식재료 이름을 입력하세요">
+        </div>
+        <div class="container">
+            {% for i in itemlist%}
+                <div class="item">
+                    <span class="icon">{{i.ic_name}}</span>
+                    <span class="name">{{i.i_name}}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="ingr-input">
+        <div id="footer" class="row">
+            <div class="ingrput">
+                <input type="text" placeholder="수량">
+            </div>
+            <div class="ingrput">
+                <input type="text" placeholder="수량">
+            </div>
+            <div class="ingrput">
+                <button id="inval" type="button">식재료 입력</button>
+            </div>
+        </div>
+    </div>
+
+    <input type="text" id="cInput" name="itn" value="" placeholder="재료 이름을 입력하세요">
+
+    <button id="clpop" type="button" onclick="window.close();">검색 창 닫기</button>
+</body>
+</html>
