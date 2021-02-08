@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from frame.userapp.userapp_userdb import UserDb
+from frame.userapp.userapp_userdb import UserDb, PopIngrDb, RecategDb
 
 
 class UserView:
@@ -32,5 +32,18 @@ class UserView:
         else:
             return HttpResponse('1')
 
+    def myrecipereg(request):
+        itemlist = PopIngrDb().select();
+        recateglist = RecategDb().select();
+        context = {
+            'itemlist': itemlist,
+            'recateglist':recateglist
+        }
+        return render(request, 'userapp/myrecipe_reg.html', context)
 
-
+    def popingr(request):
+        itemlist = PopIngrDb().select();
+        context = {
+            'itemlist':itemlist
+        }
+        return render(request,'userapp/popingr.html',context)
