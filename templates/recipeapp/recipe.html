@@ -73,6 +73,9 @@
           </div>
         </div>
 
+
+
+
       <form action="{% url 'filtering' %}" method="post">
         {% csrf_token %}
         <div class="row menu-container">
@@ -82,8 +85,18 @@
             {% for ui in ingredients %}
               <div class="col-lg-4 menu-item filter-active">
                 <div class="menu-content">
-                  <a><input type='checkbox' name='ingrcheck[]' value={{ui.i_id}}>
-                      <label>{{ui.i_name}}</label></a>
+                  <a>
+
+                  {% if ingr_name_user %}
+                    {% if ui.i_name in ingr_name_user %}
+                         <input type='checkbox' checked="checked" name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
+                    {% else %}
+                         <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
+                    {% endif %}
+                  {% else %}
+                        <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
+                  {% endif %}
+                  </a>
     <!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
                 </div>
                 <div class="menu-ingredients">
@@ -94,7 +107,7 @@
         </div>
         <nav class="nav-menu d-none d-lg-block" >
               <ul>
-                <li class="book-a-table text-center"><button style="margin:40px 0px 0px 423px;border:white; outline:0;" type="submit">선택한 식재료 포함한 레시피 보기</button></li>
+                <li class="book-a-table text-center"><button style="margin:40px 0px 0px 481px;border:white; outline:0;" type="submit">레시피 추천받기</button></li>
               </ul>
         </nav>
       </form>
@@ -121,16 +134,47 @@
 <!--            원래 이렇게 되어있던 코드를-->
 <!--            <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">-->
 <!--            이렇게 바꿔줘서 음식을 클릭하면 해당 음식의 detail 페이지로 넘어가게끔 해놓음(아직은 에러남)-->
-                <a href="{% url 'recipe_detail' %}">
+                <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}">
 <!--                <h1>이미지{{r.r_image1}}</h1>-->
 <!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
-                <img src="static/img/{{r.r_image1}}" alt="" class="img-fluid">
+                <div style="height:258px"><img src="static/img/{{r.r_image1}}" alt="" class="img-fluid"></div>
                 <br></br>
-                <h2>{{r.r_name}}</h2>
-<!--            이 레시피의 평균 별점-->
-                <h3>★{{r.r_num}}</h3>
-                <h3>조회수:{{r.r_view}} 추천수:{{r.r_recommend}}</h3>
-                <h3>레시피 작성자 아이디 : {{r.u_id}}</h3>
+                <span style="margin:0px 0px -4px 0px; font-size:21px; color:#FE2E64;">❤</span>
+                <span style="margin:20px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span>
+                <br>
+
+
+                {% if r.r_num == 10.0 %}
+                    <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 9.0 %}
+                    <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 8.0 %}
+                    <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 7.0 %}
+                    <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 6.0 %}
+                    <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 5.0 %}
+                    <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 4.0 %}
+                    <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 3.0 %}
+                    <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 2.0 %}
+                    <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% elif r.r_num > 1.0 %}
+                    <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% else %}
+                    <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                {% endif %}
+
+
+
+
+
+                <p style="margin:4px 0px 0px 0px; font-size:17px; color:#5f5950;">작성자 : {{r.u_id}}</p>
+                <p style="font-size:17px; margin:-1px 0px 10px 0px; color:#5f5950;">조회수 : {{r.r_view}} 추천수 : {{r.r_recommend}}</p>
+
               </a>
             </div>
           </div>

@@ -18,24 +18,37 @@ class Sql:
 
 
 
+
+
+
+
+
+
+
     # ======================================================우림코드================================================
     # 현재 디비에 있는 모든 레시피 목록을 가져오는 쿼리문
     # recipe.html에서 레시피 리스트에 레시피를 뿌려주기 위해 사용된다
-    recipeall= "select * from recipe;"
+    recipeall= """select r.*, ifnull(AVG(re.r_num),0), count(r.r_id) from recipe as r
+	                LEFT OUTER JOIN review re ON r.r_id = re.r_id group by r.r_id;"""
 
-    recipe_rid = "select * from recipe where r_id=%d;"
+    recipe_rid = """select r.*, ifnull(AVG(re.r_num),0), count(re.r_id) from recipe as r
+	                LEFT OUTER JOIN review re ON r.r_id = re.r_id where r.r_id=%d group by re.r_id;"""
+
+
+
+
     # 현재 로그인한 사용자가 가지고 있는 식재료를 전부 가져오는 쿼리문
     # recipe.html의 위쪽에 ㅇㅇ님이 가진 식재료 고르기 영역에 ㅇㅇ이 가지고 있는 식재료를 뿌려주기 위해 사용된다
-    usres_ingr =  """select ui.*, ig.i_name, ic.ic_name, icp.ic_name as icp_name from users_ingr as ui
+    usres_ingr =  """select ui.*, ig.i_name, ic.ic_name, ifnull(icp.ic_name, ' ') as icp_name from users_ingr as ui
                         INNER JOIN ingr ig ON ui.i_id = ig.i_id
                         INNER JOIN ingr_ct ic ON ig.ic_id = ic.ic_id
-                        INNER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id 
+                        LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id 
                     where u_id='%s';"""
 
     # 현재 디비에 있는 모든 식재료료 목록 가져오는 쿼리문
-    ingredientall = """select ig.*, ic.ic_name, icp.ic_name as icp_name from ingr as ig
+    ingredientall = """select ig.*, ic.ic_name, ifnull(icp.ic_name, ' ') as icp_name from ingr as ig
                             INNER JOIN ingr_ct ic ON ig.ic_id = ic.ic_id
-                            INNER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id ;"""
+                            LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id;"""
 
 
     recipe_ingr = """select re.*, ig.i_name, r.* from recipe_ingr as re

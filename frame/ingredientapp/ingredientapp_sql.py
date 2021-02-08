@@ -1,8 +1,8 @@
 class Sql:
-    user_ingrlist = """SELECT ui.ui_id,ui.ui_regdate,icp.ic_name,ic.ic_name,i.i_name,ui.ui_exdate From users_ingr ui
+    user_ingrlist = """SELECT ui.ui_id,ui.ui_regdate, ifnull(icp.ic_name, ' '),ic.ic_name,i.i_name,ui.ui_exdate From users_ingr ui
                     INNER JOIN ingr i ON ui.i_id = i.i_id
                     INNER JOIN ingr_ct ic ON i.ic_id = ic.ic_id
-                    INNER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id
+                    LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id
                     WHERE ui.u_id = '%s'""";
 
     user_avoidlist = """SELECT icp.ic_name, ic.ic_name, i.i_name,ui.ui_exdate FROM users_avoid ua

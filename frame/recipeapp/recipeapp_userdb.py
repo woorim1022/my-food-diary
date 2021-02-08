@@ -1,6 +1,8 @@
 from frame.recipeapp.recipeapp_db import Db
 from frame.recipeapp.recipeapp_sql import Sql
-from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review
+from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review, Recipe_review
+
+
 # from recipeapp.views import recipe
 
 
@@ -73,7 +75,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            recipe = Recipe_woorim(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15]);
+            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17]);
             all.append(recipe);
         super().close(conn,cursor);
         return all;
@@ -98,7 +100,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            recipe = Recipe(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17],u[18],u[19],u[20]);
+            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17]);
             all.append(recipe);
         super().close(conn,cursor);
         return all;
@@ -115,7 +117,7 @@ class IngredientDb(Db):
         all = [];
         for i in result:
             ingredient = UserIngredient(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7]);
-            all.append(ingredient);
+            all.append(ingredient.i_name);
         super().close(conn,cursor);
         return all;
 
@@ -151,7 +153,7 @@ class IngredientDb(Db):
 # =============================송현님 코드======================================================
 # =============================송현님 코드======================================================
 def review_test():
-    review_test = ReviewDb().select();
+    review_test = IngredientDb().selectall();
     for u in review_test:
         print(u);
 
