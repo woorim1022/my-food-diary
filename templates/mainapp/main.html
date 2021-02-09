@@ -91,8 +91,8 @@
              {% if r.r_image != 'None' %}
                 <div class="col-lg-3 col-md-4">
                   <div class="gallery-item">
-                    <a href="static/img/{{r.r_image1}}" class="venobox" data-gall="gallery-item">
-                      <img src="static/img/{{r.r_image1}}" alt="" class="img-fluid">
+                    <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
+                      <img src="static/img/{{r.r_mimage}}" alt="" class="img-fluid">
                     </a>
                   </div>
                 </div>
@@ -118,167 +118,53 @@
 
           <div class="owl-carousel events-carousel">
 
+          {% for r in reviews%}
             <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">갈비찜</h3>
-                <div class="price">
-                  <p><span>9.5 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                </p>
-              </div>
-            </div>
 
-            <div class="row event-item">
               <div class="col-lg-6">
-                <img src="static/assets/img/event-private.jpg" class="img-fluid" alt="">
+                   <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
+                    <img src="static/img/{{r.r_mimage}}" class="img-fluid" alt="">
+                   </a>
               </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">김치찌개</h3>
-                <div class="price">
-                  <p><span>5.0 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                  그냥그래요
-                </p>
+              <div style="" class="col-lg-6 pt-4 pt-lg-0 content">
+                  <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
+                    <h3 style="font-size:30px; margin:20px 0px 0px 0px;">{{r.r_name}}</h3>
+                  </a>
+                    <div class="price">
+                        <p style="margin:10px 0px 10px 0px;font-size:20px;">작성자 : {{r.rv_u_nick}}</p>
+                      <p ><span>
+                           {% if r.r_num == 10.0 %}
+                                ★★★★★ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 9.0 %}
+                                ★★★★★ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 8.0 %}
+                                ★★★★☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 7.0 %}
+                                ★★★★☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 6.0 %}
+                                ★★★☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 5.0 %}
+                               ★★★☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 4.0 %}
+                                ★★☆☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 3.0 %}
+                                ★★☆☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 2.0 %}
+                                ★☆☆☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% elif r.r_num >= 1.0 %}
+                               ★☆☆☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% else %}
+                                ☆☆☆☆☆ <span style="all:unset; font-size:17px">({{r.r_num}}점)</span>
+                            {% endif %}
+                      </span></p>
+                    </div>
+                    <p style="margin:23px 0px 0px 0px; font-size:27px">
+                        "{{r.rv_review}}"
+                    </p>
               </div>
-            </div>
 
-            <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-custom.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">소세지야채볶음</h3>
-                <div class="price">
-                  <p><span>6.5 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                  나쁘지 않아요
-                </p>
-              </div>
             </div>
-
-             <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">매운 등갈비찜</h3>
-                <div class="price">
-                  <p><span>9.5 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                </p>
-              </div>
-            </div> <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">까르보나라 떡볶이</h3>
-                <div class="price">
-                  <p><span>9.5 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                </p>
-              </div>
-            </div> <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3 style="margin:20px 0px 0px 0px;">해물매운탕</h3>
-                <div class="price">
-                  <p><span>9.5 점</span></p>
-                </div>
-                <p style="margin:23px 0px 0px 0px; font-size:20px">
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                   완전 맛있어요
-                </p>
-              </div>
-            </div>
+        {% endfor %}
 
           </div>
 

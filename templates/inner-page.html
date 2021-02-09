@@ -115,8 +115,7 @@
       {% block content %}
       {% endblock %}
 
-
-      <!-- ======= Chefs Section ======= -->
+    <!-- ======= Chefs Section ======= -->
       <section id="chefs" class="chefs">
         <div class="container">
 
@@ -125,48 +124,28 @@
           </div>
 
           <div class="row">
-
-            <div class="col-lg-4 col-md-6">
+          {% for r in recent %}
+            <div class="col-lg-3 col-md-6">
+              <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
               <div class="member">
-                <div class="pic"><img src="static/assets/img/chefs/chefs-1.jpg" class="img-fluid" alt=""></div>
+                <div style="background-color:white; height:265px;" class="pic"><img src="static/img/{{r.r_mimage}}" class="img-fluid" alt=""></div>
                 <div class="member-info">
-                  <h4>갈비찜</h4>
-                  <span>Master Chef</span>
+                  <h4>{{r.r_name}}</h4>
+                  <span>조회수 : {{r.r_view}} 추천수: {{r.r_recommend}}</span>
                   <div class="social">
                   </div>
                 </div>
               </div>
+              </a>
             </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="static/assets/img/chefs/chefs-2.jpg" class="img-fluid" alt=""></div>
-                <div class="member-info">
-                  <h4>김치찌개</h4>
-                  <span>Patissier</span>
-                  <div class="social">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <div class="member">
-                <div class="pic"><img src="static/assets/img/chefs/chefs-3.jpg" class="img-fluid" alt=""></div>
-                <div class="member-info">
-                  <h4>소세지야채볶음</h4>
-                  <span>Cook</span>
-                  <div class="social">
-                  </div>
-                </div>
-              </div>
-            </div>
+          {% endfor %}
 
 
           </div>
 
         </div>
       </section><!-- End Chefs Section -->
+
 
 
 

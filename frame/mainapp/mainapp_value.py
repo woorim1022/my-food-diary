@@ -16,25 +16,58 @@ class User:
 
 
 class Recipe:
-    def __init__(self,  r_id,rc_id,u_id,r_regdate,r_name,r_cooktime,r_detail,r_image1,r_image2,r_image3,r_image4,r_image5,r_video,r_recommend,r_view,r_public):
-        self.r_id=r_id
-        self.rc_id=rc_id
-        self.u_id=u_id
-        self.r_regdate=r_regdate
-        self.r_name=r_name
-        self.r_cooktime=r_cooktime
-        self.r_detail=r_detail
-        self.r_image1=r_image1
-        self.r_image2=r_image2
-        self.r_image3=r_image3
-        self.r_image4=r_image4
-        self.r_image5=r_image5
-        self.r_video=r_video
-        self.r_recommend=r_recommend
-        self.r_view=r_view
-        self.r_public=r_public
+    def __init__(self, r_id, rc_id, u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage, r_recommend,r_view, r_public):
+        self.r_id = r_id;
+        self.rc_id = rc_id;
+        self.u_id = u_id;
+        self.r_regdate = r_regdate;
+        self.r_name = r_name;
+        self.r_cooktime = r_cooktime;
+        self.r_mimage = r_mimage;
+        self.r_detail = r_detail;
+        self.r_dimage = r_dimage;
+        self.r_recommend = r_recommend;
+        self.r_view = r_view;
+        self.r_public = r_public;
     #
     # def __str__(self):
     #     return self.u_id + ' ' + self.u_pwd + ' ' + self.u_name + ' '\
     #             +self.u_name + ' ' + str(self.u_age) + ' ';
 
+
+
+class Recipe_recent:
+    def __init__(self, visittime, r_id, rc_id, u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage, r_recommend,r_view, r_public):
+        self.visittime = visittime
+        self.r_id = r_id;
+        self.rc_id = rc_id;
+        self.u_id = u_id;
+        self.r_regdate = r_regdate;
+        self.r_name = r_name;
+        self.r_cooktime = r_cooktime;
+        self.r_mimage = r_mimage;
+        self.r_detail = r_detail;
+        self.r_dimage = r_dimage;
+        self.r_recommend = r_recommend;
+        self.r_view = r_view;
+        self.r_public = r_public;
+
+
+class Review:
+    def __init__(self,rv_u_nick, r_num, rv_review, rv_regdate, r_id, rc_id, u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage, r_recommend,r_view, r_public):
+        self.rv_u_nick = rv_u_nick
+        self.r_num = r_num
+        self.rv_review = rv_review
+        self.rv_regdate = rv_regdate
+        self.r_id = r_id;
+        self.rc_id = rc_id;
+        self.u_id = u_id;
+        self.r_regdate = r_regdate;
+        self.r_name = r_name;
+        self.r_cooktime = r_cooktime;
+        self.r_mimage = r_mimage;
+        self.r_detail = r_detail;
+        self.r_dimage = r_dimage;
+        self.r_recommend = r_recommend;
+        self.r_view = r_view;
+        self.r_public = r_public;
