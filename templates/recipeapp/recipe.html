@@ -32,12 +32,51 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
+    <script>
+         $(document).ready(function(){
+
+            // 얘를 클릭했을 때
+            $('a[name="fav_add"]').click(function(){
+                //레시피 아이디
+                 r_id = $(this).find('p');
+                // 즐찾추가
+                $.ajax({
+                   url:{% url 'fav_add' %},
+                   data:{'r_id':r_id},
+                   type:'get',
+                   success:function(data){
+                        alert(data);
+                        if(data.trim() == 'ok'){
+                          $('span[name="fav_add"]').text('💗');
+                        }else{};
+                   }
+                });
+            });
 
 
+             // 얘를 클릭했을 때
+            $('a[name="fav_cancel"]').click(function(){
+                //레시피 아이디
+                 r_id = $(this).find('p');
+                // 즐찾취소
+                $.ajax({
+                   url:{% url 'fav_cancel' %},
+                   data:{'r_id':r_id},
+                   type:'get',
+                   success:function(data){
+                        alert(data);
+                        if(data.trim() == '1'){
+                            $('span[name="fav_cancel"]').text('🤍');
+                        }else{};
 
 
+                   }
+                });
+            });
 
 
+        });
+    </script>
 
 <!--============================내가 가진 식재료==================================================-->
 
@@ -137,12 +176,29 @@
                 <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}">
 <!--                <h1>이미지{{r.r_image1}}</h1>-->
 <!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
-                <div style="height:258px"><img src="static/img/{{r.r_image1}}" alt="" class="img-fluid"></div>
+                <div style="height:258px"><img src="static/img/{{r.r_mimage}}" alt="" class="img-fluid"></div>
                 <br></br>
-                <span style="margin:0px 0px -4px 0px; font-size:21px; color:#FE2E64;">❤</span>
-                <span style="margin:20px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span>
-                <br>
+                </a>
 
+
+
+
+                {% if r.r_id in favorite %}
+                    <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
+                {% else %}
+                    <a href="" name='fav_add' style="margin:0px 0px -4px 0px; font-size:21px; ">🤍<p style="display:none;">{{r.r_id}}</p></a>
+                {% endif %}
+
+
+
+
+
+
+
+
+
+                    <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
+                    <br>
 
                 {% if r.r_num == 10.0 %}
                     <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
@@ -169,13 +225,9 @@
                 {% endif %}
 
 
-
-
-
                 <p style="margin:4px 0px 0px 0px; font-size:17px; color:#5f5950;">작성자 : {{r.u_id}}</p>
                 <p style="font-size:17px; margin:-1px 0px 10px 0px; color:#5f5950;">조회수 : {{r.r_view}} 추천수 : {{r.r_recommend}}</p>
 
-              </a>
             </div>
           </div>
         {% endfor %}

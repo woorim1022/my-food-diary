@@ -1,15 +1,25 @@
 class Sql:
     # ================================================송현님코드======================================
-    recipe = """SELECT r.*, ig.i_name, rv.rv_review, rv.r_num, ui.i_id, rv.rv_regdate FROM recipe AS r
-                            INNER JOIN users_ingr ui ON r.u_id = ui.u_id
-                            INNER JOIN ingr ig ON ui.i_id = ig.i_id
-                            INNER JOIN ingr_ct ic ON ig.ic_id = ic.ic_id
-                            INNER JOIN review rv ON r.u_id = rv.u_id
-                            INNER JOIN favorite fv ON r.r_id = fv.r_id
-                            INNER JOIN recipe_ingr ri ON r.r_id = ri.r_id""";
+    recipe_selectall = """SELECT * FROM recipe
+                                    WHERE r_id = %d"""
 
+    # 레시피 리뷰
     review = """SELECT r.rc_id, r.r_name, rv.* FROM recipe AS r
-                            INNER JOIN review rv ON r.u_id = rv.u_id"""
+                                INNER JOIN review rv ON r.u_id = rv.u_id
+                                WHERE r.r_id=%d"""
+
+    # 레시피 식재료
+    ingr = """SELECT re.*, ig.i_name, r.rc_id, r.r_name, r.r_regdate, r.r_cooktime, r.r_view, r.r_recommend, rc.rc_name from recipe_ingr as re
+                    INNER JOIN ingr ig ON re.i_id = ig.i_id
+                    INNER JOIN recipe r ON re.r_id = r.r_id
+                    INNER JOIN recipe_ct rc ON rc.rc_id = r.rc_id
+                    WHERE re.r_id=%d"""
+
+    # JSON
+    json = """SELECT p.id, p.img, r.r_image1 FROM productdb p
+                  INNER JOIN recipe r ON p.id = r.r_id
+                  WHERE p.id=%d"""
+    json1 = """SELECT JSON_VALUE(img,"$.'%s'") FROM productdb"""
 
     # userlist = "SELECT * FROM users";
     # userlistone = "SELECT * FROM users WHERE id='%s'";
@@ -34,8 +44,10 @@ class Sql:
     recipe_rid = """select r.*, ifnull(AVG(re.r_num),0), count(re.r_id) from recipe as r
 	                LEFT OUTER JOIN review re ON r.r_id = re.r_id where r.r_id=%d group by re.r_id;"""
 
+    select_f_with_u = "select * from favorite where u_id = '%s';"
 
-
+    insert_fav = "INSERT INTO favorite VALUE ('%s',%d);"
+    delete_fav = "DELETE FROM favorite WHERE u_id='%s' AND r_id=%d";
 
     # 현재 로그인한 사용자가 가지고 있는 식재료를 전부 가져오는 쿼리문
     # recipe.html의 위쪽에 ㅇㅇ님이 가진 식재료 고르기 영역에 ㅇㅇ이 가지고 있는 식재료를 뿌려주기 위해 사용된다
@@ -56,5 +68,8 @@ class Sql:
                         INNER JOIN recipe r ON re.r_id = r.r_id
                     where re.i_id=%d;"""
 
+    insert_recent = "INSERT INTO recent VALUE ('%s',%d, NOW());"
+
+    update_r_view = "UPDATE recipe SET r_view = r_view + 1 WHERE r_id=%d;"
     # =====================================================우림코드=============================================
 

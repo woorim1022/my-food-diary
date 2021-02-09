@@ -1,6 +1,6 @@
 from frame.recipeapp.recipeapp_db import Db
 from frame.recipeapp.recipeapp_sql import Sql
-from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review, Recipe_review
+from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review, Recipe_review, Favorite, Ingr
 
 
 # from recipeapp.views import recipe
@@ -10,10 +10,10 @@ from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredien
 # ================================================송현님 코드==========================================
 
 class ReviewDb(Db):
-    def select(self):
+    def select(self, r_id):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.review);
+        cursor.execute(Sql.review % (r_id));
         result = cursor.fetchall();
         all = [];
         for u in result:
@@ -22,46 +22,36 @@ class ReviewDb(Db):
         super().close(conn,cursor);
         return all;
 
-# 레시피디테일 이렇게...... 레시피디테일 for문 제거하기
-    # def selectone(self,id):
-    #     conn = super().getConnection();
-    #     cursor = conn.cursor();
-    #     cursor.execute(Sql.userlistone % id );
-    #     u = cursor.fetchone();
-    #     user = User(u[0],u[1],u[2]);
-    #     super().close(conn, cursor);
-    #     return user;
 
-# # recipe Test Function ..........
-# def recipe_test():
-#     recipe_test = RecipeDb().select();
-#     for u in recipe_test:
-#         print(u);
-#
-# if __name__ == '__main__':
-#      recipe_test();
-
-
-
-
-
-
+class IngrDb(Db):
+    def select(self, r_id):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ingr % (r_id));
+        result = cursor.fetchall();
+        all = [];
+        for r in result:
+            ingr = Ingr(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9]);
+            all.append(ingr);
+        super().close(conn, cursor);
+        return all;
 
 
 
 class RecipeDb(Db):
-    def select(self):
+    def selectall2(self,r_id):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.recipe);
+        cursor.execute(Sql.recipe_selectall % (r_id));
         result = cursor.fetchall();
         all = [];
         for u in result:
-            recipe = Recipe(u[0], u[1], u[2], u[3], u[4], u[5], u[6], u[7], u[8], u[9], u[10], u[11], u[12], u[13],
-                            u[14], u[15], u[16], u[17], u[18], u[19], u[20]);
-            all.append(recipe);
+            user_ingr = Recipe(u[0], u[1], u[2], u[3], u[4], u[5],u[6],u[7],u[8],u[9],u[10],u[11]);
+            all.append(user_ingr);
         super().close(conn, cursor);
         return all;
+
+
 
 # ===============================송현님 코드========================================================
 # ===============================송현님 코드========================================================
@@ -75,7 +65,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17]);
+            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13]);
             all.append(recipe);
         super().close(conn,cursor);
         return all;
@@ -88,7 +78,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for r in result:
-            recipe = Recipe_woorim(r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15],r[16],r[17],r[18]);
+            recipe = Recipe_woorim(r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14]);
             all.append(recipe);
         super().close(conn, cursor);
         return all;
@@ -100,10 +90,69 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13],u[14],u[15],u[16],u[17]);
+            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13]);
             all.append(recipe);
         super().close(conn,cursor);
         return all;
+
+    def select_f_with_u(self, u_id):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.select_f_with_u % (u_id));
+        result = cursor.fetchall();
+        all = [];
+        for f in result:
+            all.append(f[1]);
+        super().close(conn, cursor);
+        return all;
+
+    def insert_fav(self, u_id, r_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.insert_fav % (u_id, r_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+    def delete_fav(self, u_id, r_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.delete_fav % (u_id, r_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+    def insert_recent(self, u_id, r_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.insert_recent % (u_id, r_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+    def update_r_view(self, r_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.update_r_view % (r_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
 
 
 class IngredientDb(Db):
@@ -153,9 +202,8 @@ class IngredientDb(Db):
 # =============================송현님 코드======================================================
 # =============================송현님 코드======================================================
 def review_test():
-    review_test = IngredientDb().selectall();
-    for u in review_test:
-        print(u);
+    # RecipeDb().insert_fav('id01', 1);
+    RecipeDb().update_r_view(1);
 
 if __name__ == '__main__':
      review_test();

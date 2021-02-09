@@ -4,13 +4,20 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.utils.http import urlencode
 
-from frame.mainapp.mainapp_userdb import UserDb, RecipeDb
+from frame.mainapp.mainapp_userdb import UserDb, RecipeDb, ReviewDb
 
 
 def main(request):
     allrecipes = RecipeDb().select()
+    reviews = ReviewDb().select_review()
+    recent = None
+    if 'suser' in request.session:
+        if request.session['suser']:
+            recent = RecipeDb().select_recent(request.session['suser'])
     context = {
-        'allrecipes': allrecipes
+        'allrecipes': allrecipes,
+        'recent':recent,
+        'reviews':reviews
     };
     return render(request, 'mainapp/main.html', context)
 
@@ -27,6 +34,13 @@ def useraddimpl(request):
     u_name = request.POST['u_name']
     u_age = request.POST['u_age']
     allrecipes = RecipeDb().select()
+    reviews = ReviewDb().select_review()
+    recent = None
+
+
+    if 'suser' in request.session:
+        if request.session['suser']:
+            recent = RecipeDb().select_recent(request.session['suser'])
 
     if u_pwd_1 != u_pwd_2:
         context = {
@@ -45,7 +59,9 @@ def useraddimpl(request):
             'login': 'success',
             'message': '회원가입 완료',
             'nickname' : u_nick,
-            'allrecipes': allrecipes
+            'allrecipes': allrecipes,
+            'reviews':reviews,
+            'recent':recent
         };
         request.session['suser'] = u_id
         request.session['snickname'] = u_nick
@@ -87,17 +103,25 @@ def loginimpl(request):
     id = request.POST['id']
     pwd = request.POST['pwd']
     allrecipes = RecipeDb().select()
+    reviews = ReviewDb().select_review()
+    recent = None
+
     try:
         user = UserDb().selectid(id);
         # 비밀번호가 일치하는 경우, 로그인 성공한 경우
         if pwd == user.u_pwd:
             request.session['suser'] = id
             request.session['snickname'] = user.u_nick
+            if 'suser' in request.session:
+                if request.session['suser']:
+                    recent = RecipeDb().select_recent(request.session['suser'])
             context = {
                 'login':'success',
                 'message': '로그인 완료',
                 'nickname': user.u_nick,
-                'allrecipes': allrecipes
+                'allrecipes': allrecipes,
+                'reviews': reviews,
+                'recent': recent
             };
         else:
             raise Exception
@@ -106,13 +130,11 @@ def loginimpl(request):
         context = {
             'login':'fail',
             'message': '로그인 실패',
-            'allrecipes':allrecipes
+            'allrecipes':allrecipes,
+            'reviews': reviews,
+            'recent': recent
         };
-    #     qstr = urlencode({'conttomain': context})
-    #     return HttpResponseRedirect('%s?%s' % ('login', qstr))
         return render(request, 'mainapp/main.html', context)
-    # qstr = urlencode({'conttomain': context})
-    # return HttpResponseRedirect('%s?%s' % ('', qstr))
     return render(request, 'mainapp/main.html', context)
 
 
