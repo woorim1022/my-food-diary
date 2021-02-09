@@ -31,27 +31,24 @@
       <div class="container">
 
         <div class="section-title">
-          {% for r in recipe_detail %}
+          {% for r in ingr %}
           <h2>{{r.name}} <span>{{r.r_name}}</span></h2>
-          {% endfor %}<p>레시피 카테고리 아직 안넣음</p>
+          <p>{{r.rc_name}}</p>{% endfor %}
         </div>
 
         <div class="row">
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                {% for r in recipe_detail %}
-                <a class="nav-link active show" data-toggle="tab" href="#tab-1">{{r.r_name}}</a>
+                {% for r in ingr %}
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1">{{r.r_name}} 레시피</a>
                 {% endfor %}
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-2">2.조리방법</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-2">조리방법</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-3">3.별점 및 리뷰</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab-4">4.추천 유튜브 영상</a>
+                <a class="nav-link" data-toggle="tab" href="#tab-3">평가 및 리뷰</a>
               </li>
             </ul>
           </div>
@@ -61,7 +58,7 @@
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <p class="font-italic">
-                    {% for r in recipe_detail %}
+                    {% for r in ingr %}
                     <div>
                     작성일: {{r.r_regdate}}<br>
                     조회수: {{r.r_view}}  추천수: {{r.r_recommend}}
@@ -71,54 +68,74 @@
                     <img src="static/assets/img/specials-1.jpg" alt="" class="img-fluid">
                     </div>
                     <p class="font-italic">
-                    {% for r in recipe_detail %}
+                    {% for r in ingr %}
                     <div>조리시간: {{r.r_cooktime}}분<br>
-                         재료 recipe_ingr 테이블에서 {{ri.r_id}}, {{ri.i_id}}??? 아님 {{r.r_id}}, {{r.i_id}}?<br>
-                    </div>{% endfor %}
+                         <input type="hidden" method="post" name="r_id" value="r_id">
+                         재료: {{r.i_name}}<br>{% endfor %}
+
+
+
+                    </div>
                     </p>
                   </div>
                 </div>
               </div>
 
-
+              {% for r in ingr %}
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>조리방법</h3>
                     <div class="col-lg-6 text-center order-1 order-lg-2">
-                    <img src="static/assets/img/specials-2.jpg" alt="" class="img-fluid"> 가로로 사진 넣는법? <img src="static/assets/img/specials-2.jpg" alt="" class="img-fluid">
-                    </div>{% for r in recipe_detail %}
+                    {% endfor %}
+                        {{r_dimage.1}}<br>
+                        {{r_detail.1}}<br><br>
+                        {{r_dimage.2}}<br>
+                        {{r_detail.2}}<br><br>
+                        {{r_dimage.3}}<br>
+                        {{r_detail.3}}<br><br>
+                  </div>
                     <p class="font-italic">
-                    {{r.r_detail}}</p>{% endfor %}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              {% for r in review %} #selectone으로 class만든건 for문 나중에 지우기.....!!!!
+              {% for r in review %}
               <div class="tab-pane" id="tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>리뷰</h3>
                     <p class="font-italic">
-                      <div>별점: ★{{r.r_num}}<br>
-                           리뷰: {{r.rv_review}} 작성일:{{r.rv_regdate}}</div></p>
-                    </p>
-                  </div>
-                  <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="static/assets/img/specials-3.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-              </div>{% endfor %}
-
-
-              {% for r in recipe_detail %}
-              <div class="tab-pane" id="tab-4">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>유튜브 레시피</h3>
-                    <p class="font-italic">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/bWdIP_gpCL4?controls=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        {{r.r_video}}
+                      <div>
+                           작성자: {{r.u_id}}<br>
+                           작성일:{{r.rv_regdate}}<br>
+                           평점: {{r.r_num}}점
+                            {% if r.r_num == 10.0 %}
+                                <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 9.0 %}
+                                <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 8.0 %}
+                                <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 7.0 %}
+                                <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 6.0 %}
+                                <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 5.0 %}
+                                <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 4.0 %}
+                                <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 3.0 %}
+                                <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 2.0 %}
+                                <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% elif r.r_num > 1.0 %}
+                                <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% else %}
+                                <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                            {% endif %}<br>
+                           리뷰: {{r.rv_review}}<br>
+                           </div></p>
                     </p>
                   </div>
                 </div>
@@ -126,11 +143,7 @@
             </div>
           </div>
         </div>
-
       </div>
     </section><!-- End Specials Section -->
-
-
-
 
 {% endblock %}
