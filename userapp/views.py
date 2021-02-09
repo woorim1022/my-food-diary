@@ -34,10 +34,10 @@ class UserView:
 
     def myrecipereg(request):
         itemlist = PopIngrDb().select();
-        recateglist = RecategDb().select();
+        rcatelist = RecategDb().select();
         context = {
             'itemlist': itemlist,
-            'recateglist':recateglist
+            'rcatelist': rcatelist
         }
         return render(request, 'userapp/myrecipe_reg.html', context)
 

@@ -80,19 +80,19 @@
             <div class="col-lg-3 offset-lg-2 mt-4 mt-lg-4">
                 <div class="box" onclick="location.href='http://127.0.0.1/profile'" style="cursor:pointer">
                     <span>01</span>
-                    <h3><a href="">개인정보 수정</a></h3>
+                    <h3><a href="{% url 'profile' %}">개인정보 수정</a></h3>
                 </div>
             </div>
             <div class="col-lg-3 mt-4 mt-lg-4">
                 <div class="box" onclick="location.href='http://127.0.0.1/myrecipe_reg'" style="cursor:pointer">
                     <span>02</span>
-                    <h3><a href="">마이 레시피 확인 및 수정</a></h3>
+                    <h3><a href="{% url 'myrecipe_reg' %}">마이 레시피 확인 및 수정</a></h3>
                 </div>
             </div>
             <div class="col-lg-3 mt-4 mt-lg-4">
                 <div class="box" onclick="location.href='http://127.0.0.1/ingredient'" style="cursor:pointer">
                     <span>03</span>
-                    <h3><a href="">내 식재료 확인 및 수정</a></h3>
+                    <h3><a href="{% url 'ingredient' %}">그래프</a></h3>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
             <div class="col-lg-3 mt-4 mt-lg-0">
                 <div class="box" onclick="location.href='http://127.0.0.1/review'" style="cursor:pointer">
                     <span>05</span>
-                    <h3><a href="">리뷰 확인</a></h3>
+                    <h3><a href="{% url 'review' %}">리뷰 확인</a></h3>
                 </div>
             </div>
             <div class="col-lg-3 mt-4 mt-lg-0">
