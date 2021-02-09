@@ -48,7 +48,7 @@ class PopIngrDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            item = PopIngr(u[0],u[1])
+            item = PopIngr(u[0],u[1],u[2])
             all.append(item)
         super().close(conn, cursor);
         return all;
@@ -66,6 +66,28 @@ class RecategDb(Db):
         super().close(conn, cursor);
         return all;
 
+    def supselect(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.supcselect);
+        result = cursor.fetchall();
+        all = [];
+        for i in result:
+            all.append(i[1]);
+        super().close(conn, cursor);
+        return all;
+
+    def subselect(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.subcselect);
+        result = cursor.fetchall();
+        all = [];
+        for i in result:
+            all.append(i[0]);
+        super().close(conn, cursor);
+        return all;
+
 def select_test():
     result = PopIngrDb().select()
     for i in result:
@@ -76,9 +98,21 @@ def recateg_test():
     for i in result:
         print(i);
 
+def supselect_test():
+    result = RecategDb().supselect()
+    for i in result:
+        print(i)
+
+def subselect_test():
+    result = RecategDb().subselect()
+    for i in result:
+        print(i);
+
 if __name__ == '__main__':
     select_test();
     recateg_test();
+    supselect_test();
+    subselect_test();
 # def nickselect_test():
 #     for n in UserDb().nickselect():
 #         print(n);

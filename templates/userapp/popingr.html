@@ -7,10 +7,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 <script>
+    function insertIngr(){
+            var reingr = document.getElementById("value").value;
+            var itemnum = document.getElementById("ingrnum").value;
+            var itdemde = $('#ingrde').val();
+            var ingrlist = reingr+" : "+itemnum+itdemde+'<br />';
+
+            var insrtingr = window.opener.document.getElementById('recipeingr');
+            var insrtvalue = insrtingr.value;
+            var selectPos = insrtingr.selectionStart;
+            var beforeTxt = insrtvalue.substring(0, selectPos);
+            var afterTxt = insrtvalue.substring(insrtingr.selectionEnd,insrtvalue.length);
+
+            insrtingr.value = beforeTxt + ingrlist + afterTxt;
+
+            selectPos = selectPos + ingrlist.length;
+            insrtingr.selectionStart = selectPos;
+            insrtingr.selectionEnd = selectPos;
+            $('#recipeingr').focus();
+            window.close();
+    };
     $(document).ready(function(){
-        $('#inval').click(function(){
-            window.opener.document.getElementById('pInput').value = document.getElementById("value").value;
-        });
+
     });
 
 </script>
@@ -37,19 +55,20 @@
       margin-bottom: 8px;
     }
     #footer{
-      background: #ff9933;
+      background: #F7D358;
       overflow: hidden;
       padding: 20px;
       text-align: center;
     }
     #value{
       border: none;
-      background: #ffb03b;
+      background: #F7D358;
       padding: 6px;
       font-size: 18px;
       width: 80%;
       border-radius: 6px;
       color: white;
+      text-align: center;
     }
     #value:focus{
       outline: none;
@@ -80,9 +99,16 @@
       font-weight: 470;
       color: #333;
     }
-    .ingr-input{
-        width: 90%;
-        margin: 10px auto;
+    #inval{
+        cursor:pointer;
+        background: #ffb03b;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    #inval:hover{
+        background: #ffa012;
     }
 </style>
 <script>
@@ -107,7 +133,7 @@
     <div class="searchbox">
         <div class="header">
             <h1>Search</h1>
-            <input onkeyup="filter()" type="text" id="value" placeholder="식재료 이름을 입력하세요">
+            <input onkeyup="filter()" type="text" id="value" class="recingr" placeholder="식재료 이름을 입력하세요">
         </div>
         <div class="container">
             {% for i in itemlist%}
@@ -118,22 +144,16 @@
             {% endfor %}
         </div>
     </div>
-    <div class="ingr-input">
+    <div class="container">
         <div id="footer" class="row">
-            <div class="ingrput">
-                <input type="text" placeholder="수량">
+            <div class="class=col-lg-4 col-md-6 form-group mt-3">
+                <input type="number" id="ingrnum" placeholder="수량">
+                <input type="text" id="ingrde" placeholder="단위">
             </div>
-            <div class="ingrput">
-                <input type="text" placeholder="수량">
-            </div>
-            <div class="ingrput">
-                <button id="inval" type="button">식재료 입력</button>
+            <div class="class=col-lg-3 col-md-6 form-group mt-3">
+                <button id="inval" style="border: 2px double" type="button" onclick="insertIngr()">식재료 입력</button>
             </div>
         </div>
     </div>
-
-    <input type="text" id="cInput" name="itn" value="" placeholder="재료 이름을 입력하세요">
-
-    <button id="clpop" type="button" onclick="window.close();">검색 창 닫기</button>
 </body>
 </html>
