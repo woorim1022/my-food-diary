@@ -6,32 +6,7 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
-<script>
-    function insertIngr(){
-            var reingr = document.getElementById("value").value;
-            var itemnum = document.getElementById("ingrnum").value;
-            var itdemde = $('#ingrde').val();
-            var ingrlist = reingr+" : "+itemnum+itdemde+'<br />';
 
-            var insrtingr = window.opener.document.getElementById('recipeingr');
-            var insrtvalue = insrtingr.value;
-            var selectPos = insrtingr.selectionStart;
-            var beforeTxt = insrtvalue.substring(0, selectPos);
-            var afterTxt = insrtvalue.substring(insrtingr.selectionEnd,insrtvalue.length);
-
-            insrtingr.value = beforeTxt + ingrlist + afterTxt;
-
-            selectPos = selectPos + ingrlist.length;
-            insrtingr.selectionStart = selectPos;
-            insrtingr.selectionEnd = selectPos;
-            $('#recipeingr').focus();
-            window.close();
-    };
-    $(document).ready(function(){
-
-    });
-
-</script>
 <style>
     body{
       margin: 0;
@@ -83,7 +58,7 @@
       align-items: center;
     }
     .icon{
-      width: 100px;
+      width: 135px;
       height: 25px;
       background: #ff9900;
       color: #fff;
@@ -146,12 +121,8 @@
     </div>
     <div class="container">
         <div id="footer" class="row">
-            <div class="class=col-lg-4 col-md-6 form-group mt-3">
-                <input type="number" id="ingrnum" placeholder="수량">
-                <input type="text" id="ingrde" placeholder="단위">
-            </div>
             <div class="class=col-lg-3 col-md-6 form-group mt-3">
-                <button id="inval" style="border: 2px double" type="button" onclick="insertIngr()">식재료 입력</button>
+                <button id="inval" style="border: 2px double; font-size:100%; font-weight:700;" type="button" onclick="window.close()">검색 창 닫기</button>
             </div>
         </div>
     </div>
