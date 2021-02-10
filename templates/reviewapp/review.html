@@ -62,14 +62,14 @@
       <div class="container-fluid">
         {% for rv in review %}
         <div class="row">
-          <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("static/assets/img/reviewapp/food1.jpg"); cursor: pointer;'onclick="location.href='http://127.0.0.1/recipe_detail';">
+          <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("{{rv.r_mimage}}"); cursor: pointer;'onclick="location.href='http://127.0.0.1/recipe_detail?r_id={{rv.r_id}}';">
           </div>
 
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
 
             <div class="content">
               <h3 id="title"><strong>{{rv.r_name}}</strong></h3>
-                <a id="recipeclick" href="{% url 'recipe_detail' %}">레시피 바로가기</a>
+                <a id="recipeclick" href="{% url 'recipe_detail' %}?r_id={{ rv.r_id }}">레시피 바로가기</a>
                 <h5>　</h5>
 
               <ul>
@@ -79,7 +79,7 @@
                 작성일 :　{{rv.rv_regdate}}
               </p>
               <p>
-                {{rv.rv_review}}글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!글이 길어진다!!!
+                {{rv.rv_review}}
               </p>
             </div>
 
