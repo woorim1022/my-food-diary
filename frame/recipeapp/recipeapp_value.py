@@ -19,9 +19,10 @@ class Review:
 
 
 class Ingr:
-    def __init__(self, r_id,i_id,i_name,rc_id,r_name,r_regdate, r_cooktime, r_view, r_recommend, rc_name):
+    def __init__(self, r_id,i_id,ri_q,i_name,rc_id,r_name,r_regdate, r_cooktime, r_view, r_recommend, rc_name):
         self.r_id = r_id;
         self.i_id = i_id;
+        self.ri_q = ri_q;
         self.i_name = i_name;
         self.rc_id = rc_id;
         self.r_name = r_name;
@@ -32,7 +33,7 @@ class Ingr:
         self.rc_name = rc_name;
 
     def __str__(self):
-        return str(self.r_id) + ' ' +str(self.i_id) + ' ' + \
+        return str(self.r_id) + ' ' + str(self.i_id) + ' ' + self.ri_q + ' ' + \
                self.i_name + ' ' + self.rc_id + ' ' + self.r_name +' ' + \
                str(self.r_regdate) + ' ' + str(self.r_cooktime) + ' ' + str(self.r_view) + ' ' + \
                str(self.r_recommend) + ' ' + self.rc_name + ' ';
