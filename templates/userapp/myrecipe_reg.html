@@ -5,6 +5,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 <style>
+    li{
+        list-style:none;
+    }
     .section-title {
         margin-top: 125px;
     }
@@ -53,6 +56,29 @@
     select:focus{
         outline:none;
     }
+    .btnAdd{
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    .btnAdd:hover{
+        background: #ffa012;
+    }
+    .btnRemove{
+        margin-top: 2px;
+        background: #ffb03b;
+        border: 0;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
+    .btnRemove:hover{
+        background: #ffa012;
+    }
 </style>
 <script>
     $(document).ready(function(){
@@ -64,19 +90,135 @@
 <script>
     $(function(){
         $('#pic0').on('change', function(){
-            readURL(this);
+            readURLm(this);
         });
     });
-    function readURL(input){
+    function readURLm(input){
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#mainimg-section').attr('src',e.target.result);
+                $('#msection').attr('src',e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $(function(){
+        $('#pic1').on('change', function(){
+            readURLs1(this);
+        });
+    });
+    function readURLs1(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection1').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function(){
+        $('#pic2').on('change', function(){
+            readURLs2(this);
+        });
+    });
+    function readURLs2(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection2').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function(){
+        $('#pic3').on('change', function(){
+            readURLs3(this);
+        });
+    });
+    function readURLs3(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection3').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function(){
+        $('#pic4').on('change', function(){
+            readURLs4(this);
+        });
+    });
+    function readURLs4(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection4').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function(){
+        $('#pic5').on('change', function(){
+            readURLs5(this);
+        });
+    });
+    function readURLs5(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection5').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function(){
+        $('#pic6').on('change', function(){
+            readURLs6(this);
+        });
+    });
+    function readURLs6(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ssection6').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('.btnAdd').click(function(){
+            $('#ingrlist').append(
+                `<li class="inputarea">\n
+                    <input type="text" class="iname" name="iname1" placeholder="식재료 이름">\n
+                    <input type="text" class="iamt" name="iamt1" placeholder="단위">\n
+                    <input type="button" class="btnRemove" value="삭제">\n
+                </li>`
+            );
+            var cnt = $('li').length-12;
+            var cname = 'iname'+cnt;
+            var camt = 'iamt'+cnt;
+            $('.iname').eq(cnt-1).attr('name',cname);
+            $('.iamt').eq(cnt-1).attr('name',camt);
+            $('input[name="cnt"]').val(cnt);
+            $('.btnRemove').click(function(){
+                $(this).prev().remove();
+                $(this).prev().remove();
+                $(this).prev().remove();
+                $(this).next().remove();
+                $(this).remove();
+            });
+        });
+    });
 </script>
 
 <body class="myrecipereg">
@@ -90,11 +232,31 @@
             <form action="#" enctype="multipart/form-data" method="post" runat="server" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;>
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 form-group">
-                        <input type="text"  name="myrectitle" value="" placeholder="나의 레시피 제목" maxlength='19' class="form-control">
+                    <div class="col-lg-8 col-md-6 form-group">
+                        <input type="text"  name="myrtitle" value="" placeholder="나의 레시피 제목을 입력하세요" maxlength='20' class="form-control">
                     </div>
-                    <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-                        <input type="number" name="cooktime" placeholder="조리 시간(분)" class="form-control" value="">
+                    <div class="col-lg-4 col-md-6 form-group" style="display: inline-block; text-align:center; font-weight:700;">
+                        <label><input type="radio" name="public" value="1">나의 레시피 공개</label><br>
+                        <label><input type="radio" name="public" value="0">나의 레시피 비공개</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-6 form-group mt-3 mt-md-0">
+                        <label style="font-size:150%; font-weight:700; color:#5f5950" for="rcid">
+                            나의 레시피<span style="color:#ffb03b"> 조리 시간</span>은
+                        </label>
+                        <select id="cooktime" name="ctime" class="ingrname">
+                            <option value="">-- 선택하세요 --</option>
+                            <option value="1">5분 이내</option>
+                            <option value="2">10분 이내</option>
+                            <option value="3">15분 이내</option>
+                            <option value="4">20분 이내</option>
+                            <option value="5">30분 이내</option>
+                            <option value="6">60분 이내</option>
+                            <option value="7">90분 이내</option>
+                            <option value="8">2시간 미만</option>
+                            <option value="9">2시간 이상</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -104,58 +266,103 @@
                         </label>
                         <select id="rcid" name="rcategory" class="ingrname">
                             <option value="">-- 선택하세요 --</option>
-                            {% for r in rcatelist %}
-                            <option value="{{r.rc_id}}">{{r.rcp_name}} >> {{r.rc_name}}</option>
-                            {% endfor %}
+                            <option value="1">메인 요리</option>
+                            <option value="2">밑반찬</option>
+                            <option value="3">한식</option>
+                            <option value="4">양식</option>
+                            <option value="5">일식</option>
+                            <option value="6">중식</option>
+                            <option value="7">동남아식</option>
+                            <option value="8">베이킹</option>
+                            <option value="9">기타</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 form-group mt-3">
-                        <textarea id="recipeingr" style="resize : both;"></textarea>
-                    </div>
-                    <div class="col-lg-3 col-md-6 form-group mt-3">
-                        <button id="popingr" class="ingrname" type="button">식재료 등록</button>
+                    <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;">
+                        <label class="input-file-button" for="pic0">메인 사진</label>
+                        <img id="msection" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <input type="file" id="pic0" name="img0" style="display: none;" class="pic" />
                     </div>
                 </div>
-                <div class="row" style="width:100%; text-align: center;">
-                    <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block;">
-                        <label class="input-file-button" for="pic0">메인 사진</label>
-                        <input type="file" id="pic0" name="img0" style="display: none;" class="pic" />
-                        <img id="mainimg-section" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 form-group mt-3" style="display: inline-block; text-align:center; font-size:150%; font-weight:700;">
+                        나의 레시피 <span id="instr" style="color:#ffb03b;"> 식재료는</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 form-group mt-3" id="ingrlist" style="display: inline-block; text-align:center;">
+                        <li class="inputarea">
+                            <input type="hidden" id="cnt" name="cnt" value="">
+                            <input type="text" class="iname" name="iname1" placeholder="식재료 이름">
+                            <input type="text" class="iamt" name="iamt1" placeholder="단위">
+                            <input type="button" class="btnAdd" value="추가">
+                        </li>
+                    </div>
+                    <div class="col-lg-3 col-md-6 form-group mt-3">
+                        <button id="popingr" class="ingrname" type="button">식재료 검색</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
                         <label class="input-file-button" for="pic1">순서 1</label>
-                        <input type="file" id="pic1" name="img01" style="display: none;" class="pic">
+                        <input type="file" id="pic1" name="img01" style="display: none;" class="pic" />
+                        <img id="ssection1" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
-                    <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic1">순서 2</label>
-                        <input type="file" id="pic2" name="img02" style="display: none;" class="pic">
-                    </div>
-                    <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic1">순서 3</label>
-                        <input type="file" id="pic3" name="img03" style="display: none;" class="pic">
-                    </div>
-                    <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic1">순서 4</label>
-                        <input type="file" id="pic4" name="img04" style="display: none;" class="pic">
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetail1"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-md-6 form-group">
-                        <textarea id="myrecdetail"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                    <div class="col-lg-4 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic2">순서 2</label>
+                        <input type="file" id="pic2" name="img02" style="display: none;" class="pic" />
+                        <img id="ssection2" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetai2"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 form-group">
-                        <label><input type="radio" name="public" value="1">나의 레시피 공개</label><br>
-                        <label><input type="radio" name="public" value="0">나의 레시피 비공개</label>
+                    <div class="col-lg-4 col-md-6 form-group mt-3">
+                        <label class="input-file-button" for="pic3">순서 3</label>
+                        <input type="file" id="pic3" name="img03" style="display: none;" class="pic" />
+                        <img id="ssection3" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetail3"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 form-group mt-4">
+                        <label class="input-file-button" for="pic4">순서 4</label>
+                        <input type="file" id="pic4" name="img04" style="display: none;" class="pic" />
+                        <img id="ssection4" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetail4"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 form-group mt-4">
+                        <label class="input-file-button" for="pic5">순서 5</label>
+                        <input type="file" id="pic5" name="img05" style="display: none;" class="pic" />
+                        <img id="ssection5" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetail5"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 form-group mt-4">
+                        <label class="input-file-button" for="pic6">순서 6</label>
+                        <input type="file" id="pic6" name="img06" style="display: none;" class="pic" />
+                        <img id="ssection6" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                    </div>
+                    <div class="col-lg-8 col-md-6 form-group mt-3">
+                        <textarea id="myrecdetail6"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
                     </div>
                 </div>
                 <div class="text-center">
-                        <button type="submit">나의 레시피 등록하기</button>
+                    <button type="submit">나의 레시피 등록하기</button>
                 </div>
             </form>
         </div>
