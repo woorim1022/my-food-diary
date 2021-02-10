@@ -3,7 +3,7 @@ class Sql:
     selectid = "SELECT * FROM users WHERE u_id='%s'";
     selectnick = "SELECT * FROM users WHERE u_nick='%s'";
     userinsert = "INSERT INTO users VALUE ('%s','%s','%s','%s',%d)";
-    selectallrecipe = "select * from recipe;";
+    selectallrecipe = "select * from recipe ORDER BY RAND() LIMIT 8;";
 
     select_recent = """select re.re_regdate as visittime, r.* from recent as re
                         inner JOIN recipe r ON re.r_id = r.r_id
