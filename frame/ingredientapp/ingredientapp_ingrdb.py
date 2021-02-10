@@ -56,15 +56,6 @@ class User_IngrDb(Db):
             super().close(conn, cursor);
 
 
-    def select_id(self,i_name):
-        conn = super().getConnection();
-        cursor = conn.cursor();
-        cursor.execute(Sql.ingr_id % i_name);
-        u = cursor.fetchone();
-        ingr_id = Ingr_Id(u[0]);
-        super().close(conn,cursor);
-        return ingr_id;
-
 class IngrDb(Db):
     def select_i_name(self):
         conn = super().getConnection();
@@ -77,6 +68,15 @@ class IngrDb(Db):
             all.append(ingr);
         super().close(conn,cursor);
         return all;
+
+    def select_id(self,i_name):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ingr_id % i_name);
+        u = cursor.fetchone();
+        ingr_id = Ingr_Id(u[0]);
+        super().close(conn,cursor);
+        return ingr_id;
 
 #
 # class Ingr_ctDb(Db):

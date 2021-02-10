@@ -85,7 +85,7 @@ def ingredient_reg(request):
 def ingredient_regimpl(request):
     u_id = request.session['suser']
     i_name = request.POST['i_name']
-    i_id = User_IngrDb().select_id(i_name) #식재료 이름으로 식재료 아이디값 찾기 클래스 형태이므로 i_id.i_id로 불러내야함
+    i_id = IngrDb().select_id(i_name) #식재료 이름으로 식재료 아이디값 찾기 클래스 형태이므로 i_id.i_id로 불러내야함
     ui_exdate = request.POST['ui_exdate']
     ui_regdate = date.today()
     try:
