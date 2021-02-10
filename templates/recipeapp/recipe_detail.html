@@ -30,18 +30,14 @@
       <div class="container">
 
         <div class="section-title">
-          {% for r in ingr %}
-          <h2>{{r.name}} <span>{{r.r_name}}</span></h2>
-          <p>{{r.rc_name}}</p>{% endfor %}
+          <h2><span>{{r_name}}</span><br></h2>
+          <p>{{rc_name}}</p>
         </div>
-
         <div class="row">
           <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
+              <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                {% for r in ingr %}
-                <a class="nav-link active show" data-toggle="tab" href="#tab-1">{{r.r_name}} 레시피</a>
-                {% endfor %}
+                <a class="nav-link active show" data-toggle="tab" href="#tab-1">레시피 정보</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#tab-2">조리방법</a>
@@ -57,56 +53,56 @@
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <p class="font-italic">
-                    {% for r in ingr %}
-                    <div>
-                    작성일: {{r.r_regdate}}<br>
-                    조회수: {{r.r_view}}  추천수: {{r.r_recommend}}
-                    </div>{% endfor %}
+                      <div>
+                        작성일: {{r_regdate}}<br>
+                        조회수: {{r_view}}  추천수: {{r_recommend}}<br><br>
+                        {% for r in recipe_detail %}
+                        <img src="{{r.r_mimage}}" alt="" class="img-fluid"><br>
+                        {% endfor %}
+
+                      </div>
                     </p>
                     <div class="col-lg-8 text-center order-1 order-lg-2">
-                    <img src="static/assets/img/specials-1.jpg" alt="" class="img-fluid">
                     </div>
                     <p class="font-italic">
-                    {% for r in ingr %}
-                    <div>조리시간: {{r.r_cooktime}}분<br>
+                    <div>조리시간: {{r_cooktime}}분 <br><br>
                          <input type="hidden" method="post" name="r_id" value="r_id">
-                         재료: {{r.i_name}}<br>{% endfor %}
-
-
-
+                         재료:<br>
+                         {% for r in ingr %}
+                         {{r.i_name}} {{r.ri_q}}<br>{% endfor %}<br>
                     </div>
                     </p>
                   </div>
                 </div>
               </div>
 
-              {% for r in ingr %}
+
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>조리방법</h3>
-                    <div class="col-lg-6 text-center order-1 order-lg-2">
-                    {% endfor %}
-                        {{r_dimage.1}}<br>
+                    <div class="col-lg-8 text-center order-1 order-lg-2">
+                        <img src="{{r_dimage.1}}"><br><br>
                         {{r_detail.1}}<br><br>
-                        {{r_dimage.2}}<br>
+                        <img src="{{r_dimage.2}}"><br><br>
                         {{r_detail.2}}<br><br>
-                        {{r_dimage.3}}<br>
+                        <img src="{{r_dimage.3}}"><br><br>
                         {{r_detail.3}}<br><br>
-                  </div>
+                    </div>
                     <p class="font-italic">
                     </p>
                   </div>
                 </div>
               </div>
 
-              {% for r in review %}
+
               <div class="tab-pane" id="tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>리뷰</h3>
                     <p class="font-italic">
                       <div>
+                           {% for r in review %}
                            작성자: {{r.u_id}}<br>
                            작성일:{{r.rv_regdate}}<br>
                            평점: {{r.r_num}}점
@@ -133,12 +129,14 @@
                             {% else %}
                                 <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
                             {% endif %}<br>
-                           리뷰: {{r.rv_review}}<br>
+
+
+                            리뷰: {{r.rv_review}}<br><br>{% endfor %}<br>
                            </div></p>
                     </p>
                   </div>
                 </div>
-              </div>{% endfor %}
+              </div>
             </div>
           </div>
         </div>

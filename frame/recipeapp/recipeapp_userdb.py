@@ -31,7 +31,7 @@ class IngrDb(Db):
         result = cursor.fetchall();
         all = [];
         for r in result:
-            ingr = Ingr(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9]);
+            ingr = Ingr(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10]);
             all.append(ingr);
         super().close(conn, cursor);
         return all;
@@ -58,10 +58,10 @@ class RecipeDb(Db):
 
 # ================================================우림코드===================================================
 # ====================================================================================================================
-    def selectall(self):
+    def selectall(self, num):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.recipeall);
+        cursor.execute(Sql.recipeall % (num));
         result = cursor.fetchall();
         all = [];
         for u in result:
@@ -70,6 +70,16 @@ class RecipeDb(Db):
         super().close(conn,cursor);
         return all;
 
+    def recipepage(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.recipe_page);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            all= u[0];
+        super().close(conn, cursor);
+        return all;
 
     def select_recipe_with_ingr(self, i_id):
         conn = super().getConnection();
@@ -78,15 +88,17 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for r in result:
-            recipe = Recipe_woorim(r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14]);
+            recipe = Recipe_woorim(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[0],r[11]);
             all.append(recipe);
         super().close(conn, cursor);
         return all;
 
-    def select_with_r_id(self, r_id):
+    def select_with_r_id(self, r_id_list, num):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.recipe_rid % (r_id));
+        # r_id 를 리스트로 받아와서 map으로 모양 맞춰서 sql 에 포맷에 넣
+        format_strings = ",".join( map(str, r_id_list) )
+        cursor.execute(Sql.recipe_rid % (format_strings, num));
         result = cursor.fetchall();
         all = [];
         for u in result:
@@ -187,23 +199,11 @@ class IngredientDb(Db):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # =============================송현님 코드======================================================
 # =============================송현님 코드======================================================
 def review_test():
     # RecipeDb().insert_fav('id01', 1);
-    RecipeDb().update_r_view(1);
+    RecipeDb().select_with_r_id([1,2,3,4,5], 20);
 
 if __name__ == '__main__':
      review_test();

@@ -5,8 +5,8 @@ class Sql:
 
     # 레시피 리뷰
     review = """SELECT r.rc_id, r.r_name, rv.* FROM recipe AS r
-                                INNER JOIN review rv ON r.u_id = rv.u_id
-                                WHERE r.r_id=%d"""
+                    INNER JOIN review rv ON r.r_id = rv.r_id
+                    WHERE r.r_id=%d"""
 
     # 레시피 식재료
     ingr = """SELECT re.*, ig.i_name, r.rc_id, r.r_name, r.r_regdate, r.r_cooktime, r.r_view, r.r_recommend, rc.rc_name from recipe_ingr as re
@@ -16,10 +16,10 @@ class Sql:
                     WHERE re.r_id=%d"""
 
     # JSON
-    json = """SELECT p.id, p.img, r.r_image1 FROM productdb p
-                  INNER JOIN recipe r ON p.id = r.r_id
-                  WHERE p.id=%d"""
-    json1 = """SELECT JSON_VALUE(img,"$.'%s'") FROM productdb"""
+    # json = """SELECT p.id, p.img, r.r_image1 FROM productdb p
+    #               INNER JOIN recipe r ON p.id = r.r_id
+    #               WHERE p.id=%d"""
+    # json1 = """SELECT JSON_VALUE(img,"$.'%s'") FROM productdb"""
 
     # userlist = "SELECT * FROM users";
     # userlistone = "SELECT * FROM users WHERE id='%s'";
@@ -39,10 +39,19 @@ class Sql:
     # 현재 디비에 있는 모든 레시피 목록을 가져오는 쿼리문
     # recipe.html에서 레시피 리스트에 레시피를 뿌려주기 위해 사용된다
     recipeall= """select r.*, ifnull(AVG(re.r_num),0), count(r.r_id) from recipe as r
-	                LEFT OUTER JOIN review re ON r.r_id = re.r_id group by r.r_id;"""
+	                LEFT OUTER JOIN review re ON r.r_id = re.r_id group by r.r_id
+                    LIMIT 20
+                	OFFSET %d;"""
+
+
+    recipe_page = "SELECT COUNT(*) DIV 20 FROM recipe;"
 
     recipe_rid = """select r.*, ifnull(AVG(re.r_num),0), count(re.r_id) from recipe as r
-	                LEFT OUTER JOIN review re ON r.r_id = re.r_id where r.r_id=%d group by re.r_id;"""
+	                        LEFT OUTER JOIN review re ON r.r_id = re.r_id 
+	                        where r.r_id IN (%s) group by r.r_id
+	                        LIMIT 20
+                	        OFFSET %d;"""
+
 
     select_f_with_u = "select * from favorite where u_id = '%s';"
 
@@ -63,7 +72,7 @@ class Sql:
                             LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id;"""
 
 
-    recipe_ingr = """select re.*, ig.i_name, r.* from recipe_ingr as re
+    recipe_ingr = """select r.* from recipe_ingr as re
                         INNER JOIN ingr ig ON re.i_id = ig.i_id
                         INNER JOIN recipe r ON re.r_id = r.r_id
                     where re.i_id=%d;"""
