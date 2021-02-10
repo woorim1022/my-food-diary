@@ -6,7 +6,7 @@ class Sql:
     selectallrecipe = "select * from recipe";
 
     #리뷰 데이터 가져오기
-    review = """select rv.*,r.r_name,r.r_image1 from review rv
+    review = """select rv.*,r.r_name,r.r_mimage from review rv
                 INNER JOIN recipe r ON rv.r_id = r.r_id
                 WHERE rv.u_id = '%s'
                 ORDER BY rv_regdate DESC

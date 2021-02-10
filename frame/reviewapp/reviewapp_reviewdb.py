@@ -11,7 +11,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for r in result:
-            recipe = Recipe(r[0], r[1], r[2], r[3], r[4], r[5],r[6],r[7],r[8],r[9],r[10],r[11],r[12],r[13],r[14],r[15]);
+            recipe = Recipe(r[0], r[1], r[2], r[3], r[4], r[5],r[6],r[7],r[8],r[9],r[10],r[11]);
             all.append(recipe);
         super().close(conn, cursor);
         return all;
