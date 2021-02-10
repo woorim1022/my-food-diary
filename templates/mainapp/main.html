@@ -92,7 +92,7 @@
                 <div class="col-lg-3 col-md-4">
                   <div class="gallery-item">
                     <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
-                      <img src="static/img/{{r.r_mimage}}" alt="" class="img-fluid">
+                      <img style="width:370px; height:270px;" src="{{r.r_mimage}}" alt="" class="img-fluid">
                     </a>
                   </div>
                 </div>
@@ -123,12 +123,12 @@
 
               <div class="col-lg-6">
                    <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
-                    <img src="static/img/{{r.r_mimage}}" class="img-fluid" alt="">
+                    <img style="width:550px;height:360px;" src="{{r.r_mimage}}" class="img-fluid" alt="">
                    </a>
               </div>
               <div style="" class="col-lg-6 pt-4 pt-lg-0 content">
                   <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
-                    <h3 style="font-size:30px; margin:20px 0px 0px 0px;">{{r.r_name}}</h3>
+                    <h3 style="font-size:27px; margin:20px 0px 0px 0px;">{{r.r_name}}</h3>
                   </a>
                     <div class="price">
                         <p style="margin:10px 0px 10px 0px;font-size:20px;">작성자 : {{r.rv_u_nick}}</p>

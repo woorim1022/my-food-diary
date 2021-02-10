@@ -16,12 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from myrecipeapp import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('userapp.urls')),
-    path('',include('ingredientapp.urls')),
-    path('',include('mainapp.urls')),
-    path('',include('recipeapp.urls')),
-    path('',include('reviewapp.urls')),
-    path('',include('myrecipeapp.urls')),
+    path('myrecipe',views.myrecipe,name='myrecipe'),
 ]

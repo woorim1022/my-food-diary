@@ -69,7 +69,7 @@
           {% endif %}
             <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
             <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
-            <li><a href="#">나만의 레시피 만들기</a></li>
+            <li><a href="{% url 'myrecipe' %}">나만의 레시피 만들기</a></li>
             <li><a href="{% url 'mypage' %}">마이페이지</a></li>
 
 
@@ -115,7 +115,7 @@
             <div class="col-lg-3 col-md-6">
               <a href="{% url 'recipe_detail' %}?r_id={{r.r_id}}">
               <div class="member">
-                <div style="background-color:white; height:265px;" class="pic"><img src="static/img/{{r.r_mimage}}" class="img-fluid" alt=""></div>
+                <div style="background-color:white; height:265px;" class="pic"><img style="width:370px;height:260px;" src="{{r.r_mimage}}" class="img-fluid" alt=""></div>
                 <div class="member-info">
                   <h4>{{r.r_name}}</h4>
                   <span>조회수 : {{r.r_view}} 추천수: {{r.r_recommend}}</span>

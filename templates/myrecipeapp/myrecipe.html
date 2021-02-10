@@ -30,146 +30,146 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Recipe Page</h2>
+          <h2>My Recipe</h2>
           <ol>
             <li><a href="{% url 'main' %}">Home</a></li>
-            <li>Recipe Page</li>
+            <li>My Recipe</li>
           </ol>
         </div>
 
       </div>
     </section><!-- End Breadcrumbs Section -->
 
-    <script>
-         $(document).ready(function(){
-
-            // 얘를 클릭했을 때
-            $('a[name="fav_add"]').click(function(){
-                //레시피 아이디
-                 r_id = $(this).find('p');
-                // 즐찾추가
-                $.ajax({
-                   url:{% url 'fav_add' %},
-                   data:{'r_id':r_id},
-                   type:'get',
-                   success:function(data){
-                        alert(data);
-                        if(data.trim() == 'ok'){
-                          $('span[name="fav_add"]').text('💗');
-                        }else{};
-                   }
-                });
-            });
 
 
-             // 얘를 클릭했을 때
-            $('a[name="fav_cancel"]').click(function(){
-                //레시피 아이디
-                 r_id = $(this).find('p');
-                // 즐찾취소
-                $.ajax({
-                   url:{% url 'fav_cancel' %},
-                   data:{'r_id':r_id},
-                   type:'get',
-                   success:function(data){
-                        alert(data);
-                        if(data.trim() == '1'){
-                            $('span[name="fav_cancel"]').text('🤍');
-                        }else{};
 
 
-                   }
-                });
-            });
 
 
-        });
-    </script>
+    <!-- ======= Events Section ======= -->
+    <section id="events1" class="events">
+        <div class="container">
 
-<!--============================내가 가진 식재료==================================================-->
-
-<!-- 이 부분은 현재 로그인되어 있는 사용자 한명에 대해서만 출력되어야 하므로 for문 안에 넣으면 안됨-->
-<!--데이터베이스에서 현재 로그인한 사용자가 가지고 있는 식재료를 select 문으로 가져와서 출력해주어야 한다.-->
-<!--( select * from users_ingr where u_id=(현재로그인한사용자의아이디) )-->
-    <!-- ======= Menu Section ======= -->
-    <section style="background-color:#fffaf3; padding:30px 0px 0px 0px;" id="menu" class="menu">
-      <div class="container">
-
-
-<!--  만약 세션의 snickname 라는 key에 value가 존재하면, 즉, 로그인이 되어있으면-->
-<!--  로그인이 되어있는 경우에만 세션에 값들이 저장되어있게 해놓았음 -->
-      {% if request.session.snickname %}
-        <div class="section-title">
-<!--      request.session.snickname : 현재 로그인한 사용자의 닉네임-->
-          <h2>{{request.session.snickname}}님이 가진 <span>식재료 고르기</span></h2>
-        </div>
-<!--  만약 세션의 snickname 라는 key에 value가 존재하지 않으면, 즉, 로그인이 되어있지 않으면-->
-      {% else %}
-        <div class="section-title">
-            <h2><span>식재료 고르기</span></h2>
-        </div>
-      {% endif %}
-
-<!--    버튼 출력하는 영역, 반복될 필요 없음-->
-        <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="menu-flters">
-              <li data-filter="*" class="filter-active">Show All</li>
-              <li data-filter=".filter-close">Close</li>
-            </ul>
+          <div class="section-title">
+            <h2>Organize Your <span>Events</span> in our Restaurant</h2>
           </div>
-        </div>
 
+          <div class="owl-carousel events-carousel">
 
-
-
-      <form action="{% url 'filtering' %}" method="post">
-        {% csrf_token %}
-        <div class="row menu-container">
-    <!--    이 부분이 식재료 표시하는 부분(체크박스랑 식재료 리스트 표시되는 부분) 이므로 여기만 for문을 돌려준다-->
-            <br><br><br><br>
-            <br><br><br><br>
-            {% for ui in ingredients %}
-              <div class="col-lg-4 menu-item filter-active">
-                <div class="menu-content">
-                  <a>
-
-                  {% if ingr_name_user %}
-                    {% if ui.i_name in ingr_name_user %}
-                         <input type='checkbox' checked="checked" name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                    {% else %}
-                         <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                    {% endif %}
-                  {% else %}
-                        <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                  {% endif %}
-                  </a>
-    <!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
-                </div>
-                <div class="menu-ingredients">
-                    {{ui.icp_name}} > {{ui.ic_name}}
-                </div>
+            <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
               </div>
-            {% endfor %}
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Birthday Parties</h3>
+                <div class="price">
+                  <p><span>$189</span></p>
+                </div>
+                <p class="font-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                </ul>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur
+                </p>
+              </div>
+            </div>
+
+
+
+          </div>
+
         </div>
-        <nav class="nav-menu d-none d-lg-block" >
-              <ul>
-                <li class="book-a-table text-center"><button style="margin:40px 0px 0px 481px;border:white; outline:0;" type="submit">레시피 추천받기</button></li>
-              </ul>
-        </nav>
-      </form>
-          <br>
-          <br>
-          <br>
-          <br>
-
-      </div><br>
+      </section><!-- End Events Section -->
 
 
 
 
 
-    </section><!-- End Menu Section -->
+    <!-- ======= Events Section ======= -->
+    <section id="events2" class="events">
+        <div class="container">
+
+          <div class="section-title">
+            <h2>Organize Your <span>Events</span> in our Restaurant</h2>
+          </div>
+
+          <div class="owl-carousel events-carousel">
+
+            <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Birthday Parties</h3>
+                <div class="price">
+                  <p><span>$189</span></p>
+                </div>
+                <p class="font-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                </ul>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur
+                </p>
+              </div>
+            </div>
+
+                    <div class="row event-item">
+              <div class="col-lg-6">
+                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <h3>Birthday Parties</h3>
+                <div class="price">
+                  <p><span>$189</span></p>
+                </div>
+                <p class="font-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                </ul>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </section><!-- End Events Section -->
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--==================================레시피 목록=====================================================-->
     <!-- ======= Gallery Section ======= -->
@@ -180,13 +180,7 @@
           <h2>레시피 <span>목록</span></h2>
           <p>Recipe list</p>
         </div>
-<<<<<<< Updated upstream
-=======
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         <div class="row no-gutters">
 
 <!--    딱 이 부분만 for문 돌려서 한개의 영역 안에 한개의 레시피에 대한 정보가 출력되게끔 해야됨 -->
@@ -199,7 +193,7 @@
                 <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}">
 <!--                <h1>이미지{{r.r_image1}}</h1>-->
 <!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
-                <div style="height:258px"><img style="width:370px;height:260px;" src="{{r.r_mimage}}" alt="" class="img-fluid"></div>
+                <div style="height:258px"><img src="static/img/{{r.r_mimage}}" alt="" class="img-fluid"></div>
                 <br></br>
                 </a>
 
