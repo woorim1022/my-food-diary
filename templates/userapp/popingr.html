@@ -43,7 +43,6 @@
       width: 80%;
       border-radius: 6px;
       color: white;
-      text-align: center;
     }
     #value:focus{
       outline: none;
@@ -85,6 +84,13 @@
     #inval:hover{
         background: #ffa012;
     }
+    li {
+        list-style:none;
+    }
+    .page-link {
+        text-decoration: none;
+        color: #fff;
+    }
 </style>
 <script>
     function filter(){
@@ -104,14 +110,18 @@
         }
       }
 </script>
+<script>
+    hj
+</script>
 <body>
     <div class="searchbox">
         <div class="header">
             <h1>Search</h1>
             <input onkeyup="filter()" type="text" id="value" class="recingr" placeholder="식재료 이름을 입력하세요">
+            <button></button>
         </div>
         <div class="container">
-            {% for i in itemlist%}
+            {% for i in popingr%}
                 <div class="item">
                     <span class="icon">{{i.ic_name}}</span>
                     <span class="name">{{i.i_name}}</span>
@@ -124,6 +134,19 @@
             <div class="class=col-lg-3 col-md-6 form-group mt-3">
                 <button id="inval" style="border: 2px double; font-size:100%; font-weight:700;" type="button" onclick="window.close()">검색 창 닫기</button>
             </div>
+        </div>
+        <div style="text-align:center; background:#ffa012;">
+            <li class="page-review">
+                {% if before %}
+                <a class="page-link" href="?&page={{beforenum}}">이전</a>
+                {% endif %}
+                {% for l in pagelist %}
+                <a class="page-link" href="?&page={{l}}">{{l}}</a>
+                {% endfor %}
+                {% if next %}
+                <a class="page-link" href="?&page={{nextnum}}">다음</a>
+                {% endif %}
+            </li>
         </div>
     </div>
 </body>

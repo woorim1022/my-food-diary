@@ -4,16 +4,36 @@ class Sql:
     userinsert = "INSERT INTO users VALUE ('%s','%s','%s','%s',%d)";
     userupdate = "UPDATE users SET u_nick = '%s', u_pwd = '%s', u_name = '%s', u_age = %d WHERE u_id='%s'"
 
-    ingrselect = """SELECT i.ic_id, c.ic_name, i.i_name 
-                    FROM ingr i INNER JOIN ingr_ct c
-                    ON i.ic_id = c.ic_id"""
+    ingrselect = """SELECT a.i_id, b.ic_name, a.i_name FROM ingr a
+                    INNER JOIN ingr_ct b
+                    ON a.ic_id = b.ic_id
+                    ORDER BY b.ic_id"""
 
-    recategselect = """SELECT a.rc_id,b.rc_name,a.rc_name 
-                        FROM recipe_ct a INNER JOIN recipe_ct b
-                        ON a.rcp_id = b.rc_id"""
+    ingrselectone = """SELECT a.i_id,  b.ic_name, a.i_name FROM ingr a
+                    INNER JOIN ingr_ct b
+                    ON a.ic_id = b.ic_id
+                    WHERE a.i_name LIKE '%s'
+                    ORDER BY b.ic_id"""
 
-    supcselect = """SELECT * FROM recipe_ct
-                    WHERE rcp_id is NULL"""
+    popselect = """SELECT a.i_id, b.ic_name, a.i_name FROM ingr a
+                    INNER JOIN ingr_ct b
+                    ON a.ic_id = b.ic_id
+                    ORDER BY b.ic_id
+                    LIMIT 15
+                    OFFSET %d"""
 
-    subcselect = """SELECT distinct rc_name FROM recipe_ct
-                    WHERE rcp_id is NOT NULL"""
+    poppage = """SELECT COUNT(*) DIV 15 from ingr a
+                    INNER JOIN ingr_ct b
+                    ON a.ic_id = b.ic_id"""
+
+    recipeinsert = """INSERT INTO recipe VALUES (null, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', %d, %d, %d)"""
+
+    ridselect = """SELECT r_id from recipe
+                    WHERE u_id = '%s'
+                    ORDER BY r_regdate DESC
+                    LIMIT 1"""
+
+    iidselect = """SELECT i_id from ingr
+                    WHERE i_name = '%s'"""
+
+    recingrinsert = """INSERT INTO recipe_ingr VALUES (%d, %d, '%s')"""
