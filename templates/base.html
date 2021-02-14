@@ -67,13 +67,17 @@
               <li><a style="color:white;">{{request.session.snickname}}님, 환영합니다</a></li>
               <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
               <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
-              <li><a href="{% url 'myrecipe' %}">나만의 레시피 만들기</a></li>
-              <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+              <li><a href="#">나만의 레시피 만들기</a></li>
+              {% ifequal request.session.suser 'admin' %}
+                <li><a href="{% url 'adminpage' %}">관리페이지</a></li>
+              {% else %}
+                <li><a href="{% url 'mypage' %}">마이페이지</a></li>
+              {% endifequal %}
             {% else %}
-                <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
-                <li><a href="{% url 'login' %}">내 재료 확인하기</a></li>
-                <li><a href="{% url 'login' %}">나만의 레시피 만들기</a></li>
-                <li><a href="{% url 'login' %}">마이페이지</a></li>
+              <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
+              <li><a href="{% url 'login' %}">내 재료 확인하기</a></li>
+              <li><a href="{% url 'login' %}">나만의 레시피 만들기</a></li>
+              <li><a href="{% url 'login' %}">마이페이지</a></li>
             {% endif %}
           {% else %}
               <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
@@ -81,8 +85,6 @@
               <li><a href="{% url 'login' %}">나만의 레시피 만들기</a></li>
               <li><a href="{% url 'login' %}">마이페이지</a></li>
           {% endif %}
-
-
          {% if request.session.suser %}
               <li style="margin:10px -30px 0px 0px; font-family: 'Poppins', sans-serif;" id="button1" class="book-a-table text-center"><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
