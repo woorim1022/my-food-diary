@@ -5,6 +5,7 @@ class Sql:
     recipe_selectall = """SELECT * FROM recipe
                             WHERE r_id = %d"""
     recipe_ingr_insert = """INSERT INTO recipe_ingr VALUE (%d,%d,'%s')"""
+    recipe_update = """UPDATE recipe SET r_detail = '%s' WHERE r_name = '%s'"""
     ingr_insert = """INSERT INTO ingr VALUE (%d,%d,'%s')"""
 
     ingr_select = """SELECT i_name FROM ingr"""

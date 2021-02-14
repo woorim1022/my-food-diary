@@ -1,4 +1,5 @@
 import math
+from ast import literal_eval
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -43,13 +44,14 @@ def recipe_detail(request):
         rc_name = i.rc_name
     for i in recipe:
         r_detail = eval(i.r_detail)
-        r_dimage = eval(i.r_dimage)
+
+    lenth = len(r_detail)+1
     context = {
         'recipe_detail': recipe,
         'review': review,
         'ingr': ingr,
-        'r_dimage': r_dimage,
         'r_detail': r_detail,
+        'lenth' : lenth,
 
         # 'u_id' :u_id,
         # 'rv_regdate' : rv_regdate,

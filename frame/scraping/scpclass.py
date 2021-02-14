@@ -53,15 +53,18 @@ class RecipeDb(Db):
         super().close(conn, cursor);
         return all;
 
-    # def select_rid(self, r_name):
-    #     conn = super().getConnection();
-    #     cursor = conn.cursor();
-    #     cursor.execute(Sql.recipe_select_rid % (r_name));
-    #     result = cursor.fetchall();
-    #     for u in result:
-    #         num =u[0];
-    #     super().close(conn, cursor);
-    #     return num;
+    def update(self,r_detail,r_name):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.recipe_update % (r_detail,r_name,));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
 
 class IngrDb(Db):
     def insert(self,i_id,ic_id,i_name):
