@@ -104,93 +104,93 @@
         }
     }
     $(function(){
-        $('#pic1').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs1(this);
         });
     });
     function readURLs1(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[1]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection1').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[1]);
         }
     }
     $(function(){
-        $('#pic2').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs2(this);
         });
     });
     function readURLs2(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[2]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection2').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[2]);
         }
     }
     $(function(){
-        $('#pic3').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs3(this);
         });
     });
     function readURLs3(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[3]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection3').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[3]);
         }
     }
     $(function(){
-        $('#pic4').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs4(this);
         });
     });
     function readURLs4(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[4]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection4').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[4]);
         }
     }
     $(function(){
-        $('#pic5').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs5(this);
         });
     });
     function readURLs5(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[5]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection5').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[5]);
         }
     }
     $(function(){
-        $('#pic6').on('change', function(){
+        $('#pic0').on('change', function(){
             readURLs6(this);
         });
     });
     function readURLs6(input){
-        if (input.files && input.files[0]) {
+        if (input.files && input.files[6]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $('#ssection6').attr('src',e.target.result);
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(input.files[6]);
         }
     }
 </script>
@@ -226,10 +226,10 @@
         <div class="container">
             <div class="section-title">
                 <h2>
-                    {{request.session.snickname}} 님 레시피 <span>등록하기</span>
+                     레시피 <span>등록하기</span>
                 </h2>
             </div>
-            <form action="#" enctype="multipart/form-data" method="post" runat="server" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;>
+            <form action="{% url 'myrecipeaddimpl' %}" enctype="multipart/form-data" method="post" runat="server" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-lg-8 col-md-6 form-group">
@@ -247,15 +247,15 @@
                         </label>
                         <select id="cooktime" name="ctime" class="ingrname">
                             <option value="">-- 선택하세요 --</option>
-                            <option value="1">5분 이내</option>
-                            <option value="2">10분 이내</option>
-                            <option value="3">15분 이내</option>
-                            <option value="4">20분 이내</option>
-                            <option value="5">30분 이내</option>
-                            <option value="6">60분 이내</option>
-                            <option value="7">90분 이내</option>
-                            <option value="8">2시간 미만</option>
-                            <option value="9">2시간 이상</option>
+                            <option value="5분 이내">5분 이내</option>
+                            <option value="10분 이내">10분 이내</option>
+                            <option value="15분 이내">15분 이내</option>
+                            <option value="20분 이내">20분 이내</option>
+                            <option value="30분 이내">30분 이내</option>
+                            <option value="60분 이내">60분 이내</option>
+                            <option value="90분 이내">90분 이내</option>
+                            <option value="2시간 미만">2시간 미만</option>
+                            <option value="2시간 이상">2시간 이상</option>
                         </select>
                     </div>
                 </div>
@@ -279,10 +279,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;">
-                        <label class="input-file-button" for="pic0">메인 사진</label>
+                    <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;" accept-charset="utf-8">
+                        <label class="input-file-button" for="pic0">레시피 사진 등록</label>
                         <img id="msection" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
-                        <input type="file" id="pic0" name="img0" style="display: none;" class="pic" />
+                        <input type="file" id="pic0" name="img0" style="display: none;" class="pic" multiple />
                     </div>
                 </div>
                 <div class="row">
@@ -291,7 +291,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 form-group mt-3" id="ingrlist" style="display: inline-block; text-align:center;">
                         <li class="inputarea">
-                            <input type="hidden" id="cnt" name="cnt" value="">
+                            <input type="hidden" id="cnt" name="cnt" value="1">
                             <input type="text" class="iname" name="iname1" placeholder="식재료 이름">
                             <input type="text" class="iamt" name="iamt1" placeholder="단위">
                             <input type="button" class="btnAdd" value="추가">
@@ -303,62 +303,62 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic1">순서 1</label>
+                        <label class="input-file-button" for="pic1">사진 미리보기 1</label>
                         <input type="file" id="pic1" name="img01" style="display: none;" class="pic" />
                         <img id="ssection1" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetail1"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail1" style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic2">순서 2</label>
+                        <label class="input-file-button" for="pic2">사진 미리보기 2</label>
                         <input type="file" id="pic2" name="img02" style="display: none;" class="pic" />
                         <img id="ssection2" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetai2"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail2"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic3">순서 3</label>
+                        <label class="input-file-button" for="pic3">사진 미리보기 3</label>
                         <input type="file" id="pic3" name="img03" style="display: none;" class="pic" />
                         <img id="ssection3" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetail3"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail3"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic4">순서 4</label>
+                        <label class="input-file-button" for="pic4">사진 미리보기 4</label>
                         <input type="file" id="pic4" name="img04" style="display: none;" class="pic" />
                         <img id="ssection4" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetail4"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail4"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic5">순서 5</label>
+                        <label class="input-file-button" for="pic5">사진 미리보기 5</label>
                         <input type="file" id="pic5" name="img05" style="display: none;" class="pic" />
                         <img id="ssection5" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetail5"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail5"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic6">순서 6</label>
+                        <label class="input-file-button" for="pic6">사진 미리보기 6</label>
                         <input type="file" id="pic6" name="img06" style="display: none;" class="pic" />
                         <img id="ssection6" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
-                        <textarea id="myrecdetail6"  style="resize : both; overflow:visible; text-overflow:ellipsis;"></textarea>
+                        <textarea name="myrecdetail6"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
                     </div>
                 </div>
                 <div class="text-center">
