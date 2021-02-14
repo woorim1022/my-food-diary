@@ -23,8 +23,6 @@
 
 </style>
 
-
-</style>
     <!-- ======= Breadcrumbs Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
@@ -42,246 +40,179 @@
 
 
 
+{% if 'snickname' in request.session %}
+    {% if request.session.snickname %}
+            <br>
+            <a style="padding:20px 0px 20px 640px;" href="{% url 'myrecipe_reg' %}"><button style="padding:0px 20px 0px 20px;  height:50px;font-size:20px;color:white;text-align: center;background: #ffb03b;border: solid 2px white;border-radius: 25px;" type="submit">나의 레시피 등록하기</button></a>
+            <br>
+            <br>
+            <!-- ======= Events Section ======= -->
+            <section id="events2" class="events">
+                <div class="container">
+                  <div class="owl-carousel events-carousel">
 
+                   <div class="row event-item">
+                      <div class="col-lg-6">
+                        <img style="width:550px;height:360px;" src="{{maxregdate.r_mimage}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="col-lg-6 pt-4 pt-lg-0 content">
 
+                      <div class="section-title">
+                        <h2>최근 <span>등록한</span> 레시피</h2>
+                     </div>
+                        <div class="price">
+                          <p style="font-size:22px;">{{maxregdate.r_name}}</p>
+                        </div>
+                           <p style="font-size:22px;">{{maxregdate.r_regdate}}</p>
+                        <ul>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 조회수 : {{maxregdate.r_view}}</li>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 추천수 : {{maxregdate.r_recommend}}</li>
+                        </ul>
+                      </div>
+                    </div>
 
-
-    <!-- ======= Events Section ======= -->
-    <section id="events1" class="events">
-        <div class="container">
-
-          <div class="section-title">
-            <h2>Organize Your <span>Events</span> in our Restaurant</h2>
-          </div>
-
-          <div class="owl-carousel events-carousel">
-
-            <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3>Birthday Parties</h3>
-                <div class="price">
-                  <p><span>$189</span></p>
-                </div>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur
-                </p>
-              </div>
-            </div>
-
-
-
-          </div>
-
-        </div>
-      </section><!-- End Events Section -->
-
-
-
-
-
-    <!-- ======= Events Section ======= -->
-    <section id="events2" class="events">
-        <div class="container">
-
-          <div class="section-title">
-            <h2>Organize Your <span>Events</span> in our Restaurant</h2>
-          </div>
-
-          <div class="owl-carousel events-carousel">
-
-            <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3>Birthday Parties</h3>
-                <div class="price">
-                  <p><span>$189</span></p>
-                </div>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur
-                </p>
-              </div>
-            </div>
 
                     <div class="row event-item">
-              <div class="col-lg-6">
-                <img src="static/assets/img/event-birthday.jpg" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6 pt-4 pt-lg-0 content">
-                <h3>Birthday Parties</h3>
-                <div class="price">
-                  <p><span>$189</span></p>
+                      <div class="col-lg-6">
+                        <img style="width:550px;height:360px;" src="{{maxrecommend.r_mimage}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="col-lg-6 pt-4 pt-lg-0 content">
+
+                      <div class="section-title">
+                        <h2>최다 <span>추천수</span> 레시피</h2>
+                      </div>
+                        <div class="price">
+                          <p style="font-size:22px;">{{maxrecommend.r_name}}</p>
+                        </div>
+                          <p style="font-size:22px;">{{maxrecommend.r_regdate}}</p>
+                        <ul>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 조회수 : {{maxrecommend.r_view}}</li>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 추천수 : {{maxrecommend.r_recommend}}</li>
+
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="row event-item">
+                      <div class="col-lg-6">
+                        <img style="width:550px;height:360px;" src="{{maxview.r_mimage}}" class="img-fluid" alt="">
+                      </div>
+                      <div class="col-lg-6 pt-4 pt-lg-0 content">
+                        <div class="section-title">
+                            <h2>최다 <span>조회수</span> 레시피</h2>
+                        </div>
+                        <div class="price">
+                          <p style="font-size:22px;">{{maxview.r_name}}</p>
+                        </div>
+                          <p style="font-size:22px;">{{maxview.r_regdate}}</p>
+                        <ul>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 조회수 : {{maxview.r_view}}</li>
+                          <li style="font-size:20px;"><i class="icofont-check-circled"></i> 추천수 : {{maxview.r_recommend}}</li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
                 </div>
-                <p class="font-italic">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                  magna aliqua.
-                </p>
-                <ul>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                  <li><i class="icofont-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                  <li><i class="icofont-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                </ul>
-                <p>
-                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur
-                </p>
+              </section><!-- End Events Section -->
+
+
+        <!--==================================레시피 목록=====================================================-->
+            <!-- ======= Gallery Section ======= -->
+            <section id="gallery" class="gallery">
+              <div class="container-fluid">
+
+                <div class="section-title">
+                    <h2><span>{{ request.session.snickname }}</span>님의 레시피 목록</h2>
+                  <p>Recipe list</p>
+                </div>
+
+                <div class="row no-gutters">
+
+        <!--    딱 이 부분만 for문 돌려서 한개의 영역 안에 한개의 레시피에 대한 정보가 출력되게끔 해야됨 -->
+                {% for r in recipes %}
+                  <div class="col-lg-3 col-md-4">
+                    <div class="gallery-item">
+        <!--            원래 이렇게 되어있던 코드를-->
+        <!--            <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">-->
+        <!--            이렇게 바꿔줘서 음식을 클릭하면 해당 음식의 detail 페이지로 넘어가게끔 해놓음(아직은 에러남)-->
+                        <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}">
+        <!--                <h1>이미지{{r.r_image1}}</h1>-->
+        <!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
+                        <div style="height:258px"><img style="width:370px;height:260px;" src="{{r.r_mimage}}" alt="" class="img-fluid"></div>
+                        <br></br>
+                        </a>
+
+                        {% if r.r_id in favorite %}
+                            <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
+                        {% else %}
+                            <a href="" name='fav_add' style="margin:0px 0px -4px 0px; font-size:21px; ">🤍<p style="display:none;">{{r.r_id}}</p></a>
+                        {% endif %}
+
+                            <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
+                            <br>
+
+                        {% if r.r_num == 10.0 %}
+                            <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 9.0 %}
+                            <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 8.0 %}
+                            <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 7.0 %}
+                            <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 6.0 %}
+                            <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 5.0 %}
+                            <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 4.0 %}
+                            <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 3.0 %}
+                            <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 2.0 %}
+                            <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% elif r.r_num > 1.0 %}
+                            <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% else %}
+                            <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
+                        {% endif %}
+
+
+                        <p style="margin:4px 0px 0px 0px; font-size:17px; color:#5f5950;">작성자 : {{r.u_id}}</p>
+                        <p style="font-size:17px; margin:-1px 0px 10px 0px; color:#5f5950;">조회수 : {{r.r_view}} 추천수 : {{r.r_recommend}}</p>
+
+                    </div>
+                  </div>
+                {% endfor %}
+
+                </div>
+
+
               </div>
-            </div>
-          </div>
+            </section><!-- End Gallery Section -->
 
-
-
-
-        </div>
-      </section><!-- End Events Section -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--==================================레시피 목록=====================================================-->
-    <!-- ======= Gallery Section ======= -->
-    <section id="gallery" class="gallery">
-      <div class="container-fluid">
-
-        <div class="section-title">
-          <h2>레시피 <span>목록</span></h2>
-          <p>Recipe list</p>
-        </div>
-
-        <div class="row no-gutters">
-
-<!--    딱 이 부분만 for문 돌려서 한개의 영역 안에 한개의 레시피에 대한 정보가 출력되게끔 해야됨 -->
-        {% for r in recipes %}
-          <div class="col-lg-3 col-md-4">
-            <div class="gallery-item">
-<!--            원래 이렇게 되어있던 코드를-->
-<!--            <a href="assets/img/gallery/gallery-1.jpg" class="venobox" data-gall="gallery-item">-->
-<!--            이렇게 바꿔줘서 음식을 클릭하면 해당 음식의 detail 페이지로 넘어가게끔 해놓음(아직은 에러남)-->
-                <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}">
-<!--                <h1>이미지{{r.r_image1}}</h1>-->
-<!--             이 부분에 원래 들어가 있던 기본사진 대신 레시피 테이블의 r_image1 값을 가져와서 static/img 폴더 안에 있는 같은 이름의 사진 파일을 출력하도록 해놓은 부분-->
-                <div style="height:258px"><img src="static/img/{{r.r_mimage}}" alt="" class="img-fluid"></div>
-                <br></br>
-                </a>
-
-
-
-
-                {% if r.r_id in favorite %}
-                    <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
-                {% else %}
-                    <a href="" name='fav_add' style="margin:0px 0px -4px 0px; font-size:21px; ">🤍<p style="display:none;">{{r.r_id}}</p></a>
-                {% endif %}
-
-
-
-
-
-
-
-
-
-                    <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
-                    <br>
-
-                {% if r.r_num == 10.0 %}
-                    <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 9.0 %}
-                    <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 8.0 %}
-                    <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 7.0 %}
-                    <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 6.0 %}
-                    <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 5.0 %}
-                    <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 4.0 %}
-                    <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 3.0 %}
-                    <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 2.0 %}
-                    <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% elif r.r_num > 1.0 %}
-                    <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% else %}
-                    <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
-                {% endif %}
-
-
-                <p style="margin:4px 0px 0px 0px; font-size:17px; color:#5f5950;">작성자 : {{r.u_id}}</p>
-                <p style="font-size:17px; margin:-1px 0px 10px 0px; color:#5f5950;">조회수 : {{r.r_view}} 추천수 : {{r.r_recommend}}</p>
-
-            </div>
-          </div>
-        {% endfor %}
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-      </div>
-    </section><!-- End Gallery Section -->
-
-
-
-
-
-      <div style="background-color:#fffaf3; margin:40px 0px 0px 0px; padding:20px 0px 20px 0px;" class="container-fluid">
-        <li class="page-review">
-            {% if before %}
-            <a class="page-link" href="?&page={{beforenum}}">이전</a>
-            {% endif %}
-            {% for l in pagelist %}
-            <a class="page-link" href="?&page={{l}}">{{l}}</a>
-            {% endfor %}
-            {% if next %}
-            <a class="page-link" href="?&page={{nextnum}}">다음</a>
-            {% endif %}
-        </li>
-      </div>
-
+              <div style="background-color:#fffaf3; margin:40px 0px 0px 0px; padding:20px 0px 20px 0px;" class="container-fluid">
+                <li class="page-review">
+                    {% if before %}
+                    <a class="page-link" href="?&page={{beforenum}}">이전</a>
+                    {% endif %}
+                    {% for l in pagelist %}
+                    <a class="page-link" href="?&page={{l}}">{{l}}</a>
+                    {% endfor %}
+                    {% if next %}
+                    <a class="page-link" href="?&page={{nextnum}}">다음</a>
+                    {% endif %}
+                </li>
+              </div>
+    {% else %}
+        <h1 style="margin:80px 400px 80px 600px;">{{message}}</h1>
+    {% endif %}
+{% else %}
+      <h1 style="margin:80px 400px 80px 600px;">{{message}}</h1>
+{% endif %}
 
 
 

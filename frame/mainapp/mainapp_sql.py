@@ -14,3 +14,10 @@ class Sql:
 	                    INNER JOIN recipe r ON rv.r_id = r.r_id
 	                    INNER JOIN users u ON rv.u_id = u.u_id
                         ORDER BY rv.rv_regdate DESC LIMIT 6;"""
+
+
+    select_toprecommend = """select *
+                            from recipe 
+                            ORDER BY r_recommend desc
+                            LIMIT 3;
+                            """
