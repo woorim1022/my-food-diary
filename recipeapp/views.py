@@ -70,14 +70,11 @@ def recipe_detail(request):
 # ==================================송현님코드==========================================================================
 
 
+
+
+
 # ==================================우림코드=====================================================
 def recipe(request):
-    ingr_name_user = None
-    favorite = None
-    recipefiltered_str = request.GET.get('recipefiltered')
-    page = int(request.GET.get('page', '1'))   # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
-    recent=None
-
     #==================================================================
     #==================================================================
     #==================================================================
@@ -85,14 +82,19 @@ def recipe(request):
     # 모든 함수에 들어가야됨
     # import frame.mainapp.mainapp_userdb 임포트문에 포함
     # recent 를 context에 넣어주어야 한다
+    recent = None
     if 'suser' in request.session:
         if request.session['suser']:
             recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
     #==================================================================
     #==================================================================
     #==================================================================
+    ingr_name_user = None
+    favorite = None
+    rf_qstr = request.GET.get('recipefiltered')
+    page = int(request.GET.get('page', '1'))  # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
 
-    # 식재료 출력 코드
+    # 식재료, 즐겨찾기 출력 코드
     # 세션에 suser 이라는 key가 존재하면
     if 'suser' in request.session:
         # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
@@ -100,9 +102,8 @@ def recipe(request):
             # selectusersingr() 함수를 통해 현재 로그인한 사용자의 식재료"만" 가져온다
             ingr_name_user = IngredientDb().selectusersingr(request.session['suser'])
             ingredients = IngredientDb().selectall()
+            # 현재 로그인한 사용자가 즐겨찾기 한 목록 가져오기
             favorite = RecipeDb().select_f_with_u(request.session['suser'])
-            # 최근 방문 추가
-           # recent = recent();
         # suser이라는 key에 value가 존재하지 않으면(즉, 로그인이 되어있지 않으면)
         else:
             # selectall() 함수를 통해 데이터베이스에 있는 모든 식재료를 가져온다
@@ -113,15 +114,15 @@ def recipe(request):
         ingredients = IngredientDb().selectall()
 
     # 레시피 출력 코드
-    # 필터링 선택된 값 없으면
-    if recipefiltered_str == None or not recipefiltered_str:
+    # 필터링 선택된 값 없으면(filtering 함수에서 넘어온 값이 없거나 선택한 식재료가 없으면)
+    if rf_qstr == None or not rf_qstr:
         # 전체 레시피 select
         recipes = RecipeDb().selectall((page-1)*20);
         recipepage = (RecipeDb().recipepage() + 1);  # 전체페이지수 +1은 초기값이 0이여서 더해둠
     # 필터링 선택된 값 있으면
     else:
         # filtering 함수에서 가져온 id로 recipe를 select
-        r_id_list = eval(recipefiltered_str)
+        r_id_list = eval(rf_qstr)
         recipes = RecipeDb().select_with_r_id(r_id_list, (page-1)*20)
         recipepage = len(r_id_list)//20 + 1
 

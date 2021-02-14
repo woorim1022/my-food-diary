@@ -18,43 +18,39 @@
         <div class="carousel-inner" role="listbox">
 
           <!-- Slide 1 -->
-          <div class="carousel-item active" style="background: url(static/assets/img/slide/slide-1.jpg);">
+          <div class="carousel-item active" style="background: url('{{todayrecommend.0.r_mimage}}');">
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <p style="font-size:30px;" class="animate__animated animate__fadeInUp">{{todayrecommend.0.r_name}}</p>
                 <div>
-                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                  <a href="{% url 'recipe_detail' %}?r_id={{todayrecommend.0.r_id}}" class="btn-menu animate__animated animate__fadeInUp scrollto">레시피 보러가기</a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Slide 2 -->
-          <div class="carousel-item" style="background: url(static/assets/img/slide/slide-2.jpg);">
+          <div class="carousel-item" style="background: url('{{todayrecommend.1.r_mimage}}');">
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <p style="font-size:30px;" class="animate__animated animate__fadeInUp">{{todayrecommend.1.r_name}}</p>
                 <div>
-                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                  <a href="{% url 'recipe_detail' %}?r_id={{todayrecommend.1.r_id}}" class="btn-menu animate__animated animate__fadeInUp scrollto">레시피 보러가기</a>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Slide 3 -->
-          <div class="carousel-item" style="background: url(static/assets/img/slide/slide-3.jpg);">
-            <div class="carousel-background"><img src="static/assets/img/slide/slide-3.jpg" alt=""></div>
+               <!-- Slide 2 -->
+          <div class="carousel-item" style="background: url('{{todayrecommend.2.r_mimage}}');">
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown"><span>오늘의</span> 추천</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <p style="font-size:30px;" class="animate__animated animate__fadeInUp">{{todayrecommend.2.r_name}}</p>
                 <div>
-                  <a href="#menu" class="btn-menu animate__animated animate__fadeInUp scrollto">Our Menu</a>
-                  <a href="#book-a-table" class="btn-book animate__animated animate__fadeInUp scrollto">Book a Table</a>
+                  <a href="{% url 'recipe_detail' %}?r_id={{todayrecommend.2.r_id}}" class="btn-menu animate__animated animate__fadeInUp scrollto">레시피 보러가기</a>
                 </div>
               </div>
             </div>

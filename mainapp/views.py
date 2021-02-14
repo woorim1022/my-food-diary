@@ -5,11 +5,14 @@ from django.shortcuts import render, redirect
 from django.utils.http import urlencode
 
 from frame.mainapp.mainapp_userdb import UserDb, RecipeDb, ReviewDb
-
+import frame.myrecipeapp.myrecipeapp_userdb
 
 def main(request):
     allrecipes = RecipeDb().select()
     reviews = ReviewDb().select_review()
+    # 오늘의 추천 구현하기
+    todayrecommend = RecipeDb().select_toprecommend()
+
     recent = None
     if 'suser' in request.session:
         if request.session['suser']:
@@ -17,7 +20,8 @@ def main(request):
     context = {
         'allrecipes': allrecipes,
         'recent':recent,
-        'reviews':reviews
+        'reviews':reviews,
+        'todayrecommend':todayrecommend
     };
     return render(request, 'mainapp/main.html', context)
 
@@ -36,7 +40,7 @@ def useraddimpl(request):
     allrecipes = RecipeDb().select()
     reviews = ReviewDb().select_review()
     recent = None
-
+    todayrecommend = RecipeDb().select_toprecommend()
 
     if 'suser' in request.session:
         if request.session['suser']:
@@ -61,7 +65,8 @@ def useraddimpl(request):
             'nickname' : u_nick,
             'allrecipes': allrecipes,
             'reviews':reviews,
-            'recent':recent
+            'recent':recent,
+            'todayrecommend':todayrecommend
         };
         request.session['suser'] = u_id
         request.session['snickname'] = u_nick
@@ -105,6 +110,7 @@ def loginimpl(request):
     allrecipes = RecipeDb().select()
     reviews = ReviewDb().select_review()
     recent = None
+    todayrecommend = RecipeDb().select_toprecommend()
 
     try:
         user = UserDb().selectid(id);
@@ -121,7 +127,8 @@ def loginimpl(request):
                 'nickname': user.u_nick,
                 'allrecipes': allrecipes,
                 'reviews': reviews,
-                'recent': recent
+                'recent': recent,
+                'todayrecommend':todayrecommend
             };
         else:
             raise Exception
@@ -132,7 +139,8 @@ def loginimpl(request):
             'message': '로그인 실패',
             'allrecipes':allrecipes,
             'reviews': reviews,
-            'recent': recent
+            'recent': recent,
+            'todayrecommend': todayrecommend
         };
         return render(request, 'mainapp/main.html', context)
     return render(request, 'mainapp/main.html', context)
