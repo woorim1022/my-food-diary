@@ -5,9 +5,16 @@
 <style>
   #ingredient_reg{
           witdh:100%;
+          position: relative;
           text-align: center;
           padding: 30px;
-        }
+          }
+  form{
+        display: inline-block;
+          }
+  .users_ingr_delete{
+          right:10px;
+          }
   #ingredient_reg > form{
           display: inline-block;
           padding: 5px 10px;
@@ -26,52 +33,49 @@
           display: inline-block;
           background: #fff;
           position: relative;
-          z-index: 3;
           padding: 0 10px;
           font-weight: 600;
           border: 2px solid #ffb03b;
           color: grey;
           border-radius: 50px;
           }
-  .menu .menu-content form{
-  display: inline-block;
-  padding-right: 0px;
-  background: #fff;
-  position: relative;
-  z-index: 3;
-  font-weight: 700;
-  color: #ff9b08;
-    }
-
-    .menu .menu-content::after {
-  content: "";
-}
+  .menu .menu-content::after {
+          content: "";
+          }
 
 </style>
 <script>
 $(document).ready(function(){
     $('#users_ingr_form > input[type="button"]').click(function(){
-       $('#users_ingr_form').attr({
-            'action':'{% url "ingredient_regimpl" %}',
-            'method':'POST'
-        });
-       $('#users_ingr_form').submit();
-        });
+        if($('.insert_date').val()=='' || $('.insert_i_name').val()==''){
+            alert('식재료 또는 날짜를 입력해주세요');
+        }
+        else{
+             $('#users_ingr_form').attr({
+                'action':'{% url "ingredient_regimpl" %}',
+                'method':'POST'
+            });
+            $('#users_ingr_form').submit();
 
-     $('form[class="users_ingr_delete"] > button').click(function(){
+            }
+        });
+    $('form[class="users_ingr_delete"] > button').click(function(){
         $('form[class="users_ingr_delete"]').attr({
             'action':'{% url "ingredient_regdel" %}',
             'method':'POST'
         });
-       $('form[class="users_ingr_delete"]').submit();
-    });
-
-     $('form[class="users_ingr_update"] > button').click(function(){
-        $('form[class="users_ingr_update"]').attr({
-            'action':'{% url "ingredient_update" %}',
-            'method':'POST'
+    $('form[class="users_ingr_delete"]').submit();
         });
-       $('form[class="users_ingr_update"]').submit();
+
+    $('form[class="users_ingr_update"] > button').click(function(){
+            $('form[class="users_ingr_update"]').attr({
+                'action':'{% url "ingredient_update" %}',
+                'method':'POST'
+            });
+            $('form[class="users_ingr_update"]').submit();
+        });
+    $('#search').click(function(){
+        parent = window.open('popingr.html','child','width=500,height=600');
     });
 });
 </script>
@@ -96,9 +100,8 @@ $(document).ready(function(){
       <div class="container">
 
         <div class="section-title">
-          <h2>다이어리 내<span> 재료 </span></h2>
+          <h2>다이어리 내<span> 재료</span></h2>
         </div>
-
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
@@ -111,7 +114,6 @@ $(document).ready(function(){
           </div>
         </div>
 
-
         <div class="row menu-container">
         {% for l in uigreenlist %}
           <div class="col-lg-6 menu-item filter-ex_date_within">
@@ -119,14 +121,14 @@ $(document).ready(function(){
             <div class="update and delete">
               <form class="users_ingr_update">
                 {% csrf_token %}
-                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <input class="i_name" size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
                 <datalist name="i_name">
                 {% for ingr in ingrlist_i_name %}
                     <option value="{{ingr.i_name}}">
                     </option>
                 {% endfor %}
                 </datalist>
-                <input size="14" type="date" name="ui_exdate">
+                <input class="date" size="14" type="date" name="ui_exdate">
                 <input type="hidden" name="u_id" value="{{l.ui_id}}">
               <button>수정</button>
               </form>
@@ -150,14 +152,14 @@ $(document).ready(function(){
             <div class="update and delete">
               <form class="users_ingr_update">
                 {% csrf_token %}
-                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
-                <datalist name="i_name">
+                <input class="i_name" size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist>
                 {% for ingr in ingrlist_i_name %}
                     <option value="{{ingr.i_name}}">
                     </option>
                 {% endfor %}
                 </datalist>
-                <input size="14" type="date" name="ui_exdate">
+                <input class="date" size="14" type="date" name="ui_exdate">
                 <input type="hidden" name="u_id" value="{{l.ui_id}}">
               <button>수정</button>
               </form>
@@ -181,14 +183,14 @@ $(document).ready(function(){
              <div class="update and delete">
               <form class="users_ingr_update">
                 {% csrf_token %}
-                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
-                <datalist name="i_name">
+                <input class="i_name" size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist >
                 {% for ingr in ingrlist_i_name %}
                     <option value="{{ingr.i_name}}">
                     </option>
                 {% endfor %}
                 </datalist>
-                <input size="14" type="date" name="ui_exdate">
+                <input class="date" size="14" type="date" name="ui_exdate">
                 <input type="hidden" name="u_id" value="{{l.ui_id}}">
               <button>수정</button>
               </form>
@@ -212,14 +214,14 @@ $(document).ready(function(){
              <div class="update and delete">
               <form class="users_ingr_update">
                 {% csrf_token %}
-                <input size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
-                <datalist name="i_name">
+                <input class="i_name" size="14" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist>
                 {% for ingr in ingrlist_i_name %}
                     <option value="{{ingr.i_name}}">
                     </option>
                 {% endfor %}
                 </datalist>
-                <input size="14" type="date" name="ui_exdate">
+                <input class="date" size="14" type="date" name="ui_exdate">
                 <input type="hidden" name="u_id" value="{{l.ui_id}}">
               <button>수정</button>
               </form>
@@ -243,14 +245,14 @@ $(document).ready(function(){
             <div class="update and delete">
               <form class="users_ingr_update">
                 {% csrf_token %}
-                <input size="14" style="height:30px;" list ="i_name" name="i_name" value="{{l.i_name}}">
-                <datalist name="i_name">
+                <input class="i_name" size="14" style="height:30px;" list ="i_name" name="i_name" value="{{l.i_name}}">
+                <datalist>
                 {% for ingr in ingrlist_i_name %}
                     <option value="{{ingr.i_name}}">
                     </option>
                 {% endfor %}
                 </datalist>
-                <input size="14" type="date" name="ui_exdate">
+                <input class="date" size="14" type="date" name="ui_exdate">
                 <input type="hidden" name="u_id" value="{{l.ui_id}}">
               <button>수정</button>
               </form>
@@ -273,14 +275,14 @@ $(document).ready(function(){
     <div id="ingredient_reg">
       <form id="users_ingr_form">
           {% csrf_token %}
-          재료이름<input list ="i_name" name="i_name">
+          식재료  <input class="insert_i_name" list ="i_name" name="i_name">
               <datalist id="i_name" name="i_name">
               {% for ingr in ingrlist_i_name %}
                 <option value="{{ingr.i_name}}">
               {% endfor %}
                 </option>
               </datalist>
-          유통기한<input type="date" name="ui_exdate">
+          유통기한 <input class="insert_date" type="date" name="ui_exdate">
               <input type="button" value="등록"><br>
       </form>
     </div>

@@ -1,4 +1,5 @@
 import datetime
+import logging
 from datetime import date, timedelta
 
 from django.shortcuts import render, redirect
@@ -6,7 +7,7 @@ from django.shortcuts import render, redirect
 from frame.ingredientapp.ingredientapp_error import ErrorCode
 from frame.ingredientapp.ingredientapp_ingrdb import User_IngrDb, User_AvoidDb, IngrDb
 
-
+logger = logging.getLogger('users');
 
 def ingredient(request):
     if  'suser' in request.session:
@@ -96,6 +97,7 @@ def ingredient_regimpl(request):
     ui_regdate = date.today()
     try:
         User_IngrDb().insert(u_id,i_id.i_id,ui_regdate,ui_exdate);
+        logger.debug("i_name")
     except:
         context = {
             'error' : ErrorCode.e0002
@@ -119,16 +121,16 @@ def ingredient_regdel(request):
     return redirect('ingredient_reg');
 
 def ingredient_update(request):
-    i_name = request.POST['i_name']
-    ui_exdate = request.POST['ui_exdate']
-    ui_id = request.POST['u_id']
-    i_id = IngrDb().select_id(i_name)  # 식재료 이름으로 식재료 아이디값 찾기 클래스 형태이므로 i_id.i_id로 불러내야함
-    ui_exdate = datetime.datetime.strptime(ui_exdate, '%Y-%m-%d')
-    try:
-        User_IngrDb().update(i_id.i_id,int(ui_id),ui_exdate);
-    except:
+    if not request.POST['i_name'] and request.POST['ui_exdate']:
         context = {
             'error': ErrorCode.e0002
         }
+        return render(request,'ingredientapp/ingredient_reg.html', context);
+    else:
+        i_name = request.POST['i_name']
+        ui_exdate = request.POST['ui_exdate']
+        ui_id = request.POST['u_id']
+        i_id = IngrDb().select_id(i_name)  # 식재료 이름으로 식재료 아이디값 찾기 클래스 형태이므로 i_id.i_id로 불러내야함
+        ui_exdate = datetime.datetime.strptime(ui_exdate, '%Y-%m-%d')
+        User_IngrDb().update(i_id.i_id,int(ui_id),ui_exdate);
         return redirect('ingredient_reg');
-    return redirect('ingredient_reg');
