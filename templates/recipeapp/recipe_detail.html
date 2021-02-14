@@ -82,12 +82,10 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>조리</h3>
                     <div class="col-lg-8 text-center order-1 order-lg-2">
-                        <img src="{{r_dimage.1}}"><br><br>
-                        {{r_detail.1}}<br><br>
-                        <img src="{{r_dimage.2}}"><br><br>
-                        {{r_detail.2}}<br><br>
-                        <img src="{{r_dimage.3}}"><br><br>
-                        {{r_detail.3}}<br><br>
+                        {% for key,val in r_detail.items %}
+                        {{key}}
+                        <img src="{{val}}"><br><br>
+                        {% endfor %}
                     </div>
                     <p class="font-italic">
                     </p>
