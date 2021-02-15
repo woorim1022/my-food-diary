@@ -8,11 +8,46 @@ from django.shortcuts import render, redirect
 from config.settings import UPLOAD_DIR
 from frame.userapp.userapp_userdb import UserDb, PopIngrDb, RecipeDb, IngrDb, RecipeIngrDb
 
+import frame.mainapp.mainapp_userdb
+
 
 class UserView:
+    def mypage(request):
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+
+        context = {
+            'recent': recent
+        }
+        return render(request,'userapp/mypage.html', context)
+
 
     def profile(request):
-        return render(request,'userapp/profile.html')
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+
+        context = {
+            'recent': recent
+        }
+        return render(request,'userapp/profile.html', context)
 
     def userupdateimple(request):
         u_id = request.POST['id'];
@@ -22,10 +57,42 @@ class UserView:
         u_age = request.POST['age'];
         try:
             UserDb().update(u_id, u_nick, u_pwd, u_name, int(u_age))
+            request.session['suser'] = u_id
+            request.session['snickname'] = u_nick
         except:
             print('error');
-            return render(request,'userapp/profile.html');
-        return render(request,'userapp/mypage.html');
+            # ==================================================================
+            # ==================================================================
+            # ==================================================================
+            # 최근 방문기록 가져와서 뿌려주는 코드
+            recent = None
+            if 'suser' in request.session:
+                if request.session['suser']:
+                    recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+
+            context = {
+                'recent': recent
+            }
+            # ==================================================================
+            # ==================================================================
+            # ==================================================================
+            return render(request,'userapp/profile.html', context);
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+
+        context = {
+            'recent': recent
+        }
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        return render(request,'userapp/mypage.html', context);
 
     def ncheck(request):
         nick = request.GET['nck'];
@@ -39,8 +106,20 @@ class UserView:
 
     def myrecipereg(request):
         itemlist = PopIngrDb().select();
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
         context = {
-            'itemlist': itemlist
+            'itemlist': itemlist,
+            'recent':recent
         }
         return render(request, 'userapp/myrecipe_reg.html', context)
 
@@ -88,12 +167,28 @@ class UserView:
         cnt = request.POST['cnt'];
         item = request.POST['iname1'];
         amt = request.POST['iamt1'];
+
+
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+
+
         if item == None or amt == None:
             ritem = [];
             ramt = [];
             context = {
                 'ritem':ritem,
-                'ramt':ramt
+                'ramt':ramt,
+                'recent':recent
             }
         else:
             iid = [];
@@ -117,7 +212,8 @@ class UserView:
             context = {
                 'iid':iid,
                 'rzip':rzip,
-                'ramt':ramt
+                'ramt':ramt,
+                'recent': recent
             }
         return render(request, 'userapp/recipeingrcheck.html',context);
 
@@ -129,7 +225,21 @@ class UserView:
         ilist = list(zip(eval(iid),eval(ramt)));
         for i in ilist:
             RecipeIngrDb().insert(rid,i[0],i[1]);
-        return render(request, 'mainapp/main.html');
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        context = {
+            'recent': recent
+        }
+        return render(request, 'mainapp/main.html',context);
 
     def popingr(request):
 

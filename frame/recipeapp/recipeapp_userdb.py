@@ -166,6 +166,18 @@ class RecipeDb(Db):
         finally:
             super().close(conn, cursor);
 
+    def delete(self, r_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.delete % (r_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
 
 class IngredientDb(Db):
     # 현재 로그인한 사용자의 식재료"만" 가져오기 위한 함수

@@ -24,4 +24,7 @@ urlpatterns = [
 
     path('fav_add/', views.fav_add, name='fav_add'),
     path('fav_cancel/', views.fav_cancel, name='fav_cancel'),
+
+    path('update', views.update, name='update'),
+    path('delete', views.delete, name='delete'),
 ]

@@ -14,6 +14,7 @@ iid_global = None
 
 def recipe_detail(request):
     # =========================우림 추가코드=====================
+    recent = None
     r_id = request.GET['r_id']
     if 'suser' in request.session:
         if request.session['suser']:
@@ -106,12 +107,9 @@ def recipe(request):
     r_qstr = request.GET.get('r_id_list')
     i_qstr = request.GET.get('i_id_list')
 
-    # recipe.html로부터 호는 요청
+    # recipe.html로부터 오는 요청
     page_r = int(request.GET.get('page_r', '1'))  # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
-    # page_i = int(request.GET.get('page_i', '1'))
     filtered = request.GET.get('filtered','False')
-
-    print('@@@@@@@@@@@@@@'+filtered)
 
     # 식재료 출력 코드
     # ingr = IngredientDb().selectall((page_i - 1) * 30)
@@ -191,8 +189,6 @@ def recipe(request):
     nextnum = (pagepart * 5) + 1  # 다음버튼 누를 경우 하단링크바 묶음 표시
     beforenum = (pagepart - 1) * 5  # 이전버튼 누를 경우 하단링크바 묶음 표시
 
-
-
     context = {
         'recipes': recipes,
         'pagelist': pagelist,
@@ -265,6 +261,21 @@ def fav_cancel(request):
             return HttpResponse('no')
     else:
         return HttpResponse('no')
+
+
+
+def update(request):
+    r_id = request.GET['r_id']
+    print(r_id)
+    return redirect('recipe_detail')
+
+
+def delete(request):
+    r_id = request.GET['r_id']
+    RecipeDb().delete(int(r_id));
+    return redirect('myrecipe')
+
+
 
 # ===============================================우림코드==============================================================
 

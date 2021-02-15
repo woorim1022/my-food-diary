@@ -2,10 +2,13 @@
 
 {% load static %}
 {% block content %}
-    <h1>recipe_detail.html</h1>
-
 
 </style>
+
+<script>
+
+
+</script>
     <!-- ======= Breadcrumbs Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
@@ -221,5 +224,22 @@ table.type06 .even {
             </div>
           </div>
         </section><!-- End Specials Section -->
+
+
+
+ {% if 'suser' in request.session %}
+    {% if request.session.suser %}
+        {% if recipe_detail.0.u_id == request.session.suser %}
+            <div style="margin:0px 0px 30px 600px;">
+                <a href="{% url 'update' %}?r_id={{ recipe_detail.0.r_id }}" style="padding:20px 10px 20px 10px;margin:-100px 0px 50px 0px; display:inline;"><button style="padding:0px 20px 0px 20px;  height:50px;font-size:20px;color:white;text-align: center;background: #ffb03b;border: solid 2px white;border-radius: 25px;">수정하기</button></a>
+                <a href="{% url 'delete' %}?r_id={{ recipe_detail.0.r_id }}" style="padding:20px 0px 20px 0px;margin:0px 0px 50px 0px; display:inline;"><button style="padding:0px 20px 0px 20px;  height:50px;font-size:20px;color:white;text-align: center;background: #ffb03b;border: solid 2px white;border-radius: 25px;">삭제하기</button></a>
+                <br><br><br>
+
+            </div>
+        {% endif %}
+    {% endif %}
+ {% endif %}
+
+
 
 {% endblock %}

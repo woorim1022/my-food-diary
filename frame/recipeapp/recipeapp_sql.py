@@ -93,5 +93,8 @@ class Sql:
     insert_recent = "INSERT INTO recent VALUE ('%s',%d, NOW());"
 
     update_r_view = "UPDATE recipe SET r_view = r_view + 1 WHERE r_id=%d;"
+
+
+    delete = "delete from recipe where r_id=%d;"
     # =====================================================우림코드=============================================
 
