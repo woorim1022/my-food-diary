@@ -15,13 +15,19 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
+<!-- 3번,4번그래프-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <style>
     .menu-container{
              position:relative;
-
         }
-    .containers{
+    #containers{
+            position:relative;
+            left: 14%;
             width:800px;
             height:400px;
             border:2px solid #FFB03B;
@@ -33,11 +39,11 @@
             Highcharts.chart('containers', {
 
     title: {
-        text: '홈페이지 방문자수'
+        text: '년도별 홈페이지 방문자수'
     },
 
     subtitle: {
-        text: '{{today}}'
+        text: '{{today}} 기준'
     },
 
     yAxis: {
@@ -48,7 +54,7 @@
 
     xAxis: {
         accessibility: {
-            rangeDescription: 'Range: 2010 to 2017'
+            rangeDescription: 'Range: 2014 to 2021'
         }
     },
 
@@ -63,7 +69,7 @@
             label: {
                 connectorAllowed: false
             },
-            pointStart: 2010
+            pointStart: 2014
         }
     },
 
@@ -88,7 +94,7 @@
 };
   function graph2(data){
             graphdata = data.datas;
-            Highcharts.chart('containers2', {
+            Highcharts.chart('containers', {
     chart: {
         type: 'pie',
         options3d: {
@@ -100,7 +106,7 @@
         text: '연령별 회원 수'
     },
     subtitle: {
-        text: '{{today}}'
+        text: '{{today}} 기준'
     },
     plotOptions: {
         pie: {
@@ -109,6 +115,110 @@
         }
     },
     series: graphdata
+});
+};
+  function graph3(data){
+            graphdata = data.datas;
+            Highcharts.chart('containers', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '인기 레시피'
+    },
+    subtitle: {
+        text: '{{today}} 기준'
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            rotation: -45,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '조회 수'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: '조회 수: {point.y}'
+    },
+    series: [{
+        name: 'Population',
+        data: graphdata,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
+});
+};
+  function graph4(data){
+            graphdata = data.datas;
+            Highcharts.chart('containers', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '인기 식재료'
+    },
+    subtitle: {
+        text: '{{today}} 기준'
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            rotation: -45,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: '등록 수'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: '등록 수: {point.y}'
+    },
+    series: [{
+        name: 'Population',
+        data: graphdata,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
 });
 };
   function getData(){
@@ -127,10 +237,36 @@
                 }
             });
         };
+  function getData3(){
+            $.ajax({
+                url: '{% url "graph3" %}',
+                success:function(data){
+                    graph3(data);
+                }
+            });
+        };
+  function getData4(){
+            $.ajax({
+                url: '{% url "graph4" %}',
+                success:function(data){
+                    graph4(data);
+                }
+            });
+        };
   $(document).ready(function(){
+    $('#visit').click(function(){
                 getData();
+            });
+    $('#register').click(function(){
                 getData2();
             });
+    $('#recipe').click(function(){
+                getData3();
+            });
+    $('#ingredient').click(function(){
+                getData4();
+            });
+          });
 </script>
  <section class="breadcrumbs">
       <div class="container">
@@ -155,38 +291,16 @@
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
-              <li data-filter=".filter-visit" class="filter-active">홈페이지 방문자 수</li>
-              <li data-filter=".filter-register">연령별 회원가입 수</li>
-              <li data-filter=".filter-recipe">인기 레시피</li>
-              <li data-filter=".filter-ingredient">인기 식재료</li>
+              <li id="visit" data-filter=".filter-visit" class="filter-active">홈페이지 방문자 수</li>
+              <li id="register" data-filter=".filter-register">연령별 회원가입 수</li>
+              <li id="recipe" data-filter=".filter-recipe">인기 레시피</li>
+              <li id="ingredient" data-filter=".filter-ingredient">인기 식재료</li>
             </ul>
           </div>
         </div>
-        <div class="row menu-container">
-          <div class="col-lg-6 menu-item filter-visit">
-            <div id="containers" class="containers">
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-register">
-            <div id ="containers2" class="containers">
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-recipe">
-            <div id ="containers3" class="containers">
-            </div>
-          </div>
-
-          <div class="col-lg-6 menu-item filter-ingredient">
-            <div id ="containers4" class="containers">
-            </div>
-          </div>
-
+        <div id="containers">
         </div>
 
-      </div>
-    </section>
-
-</div>
+        </div>
+</section>
 {% endblock %}

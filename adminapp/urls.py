@@ -21,4 +21,6 @@ urlpatterns = [
     path('adminpage', views.adminpage, name='adminpage'),
     path('graph1', views.graph1, name='graph1'),
     path('graph2', views.graph2, name='graph2'),
+    path('graph3', views.graph3, name='graph3'),
+    path('graph4', views.graph4, name='graph4'),
 ]

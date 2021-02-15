@@ -30,17 +30,24 @@
           }
 </style>
 <script>
-
+$(document).ready(function(){
+  $('button[name="search"]').click(function(){
+                  i_name = $('input[name="i_name"]').val();
+                  i_name_2="#"+i_name;
+                  location.href = i_name_2;
+                  document.getElementById(i_name).style.color='#ff2727';
+              });
+            });
 </script>
 <!-- ======= Breadcrumbs Section ======= -->
    <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>재료 확인하기</h2>
+          <h2>My ingredient</h2>
           <ol>
             <li><a href="{% url 'main' %}">Home</a></li>
-            <li><a href="{% url 'ingredient' %}">Back</a></li>
+            <li>My ingredient</li>
           </ol>
         </div>
 
@@ -55,7 +62,6 @@
         <div class="section-title">
           <h2>다이어리 내<span> 재료</span></h2>
         </div>
-
         <div class="row">
           <div class="col-lg-12 d-flex justify-content-center">
             <ul id="menu-flters">
@@ -71,7 +77,7 @@
         {% for l in uigreenlist %}
           <div class="col-lg-6 menu-item filter-ex_date_within">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
+              <a class="{{l.i_name}}">{{l.i_name}}</a>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -82,7 +88,7 @@
         {% for l in uiredlist %}
           <div class="col-lg-6 menu-item filter-ex_date_pass">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
+              <a class="{{l.i_name}}">{{l.i_name}}</a>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -93,7 +99,7 @@
         {% for l in ualist %}
           <div class="col-lg-6 menu-item filter-allergy">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
+              <a class="{{l.i_name}}">{{l.i_name}}</a>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -104,7 +110,7 @@
         {% for l in uilist %}
           <div class="col-lg-6 menu-item filter-ex_date_higher">
             <div class="menu-content">
-              <a href="#">{{l.i_name}}</a>
+              <a class="{{l.i_name}}">{{l.i_name}}</a>
             </div>
             <div class="menu-ingredients">
               {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
@@ -115,7 +121,7 @@
         {% for l in ingrlist %}
         <div class="col-lg-6 menu-item filter-all">
           <div class="menu-content">
-            <a href="#">{{l.i_name}}</a>
+            <a id="{{l.i_name}}">{{l.i_name}}</a>
           </div>
           <div class="menu-ingredients">
             {{l.icp_name}} > {{l.ic_name}} 유통기한: {{l.ui_exdate}}
