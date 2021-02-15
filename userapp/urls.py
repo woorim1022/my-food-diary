@@ -30,9 +30,10 @@ urlpatterns = [
     path('myrecipeaddimpl', views.UserView.myrecipeaddimpl,name='myrecipeaddimpl'),
     path('recipeingrcheck',TemplateView.as_view(template_name='userapp/recipeingrcheck.html'),name='recipeingrcheck'),
     path('recipeingradd',views.UserView.recipeingradd,name='recipeingradd'),
-    path('popingr.html',views.UserView.popingr, name='popingr'),
 
+    path('popingr.html',views.UserView.popingr, name='popingr'),
+    # path('popsearch',views.UserView.popsearch,name='popsearch'),
 
     path('like',TemplateView.as_view(template_name='like.html'),name='like'),
-    path('allergy',TemplateView.as_view(template_name='allergy.html'),name='allergy'),
+    path('allergy',TemplateView.as_view(template_name='userapp/allergy.html'),name='allergy'),
 ]
