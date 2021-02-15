@@ -71,14 +71,13 @@ class UserView:
             r_kimage.append(i);
         r_dimage = dict(zip(r_kimage,r_simage));
         r_dimage = json.dumps(r_dimage);
-        print(r_dimage);
 
         r_detail = {};
         for i in range(1,7):
             mydi = 'myd' + str(i);
             mydi = request.POST['myrecdetail'+str(i)];
             r_detail[str(i)] = mydi;
-        r_detail = json.dumps(r_detail);
+        r_detail = json.dumps(r_detail,ensure_ascii=False);
 
         r_recommend = 0;
         r_view = 0;
@@ -114,9 +113,10 @@ class UserView:
                 iid.append(ingrid);
                 ritem.append(item);
                 ramt.append(amt);
+            rzip = list(zip(ritem,ramt));
             context = {
                 'iid':iid,
-                'ritem':ritem,
+                'rzip':rzip,
                 'ramt':ramt
             }
         return render(request, 'userapp/recipeingrcheck.html',context);
@@ -185,3 +185,10 @@ class UserView:
             'beforenum': beforenum
         }
         return render(request,'userapp/popingr.html',context)
+
+    # def popsearch(request):
+    #     ingr = request.GET['ingr'];
+    #     ingr = ingr.strip();
+    #     if ingr == '':
+    #         return HttpResponse('0');
+    #     elif
