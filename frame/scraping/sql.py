@@ -11,6 +11,7 @@ class Sql:
     ingr_select = """SELECT i_name FROM ingr"""
     ingr_id_select = """SELECT i_id from ingr
                         WHERE i_name ='%s'"""
+
     # recipe_select_rid = """select r_id from recipe
     #                         where r_name = '%s'"""
 

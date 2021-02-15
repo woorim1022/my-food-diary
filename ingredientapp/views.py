@@ -14,6 +14,7 @@ def ingredient(request):
         u_id = request.session['suser']
         user_ingrlist = User_IngrDb().select(u_id);
         user_avoidlist = User_AvoidDb().select(u_id);
+        ingrlist_i_name = IngrDb().select_i_name();
         today = date.today()
         greenday = timedelta(days=5)
         redday = timedelta(days=0)
@@ -41,7 +42,8 @@ def ingredient(request):
             'uilist': uilist,
             'uiredlist': uiredlist,
             'uigreenlist': uigreenlist,
-            'ualist': ualist
+            'ualist': ualist,
+            'ingrlist_i_name': ingrlist_i_name  # 식재료 이름 중복 제거
         }
         return render(request, 'ingredientapp/ingredient.html', context);
     else:
@@ -97,7 +99,7 @@ def ingredient_regimpl(request):
     ui_regdate = date.today()
     try:
         User_IngrDb().insert(u_id,i_id.i_id,ui_regdate,ui_exdate);
-        logger.debug("i_name")
+        logger.debug(i_name)
     except:
         context = {
             'error' : ErrorCode.e0002

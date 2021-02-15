@@ -84,7 +84,7 @@ for i in range(1,6):  # 페이지 돌리기
         try:
             for snum,s in enumerate(step):
                 details = s.get_text().replace('\n','')
-                # detail = re.sub('["()=.?,/:$*%]', '', details)
+                # detail = re.sub('"', '', details)
                 # print(detail)
                 if cnt == 0:
                     #첫번째 실행 시 딕셔너리안에 벨류값을 리스트형태로 생성 {key: [value]}
@@ -93,7 +93,8 @@ for i in range(1,6):  # 페이지 돌리기
                     cnt +=1
                 else: #첫번째 제외 벨류값리스트에 추가
 
-                    steplist[i*100+idx][details] = "static/assets/img/dimage/"+titlelist[i*100+idx] +"/{}.jpg".format(snum+1)
+                    steplist[i*100+idx
+                    ][details] = "static/assets/img/dimage/"+titlelist[i*100+idx] +"/{}.jpg".format(snum+1)
                     # dimagelist[i*100+idx][str(snum+1)] = "static/assets/img/dimage/"+titlelist[i*100+idx] +"/{}.jpg".format(snum+1)
                     cnt +=1
             RecipeDb().update(str(steplist[i * 100 + idx]).replace("\'","\""),titlelist[i * 100 + idx])

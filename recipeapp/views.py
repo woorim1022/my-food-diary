@@ -36,39 +36,15 @@ def recipe_detail(request):
     #     r_num = i.r_num
     #     rv_review = i.rv_review
     ingr = IngrDb().select(int(r_id));
-    for i in ingr:
-        i_name = i.i_name
-        ri_q = i.ri_q
-        r_regdate = i.r_regdate
-        r_view = i.r_view
-        r_recommend = i.r_recommend
-        r_cooktime = i.r_cooktime
-        r_name = i.r_name
-        rc_name = i.rc_name
+
     for i in recipe:
         r_detail = eval(i.r_detail)
 
-    lenth = len(r_detail)+1
     context = {
         'recipe_detail': recipe,
         'review': review,
         'ingr': ingr,
         'r_detail': r_detail,
-        'lenth' : lenth,
-
-        # 'u_id' :u_id,
-        # 'rv_regdate' : rv_regdate,
-        # 'r_num' : r_num,
-        # 'rv_review' : rv_review,
-
-        'i_name' : i_name,
-        'r_cooktime' : r_cooktime,
-        'ri_q' : ri_q,
-        'r_regdate' : r_regdate,
-        'r_view' : r_view,
-        'r_recommend' : r_recommend,
-        'rc_name' : rc_name,
-        'r_name' : r_name,
         'recent':recent
     }
     return render(request, 'recipeapp/recipe_detail.html', context)

@@ -54,9 +54,9 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <p class="font-italic">
                       <div>
-                        작성일: {{r_regdate}}<br>
-                        조회수: {{r_view}}  추천수: {{r_recommend}}<br><br>
                         {% for r in recipe_detail %}
+                        작성일: {{r.r_regdate}}<br>
+                        조회수: {{r.r_view}}  추천수: {{r.r_recommend}}<br><br>
                         <img src="{{r.r_mimage}}" alt="" class="img-fluid"><br>
                         {% endfor %}
 
@@ -65,11 +65,15 @@
                     <div class="col-lg-8 text-center order-1 order-lg-2">
                     </div>
                     <p class="font-italic">
-                    <div>조리시간: {{r_cooktime}}분 <br><br>
+                    <div>
+                    {% for r in recipe_detail %}
+                      조리시간: {{r.r_cooktime}}분
+                      {% endfor %}<br><br>
                          <input type="hidden" method="post" name="r_id" value="r_id">
                          재료:<br>
                          {% for r in ingr %}
-                         {{r.i_name}} {{r.ri_q}}<br>{% endfor %}<br>
+                         {{r.i_name}} {{r.ri_q}}
+                         {% endfor %}<br><br>
                     </div>
                     </p>
                   </div>

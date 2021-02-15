@@ -100,7 +100,6 @@ class IngrDb(Db):
         super().close(conn, cursor);
         return num;
 
-
 def recipe_insert_test(r_id, rc_id, u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage, r_recommend, r_view, r_public):
     RecipeDb().insert(r_id, rc_id, u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage, r_recommend, r_view, r_public)
 
