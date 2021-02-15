@@ -21,7 +21,7 @@ from userapp import views
 
 urlpatterns = [
 
-    path('mypage', TemplateView.as_view(template_name='userapp/mypage.html'), name='mypage'),
+    path('mypage', views.UserView.mypage, name='mypage'),
     path('profile', views.UserView.profile, name='profile'),
     path('userupdateimple', views.UserView.userupdateimple,name='userupdateimple'),
     path('ncheck/',views.UserView.ncheck,name='ncheck'),

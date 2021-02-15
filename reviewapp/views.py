@@ -7,6 +7,7 @@ from django.shortcuts import render
 from frame.reviewapp.reviewapp_reviewdb import ReviewDb, RecipeDb
 from frame.reviewapp.reviewapp_value import Review
 
+import frame.mainapp.mainapp_userdb
 
 def review(request):
     u_id = request.session['suser'] # 로그인된 user아이디 값 가져오기
@@ -56,6 +57,20 @@ def review(request):
         before = False
     nextnum = (pagepart*5)+1 #다음버튼 누를 경우 하단링크바 묶음 표시
     beforenum = (pagepart-1)*5 #이전버튼 누를 경우 하단링크바 묶음 표시
+
+
+
+
+
+    # ==================================================================
+    # ==================================================================
+    # ==================================================================
+    # 최근 방문기록 가져와서 뿌려주는 코드
+    recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(u_id)
+    # ==================================================================
+    # ==================================================================
+    # ==================================================================
+
     context = {
         'review':review,
         'pagelist':pagelist,
@@ -65,6 +80,7 @@ def review(request):
         'nextnum':nextnum,
         'before':before,
         'beforenum':beforenum,
-        'r_dimage':r_dimage
+        'r_dimage':r_dimage,
+        'recent':recent
     }
     return render(request,'reviewapp/review.html',context)

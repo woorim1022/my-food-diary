@@ -7,6 +7,8 @@ from django.shortcuts import render, redirect
 from frame.ingredientapp.ingredientapp_error import ErrorCode
 from frame.ingredientapp.ingredientapp_ingrdb import User_IngrDb, User_AvoidDb, IngrDb
 
+import frame.mainapp.mainapp_userdb
+
 logger = logging.getLogger('users');
 
 def ingredient(request):
@@ -37,13 +39,26 @@ def ingredient(request):
         for ua in user_avoidlist:
             ualist.append(ua)
 
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+
         context = {
             'ingrlist': ingrlist,
             'uilist': uilist,
             'uiredlist': uiredlist,
             'uigreenlist': uigreenlist,
             'ualist': ualist,
-            'ingrlist_i_name': ingrlist_i_name  # 식재료 이름 중복 제거
+            'ingrlist_i_name': ingrlist_i_name,  # 식재료 이름 중복 제거
+            'recent':recent
         }
         return render(request, 'ingredientapp/ingredient.html', context);
     else:
@@ -79,6 +94,18 @@ def ingredient_reg(request):
     for ua in user_avoidlist:
         ualist.append(ua)
 
+    # ==================================================================
+    # ==================================================================
+    # ==================================================================
+    # 최근 방문기록 가져와서 뿌려주는 코드
+    recent = None
+    if 'suser' in request.session:
+        if request.session['suser']:
+            recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+    # ==================================================================
+    # ==================================================================
+    # ==================================================================
+
     context = {
         'ingrlist': ingrlist, #전체리스트
         #전체날짜리스트
@@ -86,7 +113,8 @@ def ingredient_reg(request):
         'uiredlist': uiredlist, #유통기한 지난 리스트
         'uigreenlist': uigreenlist, #5일 이내 리스트
         'ualist': ualist, #알레르기 유발 리스트
-        'ingrlist_i_name':ingrlist_i_name #식재료 이름 중복 제거
+        'ingrlist_i_name':ingrlist_i_name, #식재료 이름 중복 제거
+        'recent':recent
 
     }
     return render(request,'ingredientapp/ingredient_reg.html', context);
