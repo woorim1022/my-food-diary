@@ -126,6 +126,11 @@ class Ingredient:
         self.ic_name = ic_name;
         self.icp_name = icp_name;
 
+class Ingredient_2:
+    def __init__(self, i_id, ic_id, i_name):
+        self.i_id = i_id;
+        self.ic_id = ic_id;
+        self.i_name = i_name;
 
 class Recipe_review:
     def __init__(self, r_id,rc_id,u_id,r_regdate,r_name,r_cooktime,r_mimage,r_detail,r_dimage,r_recommend,r_view,r_public,r_num, re_count):

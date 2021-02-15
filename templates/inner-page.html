@@ -64,7 +64,7 @@
                     <li><a style="color:white;">{{request.session.snickname}}님, 환영합니다</a></li>
                     <li><a href="{% url 'recipe' %}">레시피추천받기</a></li>
                     <li><a href="{% url 'ingredient' %}">내 재료 확인하기</a></li>
-                    <li><a href="#">나만의 레시피 만들기</a></li>
+                    <li><a href="{% url 'myrecipe' %}">나만의 레시피 만들기</a></li>
                     {% ifequal request.session.suser 'admin' %}
                         <li><a href="{% url 'adminpage' %}">관리페이지</a></li>
                     {% else %}

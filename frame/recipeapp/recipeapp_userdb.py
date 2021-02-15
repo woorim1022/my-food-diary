@@ -1,6 +1,6 @@
 from frame.recipeapp.recipeapp_db import Db
 from frame.recipeapp.recipeapp_sql import Sql
-from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review, Recipe_review, Favorite, Ingr
+from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredient, Ingredient, Review, Recipe_review, Favorite, Ingr, Ingredient_2
 
 
 # from recipeapp.views import recipe
@@ -186,6 +186,7 @@ class IngredientDb(Db):
     def selectall(self):
         conn = super().getConnection();
         cursor = conn.cursor();
+        # cursor.execute(Sql.ingredientall % (num));
         cursor.execute(Sql.ingredientall);
         result = cursor.fetchall();
         all = [];
@@ -194,6 +195,32 @@ class IngredientDb(Db):
             all.append(ingredient);
         super().close(conn, cursor);
         return all;
+
+    def ingrpage(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.ingr_page);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            all= u[0];
+        super().close(conn, cursor);
+        return all;
+
+
+    def select_checked_ingr(self, i_id_list):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        # r_id 를 리스트로 받아와서 map으로 모양 맞춰서 sql 에 포맷에 넣
+        format_strings = ",".join( map(str, i_id_list) )
+        cursor.execute(Sql.ingr_checked % (format_strings));
+        result = cursor.fetchall();
+        all = [];
+        for i in result:
+            ingredient = Ingredient_2(i[0], i[1], i[2]);
+            all.append(ingredient.i_name);
+        super().close(conn,cursor);
+        return all;
 # ==================================================우림코드=================================================
 # ==================================================우림코드=================================================
 
@@ -201,11 +228,11 @@ class IngredientDb(Db):
 
 # =============================송현님 코드======================================================
 # =============================송현님 코드======================================================
-def review_test():
-    # RecipeDb().insert_fav('id01', 1);
-    RecipeDb().select_with_r_id([1,2,3,4,5], 20);
-
-if __name__ == '__main__':
-     review_test();
+# def review_test():
+#     # RecipeDb().insert_fav('id01', 1);
+#     IngredientDb().select_checked_ingr([1,2,3,4,5,6,7,8]);
+#
+# if __name__ == '__main__':
+#      review_test();
 # =================================송현님 코드===========================================================
 # =================================송현님 코드===========================================================
