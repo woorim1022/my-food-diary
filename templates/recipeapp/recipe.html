@@ -22,9 +22,6 @@
         }
 
 </style>
-
-
-</style>
     <!-- ======= Breadcrumbs Section ======= -->
     <section class="breadcrumbs">
       <div class="container">
@@ -43,10 +40,14 @@
     <script>
          $(document).ready(function(){
 
+
+
+
             // 얘를 클릭했을 때
             $('a[name="fav_add"]').click(function(){
                 //레시피 아이디
-                 r_id = $(this).find('p');
+                 r_id = $(this).find('p')[1];
+                 alert(r_id);
                 // 즐찾추가
                 $.ajax({
                    url:{% url 'fav_add' %},
@@ -76,99 +77,87 @@
                         if(data.trim() == '1'){
                             $('span[name="fav_cancel"]').text('🤍');
                         }else{};
-
-
                    }
                 });
             });
 
 
+            // 얘를 클릭했을 때
+            $('button[name="search"]').click(function(){
+                i_name = $('input[name="i_name"]').val();
+                i_name_2="#"+i_name;
+                location.href = i_name_2;
+                document.getElementById(i_name).style.color='#ff2727';
+            });
         });
     </script>
 
 <!--============================내가 가진 식재료==================================================-->
-
-<!-- 이 부분은 현재 로그인되어 있는 사용자 한명에 대해서만 출력되어야 하므로 for문 안에 넣으면 안됨-->
-<!--데이터베이스에서 현재 로그인한 사용자가 가지고 있는 식재료를 select 문으로 가져와서 출력해주어야 한다.-->
-<!--( select * from users_ingr where u_id=(현재로그인한사용자의아이디) )-->
     <!-- ======= Menu Section ======= -->
     <section style="background-color:#fffaf3; padding:30px 0px 0px 0px;" id="menu" class="menu">
       <div class="container">
-
-
-<!--  만약 세션의 snickname 라는 key에 value가 존재하면, 즉, 로그인이 되어있으면-->
-<!--  로그인이 되어있는 경우에만 세션에 값들이 저장되어있게 해놓았음 -->
-      {% if request.session.snickname %}
-        <div class="section-title">
-<!--      request.session.snickname : 현재 로그인한 사용자의 닉네임-->
-          <h2>{{request.session.snickname}}님이 가진 <span>식재료 고르기</span></h2>
-        </div>
-<!--  만약 세션의 snickname 라는 key에 value가 존재하지 않으면, 즉, 로그인이 되어있지 않으면-->
-      {% else %}
-        <div class="section-title">
-            <h2><span>식재료 고르기</span></h2>
-        </div>
-      {% endif %}
-
-<!--    버튼 출력하는 영역, 반복될 필요 없음-->
-        <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="menu-flters">
-              <li data-filter="*" class="filter-active">Show All</li>
-              <li data-filter=".filter-close">Close</li>
-            </ul>
+    <!--  만약 세션의 snickname 라는 key에 value가 존재하면, 즉, 로그인이 되어있으면-->
+    <!--  로그인이 되어있는 경우에만 세션에 값들이 저장되어있게 해놓았음 -->
+          {% if request.session.snickname %}
+            <div class="section-title">
+    <!--      request.session.snickname : 현재 로그인한 사용자의 닉네임-->
+              <h2>{{request.session.snickname}}님이 가진 <span>식재료 고르기</span></h2>
+            </div>
+    <!--  만약 세션의 snickname 라는 key에 value가 존재하지 않으면, 즉, 로그인이 되어있지 않으면-->
+          {% else %}
+            <div class="section-title">
+                <h2><span>식재료 고르기</span></h2>
+            </div>
+          {% endif %}
+          <div style="margin:0px 0px 0px 830px;">
+            <div style="display:inline-block;" class="search">
+                <input type="text" placeholder="식재료 검색" list ="i_name" name="i_name">
+                  <datalist id="i_name" name="i_name">
+                  {% for ingr in ingredients %}
+                    <option value="{{ingr.i_name}}">
+                  {% endfor %}
+                    </option>
+                  </datalist>
+            </div>
+            <div style="display:inline-block;" class="button">
+                <button name="search" style="padding:0px 12px 0px 12px;  height:34px;font-size:15px;color:white;text-align: center;background: #ffb03b;border: solid 2px white;border-radius: 25px;">검색</button>
+            </div>
           </div>
-        </div>
-
-
-
-
-      <form action="{% url 'filtering' %}" method="post">
-        {% csrf_token %}
-        <div class="row menu-container">
-    <!--    이 부분이 식재료 표시하는 부분(체크박스랑 식재료 리스트 표시되는 부분) 이므로 여기만 for문을 돌려준다-->
-            <br><br><br><br>
-            <br><br><br><br>
-            {% for ui in ingredients %}
-              <div class="col-lg-4 menu-item filter-active">
-                <div class="menu-content">
-                  <a>
-
-                  {% if ingr_name_user %}
-                    {% if ui.i_name in ingr_name_user %}
-                         <input type='checkbox' checked="checked" name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                    {% else %}
-                         <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                    {% endif %}
-                  {% else %}
-                        <input type='checkbox'  name='ingrcheck[]' value={{ui.i_id}}>{{ui.i_name}}
-                  {% endif %}
-                  </a>
-    <!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
+          <form action="{% url 'filtering' %}" method="post">
+                {% csrf_token %}
+                <div style="white-space:nowrap;overflow:auto;height:300px;" class="row">
+                    {% for ui in ingredients %}
+                      <div class="col-lg-2 menu-item">
+                        <div class="menu-content">
+                         <a id="{{ui.i_name}}" style="background-color:#fffaf3;">
+                              {% if ingr_checked %}
+                                {% if ui.i_name in ingr_checked %}
+                                     <input type='checkbox' checked="checked" name='ingrcheck[]' value={{ui.i_id}}>&nbsp;&nbsp;<span style="background-color:#fffaf3;" name="{{ui.i_name}}">{{ui.i_name}}</span></input>
+                                {% else %}
+                                     <input type='checkbox' name='ingrcheck[]' value={{ui.i_id}}>&nbsp;&nbsp;<span style="background-color:#fffaf3;" name="{{ui.i_name}}">{{ui.i_name}}</span></input>
+                                {% endif %}
+                              {% else %}
+                                     <input type='checkbox' name='ingrcheck[]' value={{ui.i_id}}>&nbsp;&nbsp;<span style="background-color:#fffaf3;" name="{{ui.i_name}}">{{ui.i_name}}</span></input>
+                              {% endif %}
+                         </a>
+            <!--              체크박스 체크된거:<input type='checkbox' name='서버에서 인식할 값' value='서버에 전송할 값' checked/>  -->
+                        </div>
+                        <div class="menu-ingredients">
+                            {{ui.icp_name}} > {{ui.ic_name}}
+                        </div>
+                      </div>
+                    {% endfor %}
                 </div>
-                <div class="menu-ingredients">
-                    {{ui.icp_name}} > {{ui.ic_name}}
-                </div>
-              </div>
-            {% endfor %}
-        </div>
-        <nav class="nav-menu d-none d-lg-block" >
-              <ul>
-                <li class="book-a-table text-center"><button style="margin:40px 0px 0px 481px;border:white; outline:0;" type="submit">레시피 추천받기</button></li>
-              </ul>
-        </nav>
-      </form>
-          <br>
-          <br>
-          <br>
-          <br>
+
+                <nav class="nav-menu d-none d-lg-block" >
+                      <ul>
+                        <li class="book-a-table text-center"><button style="margin:40px 0px 0px 481px;border:white; outline:0;" type="submit">레시피 추천받기</button></li>
+                      </ul>
+                </nav>
+          </form>
+          <br><br><br><br>
 
       </div><br>
-
-
-
-
-
     </section><!-- End Menu Section -->
 
 <!--==================================레시피 목록=====================================================-->
@@ -196,9 +185,6 @@
                 <br></br>
                 </a>
 
-
-
-
                 {% if r.r_id in favorite %}
                     <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
                 {% else %}
@@ -206,15 +192,8 @@
                 {% endif %}
 
 
-
-
-
-
-
-
-
-                    <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
-                    <br>
+                <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
+                <br>
 
                 {% if r.r_num == 10.0 %}
                     <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
@@ -240,7 +219,6 @@
                     <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;">({{r.re_count}})</span>
                 {% endif %}
 
-
                 <p style="margin:4px 0px 0px 0px; font-size:17px; color:#5f5950;">작성자 : {{r.u_id}}</p>
                 <p style="font-size:17px; margin:-1px 0px 10px 0px; color:#5f5950;">조회수 : {{r.r_view}} 추천수 : {{r.r_recommend}}</p>
 
@@ -253,35 +231,41 @@
 
 
 
-
-
-
-
-
-
-
       </div>
     </section><!-- End Gallery Section -->
 
 
 
+    {% if filtered == 'True' %}
+                  <div style="background-color:#fffaf3; margin:40px 0px 0px 0px; padding:20px 0px 20px 0px;" class="container-fluid">
+                    <li class="page-review">
+                        {% if before %}
+                        <a class="page-link" href="?&page_r={{beforenum}}&filtered=True">이전</a>
+                        {% endif %}
+                        {% for l in pagelist %}
+                        <a class="page-link" href="?&page_r={{l}}&filtered=True">{{l}}</a>
+                        {% endfor %}
+                        {% if next %}
+                        <a class="page-link" href="?&page_r={{nextnum}}&filtered=True">다음</a>
+                        {% endif %}
+                    </li>
+                  </div>
+    {% else %}
+                 <div style="background-color:#fffaf3; margin:40px 0px 0px 0px; padding:20px 0px 20px 0px;" class="container-fluid">
+                    <li class="page-review">
+                        {% if before %}
+                            <a class="page-link" href="?&page_r={{beforenum}}&filtered=False">이전</a>
+                        {% endif %}
+                        {% for l in pagelist %}
+                            <a class="page-link" href="?&page_r={{l}}&filtered=False">{{l}}</a>
+                        {% endfor %}
+                        {% if next %}
+                            <a class="page-link" href="?&page_r={{nextnum}}&filtered=False">다음</a>
+                        {% endif %}
+                    </li>
+                  </div>
 
-
-      <div style="background-color:#fffaf3; margin:40px 0px 0px 0px; padding:20px 0px 20px 0px;" class="container-fluid">
-        <li class="page-review">
-            {% if before %}
-            <a class="page-link" href="?&page={{beforenum}}">이전</a>
-            {% endif %}
-            {% for l in pagelist %}
-            <a class="page-link" href="?&page={{l}}">{{l}}</a>
-            {% endfor %}
-            {% if next %}
-            <a class="page-link" href="?&page={{nextnum}}">다음</a>
-            {% endif %}
-        </li>
-      </div>
-
-
+    {% endif %}
 
 
 

@@ -46,11 +46,15 @@ class Sql:
 
     recipe_page = "SELECT COUNT(*) DIV 20 FROM recipe;"
 
+    ingr_page = "SELECT COUNT(*) DIV 18 FROM ingr;"
+
     recipe_rid = """select r.*, ifnull(AVG(re.r_num),0), count(re.r_id) from recipe as r
 	                        LEFT OUTER JOIN review re ON r.r_id = re.r_id 
 	                        where r.r_id IN (%s) group by r.r_id
 	                        LIMIT 20
                 	        OFFSET %d;"""
+
+
 
 
     select_f_with_u = "select * from favorite where u_id = '%s';"
@@ -69,7 +73,16 @@ class Sql:
     # 현재 디비에 있는 모든 식재료료 목록 가져오는 쿼리문
     ingredientall = """select ig.*, ic.ic_name, ifnull(icp.ic_name, ' ') as icp_name from ingr as ig
                             INNER JOIN ingr_ct ic ON ig.ic_id = ic.ic_id
-                            LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id;"""
+                            LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id
+                            ORDER BY ig.i_name;"""
+
+    # ingredientall = """select ig.*, ic.ic_name, ifnull(icp.ic_name, ' ') as icp_name from ingr as ig
+    #                             INNER JOIN ingr_ct ic ON ig.ic_id = ic.ic_id
+    #                             LEFT OUTER JOIN ingr_ct icp ON ic.icp_id = icp.ic_id
+    #                             LIMIT 18
+    #                             OFFSET %d;"""
+
+    ingr_checked = """select * from ingr as i where i.i_id IN (%s)"""
 
 
     recipe_ingr = """select r.* from recipe_ingr as re

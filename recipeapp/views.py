@@ -8,6 +8,9 @@ from django.utils.http import urlencode
 from frame.recipeapp.recipeapp_userdb import RecipeDb, IngredientDb, ReviewDb, IngrDb
 import frame.mainapp.mainapp_userdb
 ingredients = None
+rid_global = None
+iid_global = None
+
 
 def recipe_detail(request):
     # =========================우림 추가코드=====================
@@ -71,11 +74,8 @@ def recipe_detail(request):
     return render(request, 'recipeapp/recipe_detail.html', context)
 # ==================================송현님코드==========================================================================
 
-
-
-
-
 # ==================================우림코드=====================================================
+
 def recipe(request):
     #==================================================================
     #==================================================================
@@ -91,52 +91,76 @@ def recipe(request):
     #==================================================================
     #==================================================================
     #==================================================================
-    ingr_name_user = None
-    favorite = None
-    rf_qstr = request.GET.get('recipefiltered')
-    page = int(request.GET.get('page', '1'))  # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
 
-    # 식재료, 즐겨찾기 출력 코드
-    # 세션에 suser 이라는 key가 존재하면
-    if 'suser' in request.session:
-        # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
-        if request.session['suser']:
-            # selectusersingr() 함수를 통해 현재 로그인한 사용자의 식재료"만" 가져온다
-            ingr_name_user = IngredientDb().selectusersingr(request.session['suser'])
-            ingredients = IngredientDb().selectall()
-            # 현재 로그인한 사용자가 즐겨찾기 한 목록 가져오기
-            favorite = RecipeDb().select_f_with_u(request.session['suser'])
-        # suser이라는 key에 value가 존재하지 않으면(즉, 로그인이 되어있지 않으면)
+    global rid_global
+    global iid_global
+
+    ingr_checked = None
+    favorite = None
+
+    # filtering 함수로부터 오는 요청
+    r_qstr = request.GET.get('r_id_list')
+    i_qstr = request.GET.get('i_id_list')
+
+    # recipe.html로부터 호는 요청
+    page_r = int(request.GET.get('page_r', '1'))  # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
+    # page_i = int(request.GET.get('page_i', '1'))
+    filtered = request.GET.get('filtered','False')
+
+    print('@@@@@@@@@@@@@@'+filtered)
+
+    # 식재료 출력 코드
+    # ingr = IngredientDb().selectall((page_i - 1) * 30)
+    # ingr_page = (IngredientDb().ingrpage() + 1);
+    ingr = IngredientDb().selectall()
+    # 체크박스에 체크할 식재료 가져오는 코드
+    # filtering 함수에서 쿼리스트링을 가져왔거나 filtered가 True이면 즉, 필터링 된 상태면
+    if (i_qstr != None and i_qstr != '[]') or filtered == 'True':
+        # recipe.html에서 페이지 버튼을 누른 경우
+        if filtered == 'True':
+            # 전역변수에 저장해놓은 iid 리스트를 가져옴
+            i_id_list = iid_global
         else:
-            # selectall() 함수를 통해 데이터베이스에 있는 모든 식재료를 가져온다
-            ingredients = IngredientDb().selectall()
-    # 세션에 suser 이라는 key가 존재하지 않으면(즉, 로그인이 되어있지 않으면)
+            i_id_list = eval(i_qstr)
+        iid_global = i_id_list
+        ingr_checked = IngredientDb().select_checked_ingr(i_id_list)
+    # 식재료 쿼리스트링이 비어있고 필터링 된 상태도 아니면
     else:
-        # selectall() 함수를 통해 데이터베이스에 있는 모든 식재료를 가져온다
-        ingredients = IngredientDb().selectall()
+        # 로그인 되어있으면
+        if 'suser' in request.session:
+            if request.session['suser']:
+                u_id = request.session['suser']
+                ingr_checked = IngredientDb().selectusersingr(u_id)
 
     # 레시피 출력 코드
-    # 필터링 선택된 값 없으면(filtering 함수에서 넘어온 값이 없거나 선택한 식재료가 없으면)
-    if rf_qstr == None or not rf_qstr:
-        # 전체 레시피 select
-        recipes = RecipeDb().selectall((page-1)*20);
-        recipepage = (RecipeDb().recipepage() + 1);  # 전체페이지수 +1은 초기값이 0이여서 더해둠
-    # 필터링 선택된 값 있으면
+    if (r_qstr != None and r_qstr != '[]') or filtered == 'True':
+        if filtered == 'True':
+            r_id_list = rid_global
+        else:
+            r_id_list = eval(r_qstr)
+        recipes = RecipeDb().select_with_r_id(r_id_list, (page_r - 1) * 20)
+        recipepage = len(r_id_list) // 20 + 1
+        rid_global = r_id_list
+        filtered = 'True'
     else:
-        # filtering 함수에서 가져온 id로 recipe를 select
-        r_id_list = eval(rf_qstr)
-        recipes = RecipeDb().select_with_r_id(r_id_list, (page-1)*20)
-        recipepage = len(r_id_list)//20 + 1
+        recipes = RecipeDb().selectall((page_r - 1) * 20);
+        recipepage = (RecipeDb().recipepage() + 1);
+
+    # 즐겨찾기 출력 코드
+    if 'suser' in request.session:
+        if request.session['suser']:
+            u_id = request.session['suser']
+            favorite = RecipeDb().select_f_with_u(u_id)
+
 
     if recipepage // 5 == 0:  # 하단 페이지 링크바 생성을 5개로 지정. 링크바 묶음(1,2,3,4,5),(6,7,8,9,10)
         allpagepart = 1;  # 링크바 묶음 초기값 설정
     else:
         allpagepart = math.ceil(recipepage / 5)  # 전체 링크바 묶음 갯수
-    #
-    if page // 5 == 0:  # 5개단위묶음 중 현재 몇 묶음에 있는지 확인
+    if page_r // 5 == 0:  # 5개단위묶음 중 현재 몇 묶음에 있는지 확인
         pagepart = 1;  # 현재 묶음 초기값 설정
     else:
-        pagepart = math.ceil(page / 5)  # 현재 링크바 묶음 위치
+        pagepart = math.ceil(page_r / 5)  # 현재 링크바 묶음 위치
 
     pagelist = []  # 현재 페이지 기준으로 하단 링크바를 만들기 위한 리스트
     if allpagepart > pagepart:  # 전체 링크바 묶음이 현재 링크바 묶음 위치보다 클 경우
@@ -163,6 +187,8 @@ def recipe(request):
     nextnum = (pagepart * 5) + 1  # 다음버튼 누를 경우 하단링크바 묶음 표시
     beforenum = (pagepart - 1) * 5  # 이전버튼 누를 경우 하단링크바 묶음 표시
 
+
+
     context = {
         'recipes': recipes,
         'pagelist': pagelist,
@@ -171,36 +197,42 @@ def recipe(request):
         'nextnum': nextnum,
         'before': before,
         'beforenum': beforenum,
-        'ingredients': ingredients,
-        'ingr_name_user':ingr_name_user,
+        'ingredients': ingr,
+        'ingr_checked':ingr_checked,
         'favorite':favorite,
-        'recent':recent
+        'recent':recent,
+        'filtered':filtered
     }
     return render(request, 'recipeapp/recipe.html', context);
 
 
 def filtering(request):
-    recipefiltered = []
-    ingrchecklist = request.POST.getlist('ingrcheck[]')
-    for i in ingrchecklist:
+    r_id_list = []
+    i_id_list = request.POST.getlist('ingrcheck[]')
+    for i in range(len(i_id_list)):
+        i_id_list[i] = int(i_id_list[i])
+
+    for i in i_id_list:
         # i를 포함한 레시피 select로 가져와
-        recipewithingr = RecipeDb().select_recipe_with_ingr(int(i))
+        recipewithingr = RecipeDb().select_recipe_with_ingr(i)
+
+        # r_id 리스트에 저장하는 부분
         for j in range(len(recipewithingr)):
            # 겹치면 저장 ㄴㄴ
-           if recipewithingr[j].r_id in recipefiltered:
+           if recipewithingr[j].r_id in r_id_list:
                continue
            else:
-               recipefiltered.append(recipewithingr[j].r_id)
-    qstr = urlencode({'recipefiltered':recipefiltered})
-    return HttpResponseRedirect('%s?%s' % ('recipe', qstr))
+               r_id_list.append(recipewithingr[j].r_id)
+
+    qstr_r = urlencode({'r_id_list':r_id_list})
+    qstr_i = urlencode({'i_id_list':i_id_list})
+    return HttpResponseRedirect('%s?%s&%s' % ('recipe', qstr_r, qstr_i))
 
 
 def fav_add(request):
-    print('fav_add')
     # 로그인 안했으면 아무것도 안함
     # 로그인 했으면 favorite 테이블에 insert
     r_id = request.GET['r_id']
-    print(r_id)
     u_id = None
     if 'suser' in request.session:
         # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
@@ -215,11 +247,9 @@ def fav_add(request):
 
 
 def fav_cancel(request):
-    print('fav_cancel')
     # 로그인 안했으면 아무것도 안함
     # 로그인 했으면 favorite 테이블에서 delete
     r_id = request.GET['r_id']
-    print(r_id)
     u_id = None
     if 'suser' in request.session:
         # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
