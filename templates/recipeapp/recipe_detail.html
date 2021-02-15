@@ -20,7 +20,38 @@
       </div>
     </section><!-- End Breadcrumbs Section -->
 
+<style>
+<!--======================table=======================================-->
+table.type06 {
+  border-collapse: collapse;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 10px;
+}
+table.type06 th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+}
+table.type06 td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+}
+table.type06 .even {
+  background: #efefef;
+}
 
+
+<!--===============================review===========================================-->
+
+
+
+
+</style>
 
 
 <!--===============================목록======================================================-->
@@ -54,9 +85,27 @@
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <p class="font-italic">
                       <div>
+                        <link href="/data/201012/IJ12937886903109/product.css" rel="stylesheet" type="text/css" />
+                        <div class="container">
+                            <div class="wrap">
+                                <table cellspacing="0" cellpadding="0" border="0" width="659">
+                                <tbody>
+                                        <td class="c_left">작성일</td>
+                                        <td width="520">{{r_regdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="c_left">조회수</td>
+                                        <td width="520">{{r_view}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="c_left">추천수</td>
+                                        <td width="520">{{r_recommend}}</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div><br>
                         {% for r in recipe_detail %}
-                        작성일: {{r.r_regdate}}<br>
-                        조회수: {{r.r_view}}  추천수: {{r.r_recommend}}<br><br>
                         <img src="{{r.r_mimage}}" alt="" class="img-fluid"><br>
                         {% endfor %}
 
@@ -66,14 +115,19 @@
                     </div>
                     <p class="font-italic">
                     <div>
-                    {% for r in recipe_detail %}
-                      조리시간: {{r.r_cooktime}}분
-                      {% endfor %}<br><br>
-                         <input type="hidden" method="post" name="r_id" value="r_id">
-                         재료:<br>
-                         {% for r in ingr %}
-                         {{r.i_name}} {{r.ri_q}}
-                         {% endfor %}<br><br>
+                      <input type="hidden" method="post" name="r_id" value="r_id">
+                      <table class="type06">
+                          <tr>
+                            <th scope="row">조리시간</th>
+                            <td>{{r_cooktime}}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row" class="even">재료</th>
+                            <td class="even">{% for r in ingr %}
+                                             {{r.i_name}} {{r.ri_q}}<br>
+                                             {% endfor %}</td>
+                          </tr>
+                        </table>
                     </div>
                     </p>
                   </div>
@@ -84,13 +138,22 @@
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>조리</h3>
-                    <div class="col-lg-8 text-center order-1 order-lg-2">
-                        {% for key,val in r_detail.items %}
-                        {{key}}
-                        <img src="{{val}}"><br><br>
-                        {% endfor %}
-                    </div>
+                    <h3>조리방법</h3>
+                        <div class="container">
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      <div class="card">
+                                        <div class="card-info">
+                                          <div class="content">
+                                              {% for key,val in r_detail.items %}
+                                            <p><b> </b> <br> {{key}}<br> </p>
+                                            <p><b> </b> <img src="{{val}}"><br><br><br></p>{% endfor %}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                     <p class="font-italic">
                     </p>
                   </div>
@@ -104,45 +167,59 @@
                     <h3>리뷰</h3>
                     <p class="font-italic">
                       <div>
-                           {% for r in review %}
-                           작성자: {{r.u_id}}<br>
-                           작성일:{{r.rv_regdate}}<br>
-                           평점: {{r.r_num}}점
-                            {% if r.r_num == 10.0 %}
-                                <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 9.0 %}
-                                <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 8.0 %}
-                                <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 7.0 %}
-                                <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 6.0 %}
-                                <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 5.0 %}
-                                <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 4.0 %}
-                                <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 3.0 %}
-                                <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 2.0 %}
-                                <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% elif r.r_num > 1.0 %}
-                                <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% else %}
-                                <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                            {% endif %}<br>
-
-
-                            리뷰: {{r.rv_review}}<br><br>{% endfor %}<br>
-                           </div></p>
+                            <div class="container">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                {% for r in review %}
+                                                <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                                                <p class="text-secondary text-center"> {{r.rv_regdate}} </p>{% endfor %}
+                                            </div>
+                                            <div class="col-md-10">
+                                                <p>{% for r in review %}
+                                                    <a class="float-left"><strong>{{r.u_id}}</strong></a><br>
+                                                    평점: {{r.r_num}}점
+                                                    {% if r.r_num == 10.0 %}
+                                                        <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 9.0 %}
+                                                        <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 8.0 %}
+                                                        <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 7.0 %}
+                                                        <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 6.0 %}
+                                                        <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 5.0 %}
+                                                        <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 4.0 %}
+                                                        <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 3.0 %}
+                                                        <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 2.0 %}
+                                                        <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% elif r.r_num > 1.0 %}
+                                                        <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% else %}
+                                                        <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
+                                                    {% endif %}<br>
+                                               </p>
+                                               <div class="clearfix"></div>
+                                                <p> 작성자 {{r.u_id}}  <br> 작성일{{r.rv_regdate}}<br>
+                                                    리뷰: {{r.rv_review}}<br><br><br><br>{% endfor %}<br></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                     </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section><!-- End Specials Section -->
+        </section><!-- End Specials Section -->
 
 {% endblock %}
