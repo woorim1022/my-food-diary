@@ -61,7 +61,6 @@ def useraddimpl(request):
             return render(request,'mainapp/userreg.html',context);
         context = {
             'login': 'success',
-            'message': '회원가입 완료',
             'nickname' : u_nick,
             'allrecipes': allrecipes,
             'reviews':reviews,
@@ -123,7 +122,6 @@ def loginimpl(request):
                     recent = RecipeDb().select_recent(request.session['suser'])
             context = {
                 'login':'success',
-                'message': '로그인 완료',
                 'nickname': user.u_nick,
                 'allrecipes': allrecipes,
                 'reviews': reviews,
@@ -142,7 +140,7 @@ def loginimpl(request):
             'recent': recent,
             'todayrecommend': todayrecommend
         };
-        return render(request, 'mainapp/main.html', context)
+        return render(request, 'mainapp/login.html', context)
     return render(request, 'mainapp/main.html', context)
 
 
