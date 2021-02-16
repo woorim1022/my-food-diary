@@ -174,14 +174,13 @@ table.type06 .even {
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
+                                            {% for r in review %}
                                             <div class="col-md-2">
-                                                {% for r in review %}
                                                 <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
-                                                <p class="text-secondary text-center"> {{r.rv_regdate}} </p>{% endfor %}
+                                                <p class="text-secondary text-center"> {{r.rv_regdate|date:"Y-m-d"}} </p>
                                             </div>
                                             <div class="col-md-10">
-                                                <p>{% for r in review %}
-                                                    <a class="float-left"><strong>{{r.u_id}}</strong></a><br>
+                                                <p><a class="float-left"><strong>{{r.u_id}}</strong></a><br>
                                                     평점: {{r.r_num}}점
                                                     {% if r.r_num == 10.0 %}
                                                         <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
@@ -209,8 +208,8 @@ table.type06 .even {
                                                </p>
                                                <div class="clearfix"></div>
                                                 <p> 작성자 {{r.u_id}}  <br> 작성일{{r.rv_regdate}}<br>
-                                                    리뷰: {{r.rv_review}}<br><br><br><br>{% endfor %}<br></p>
-                                            </div>
+                                                    리뷰: {{r.rv_review}}<br><br><br><br><br></p>
+                                            </div>{% endfor %}
                                         </div>
                                     </div>
                                 </div>

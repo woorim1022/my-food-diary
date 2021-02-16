@@ -59,6 +59,7 @@ def ingredient(request):
             'ualist': ualist,
             'ingrlist_i_name': ingrlist_i_name,  # 식재료 이름 중복 제거
             'recent': recent
+
         }
         return render(request, 'ingredientapp/ingredient.html', context);
     else:
