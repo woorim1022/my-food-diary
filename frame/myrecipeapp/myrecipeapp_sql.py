@@ -6,6 +6,11 @@ class Sql:
                     LIMIT 12
                     OFFSET %d;"""
 
+     selectall_2 = """select *
+                         from recipe 
+                         where u_id='%s'
+                         ORDER BY r_id;"""
+
      recipepage = """SELECT COUNT(*) DIV 12 FROM recipe
                          WHERE u_id = '%s'"""
 

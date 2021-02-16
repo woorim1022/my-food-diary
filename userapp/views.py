@@ -212,6 +212,7 @@ class UserView:
             context = {
                 'iid':iid,
                 'rzip':rzip,
+                'ritem':ritem,
                 'ramt':ramt,
                 'recent': recent
             }
