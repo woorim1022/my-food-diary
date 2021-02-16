@@ -68,3 +68,19 @@ class Ingr:
 
     def __str__(self):
         return str(self.i_id)+' '+str(self.ic_id)+' '+self.i_name;
+
+class Allergy:
+    def __init__(self, u_id, i_id, ic_name,i_name):
+        self.u_id = u_id;
+        self.i_id = i_id;
+        self.ic_name = ic_name;
+        self.i_name = i_name;
+    def __str__(self):
+        return self.u_id+' '+str(self.i_id)+' '+self.ic_name+' '+self.i_name;
+
+class UsersAvoid:
+    def __init__(self,u_id,i_id):
+        self.u_id = u_id;
+        self.i_id = i_id;
+    def __str__(self):
+        return self.u_id+' '+str(self.i_id);

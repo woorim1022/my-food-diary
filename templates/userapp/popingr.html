@@ -111,16 +111,43 @@
       }
 </script>
 <script>
-    hj
+    $(document).ready(function(){
+        $('#ingrsearch').click(function(){
+            ingr = $('input[name="value"]').val();
+            $.ajax({
+                url: {% url "popsearch" %},
+                data: {"ingr":ingr},
+                type: 'get',
+                success:function(data){
+                    if(data.trim() == '0') {
+                        alert('식재료 이름을 입력하세요');
+                        $('input[name="value"]').focus();
+                    } else if (data.trim() == '1') {
+                        alert('등록되지 않은 식재료입니다');
+                    } else {
+                        $('.itemcontainer').append(
+                            `{% for i in selectlist%}\n
+                                <div class="item">\n
+                                    <span class="icon">{{i.ic_name}}</span>\n
+                                    <span class="name">{{i.i_name}}</span>\n
+                                </div>\n
+                            {% endfor %}`
+
+                        );
+                    };
+                }
+            });
+        });
+    });
 </script>
 <body>
     <div class="searchbox">
         <div class="header">
             <h1>Search</h1>
-            <input onkeyup="filter()" type="text" id="value" class="recingr" placeholder="식재료 이름을 입력하세요">
-            <button></button>
+            <input onkeyup="filter()" type="text" id="value" name="value" class="recingr" placeholder="식재료 이름을 입력하세요">
+<!--            <button id="ingrsearch">식재료 찾기</button>-->
         </div>
-        <div class="container">
+        <div class="itemcontainer">
             {% for i in popingr%}
                 <div class="item">
                     <span class="icon">{{i.ic_name}}</span>

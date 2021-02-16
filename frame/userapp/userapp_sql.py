@@ -37,3 +37,13 @@ class Sql:
                     WHERE i_name = '%s'"""
 
     recingrinsert = """INSERT INTO recipe_ingr VALUES (%d, %d, '%s')"""
+
+    allergyselect = """SELECT a.u_id,a.i_id,c.ic_name,b.i_name FROM users_avoid a
+                        INNER JOIN ingr b
+                        ON a.i_id = b.i_id
+                        INNER JOIN ingr_ct c
+                        ON b.ic_id = c.ic_id"""
+
+    allergyinsert = """INSERT INTO users_avoid VALUES ('%s', %d)"""
+
+    allergydelete = """DELETE FROM users_avoid WHERE i_id = %d"""
