@@ -1,0 +1,147 @@
+{% extends "inner-page.html" %}
+
+{% load static %}
+{% block content %}
+<style>
+    .section-title{
+        margin-top: 150px;
+    }
+    .allergycate{
+        width: 135px;
+        height: 25px;
+        background: #ff9900;
+        color: #fff;
+        font-size: 15px;
+        text-align: center;
+        border:none;
+        border-radius: 50px;
+        transition: 0.4s;
+    }
+    .allergyname{
+        border:none;
+        width:150px;
+    }
+  button {
+      display: inline-block;
+      background: #fff;
+      position: relative;
+      padding: 0 10px;
+      font-weight: 600;
+      border: 2px solid #ffb03b;
+      color: grey;
+      border-radius: 50px;
+  }
+  #algyreg{
+    background: #ffb03b;
+    border: 0;
+    padding: 10px 24px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+  #algyreg:hover{
+    background: #ffa012;
+  }
+</style>
+<script>
+    $(document).ready(function(){
+        $('button[name="search"]').click(function(){
+            i_name = $('input[name="i_name"]').val();
+            i_name_2="#"+i_name;
+            location.href = i_name_2;
+            document.getElementById(i_name).style.color='#FF0000';
+        });
+        $('form[class="allergydel"] > button').click(function(){
+            $('form[class="allergydel"]').attr({
+                'action' : '{% url 'allergyrem' %}',
+                'method' : 'POST'
+            });
+            $('form[class="allergydel"]').submit();
+        });
+        var algy = {{algyset}};
+        for (var i in algy) {
+            nch = algy[i];
+            nch = '.' + nch
+            $('.nch').attr("disabled",true);
+        };
+    });
+</script>
+<body>
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <span>{{request.session.snickname}}</span> 님의 <span>알러지 식재료</span>는
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 offset-lg-2 mt-4 mt-lg-4">
+                    {% for a in algylist %}
+                    <form class="allergydel">
+                        {% csrf_token %}
+                        <input class="allergycate" type="text" readonly="true" value="{{a.ic_name}}">
+                        <input class="allergyname" type="text" readonly="true" value="{{a.i_name}}">
+                        <input type="hidden" name="aid" value="{{a.i_id}}">
+                        <button>삭제</button>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+            <form class="allergyinst" action="{% url 'allergyadd' %}" method="get">
+                <div class="row" style="overflow:auto;height:300px; margin-top:50px;">
+                    {% for ch in algychecklist %}
+                    <div class="col-lg-4 menu-item">
+                        <div class="menu-content">
+                            <a id="{{ch.i_name}}">
+                                <input type="checkbox" name="check" class="{{ch.ic_id}}" value="{{ch.ic_id}}">
+                                <span style="font-weight:600;">{{ch.ic_name}} > {{ch.i_name}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;">
+                        <div>
+                            <button type="submit" id="algyreg">알러지 식재료 등록하기</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;">
+                    <div style="display:inline-block;" class="search">
+                        <input type="text" placeholder="식재료 검색" list ="i_name" name="i_name">
+                        <datalist id="i_name" name="i_name">
+                            {% for a in algychecklist %}
+                            <option>
+                                {{a.i_name}}
+                            </option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div style="display:inline-block;" class="button">
+                        <button name="search" style="padding:0px 12px 0px 12px;  height:34px;font-size:15px;color:white;text-align: center;background: #ffb03b;border: solid 2px white;border-radius: 25px;">검색</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+{% endblock %}
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inner Page</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li>Inner Page</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs Section -->

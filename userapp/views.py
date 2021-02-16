@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from config.settings import UPLOAD_DIR
-from frame.userapp.userapp_userdb import UserDb, PopIngrDb, RecipeDb, IngrDb, RecipeIngrDb
+from frame.userapp.userapp_userdb import UserDb, PopIngrDb, RecipeDb, IngrDb, RecipeIngrDb, AllergyDb, UsersAvoidDb
 
 import frame.mainapp.mainapp_userdb
 
@@ -297,9 +297,45 @@ class UserView:
         }
         return render(request,'userapp/popingr.html',context)
 
-    # def popsearch(request):
-    #     ingr = request.GET['ingr'];
-    #     ingr = ingr.strip();
-    #     if ingr == '':
-    #         return HttpResponse('0');
-    #     elif
+    def allergy(request):
+        algylist = AllergyDb().select();
+        algychecklist = PopIngrDb().select();
+        algyset = AllergyDb().allergylist();
+        context = {
+            'algylist':algylist,
+            'algychecklist':algychecklist,
+            'algyset':algyset
+        };
+        return render(request,'userapp/allergy.html',context)
+
+    def allergyrem(request):
+        i_id = request.POST['aid'];
+        try:
+            AllergyDb().delete(int(i_id));
+        except:
+            return redirect('allergy');
+        return redirect('allergy');
+
+    def allergyadd(request):
+        u_id = request.session['suser'];
+        i_ids = request.GET.getlist('check',None);
+        try:
+            for i in i_ids:
+                UsersAvoidDb().insert(u_id,int(i));
+        except:
+            return redirect('allergy');
+        return redirect('allergy');
+
+    def popsearch(request):
+        ingr = request.GET['ingr'];
+        ingr = ingr.strip();
+        selectlist = PopIngrDb().selectone(ingr);
+        if ingr == '':
+            return HttpResponse('0');
+        elif len(selectlist) == 0:
+            return HttpResponse('1');
+        else:
+            context = {
+                'selectlist':selectlist
+            }
+            return render(request, 'userapp/popingr.html')

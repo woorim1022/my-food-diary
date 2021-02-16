@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from frame.userapp.userapp_sql import Sql
 from frame.userapp.userapp_db import Db
-from frame.userapp.userapp_value import User, PopIngr
+from frame.userapp.userapp_value import User, PopIngr, Allergy
 import datetime
 
 
@@ -139,9 +139,72 @@ class PopIngrDb(Db):
         super().close(conn, cursor);
         return all;
 
-# a = ['a','b','c','d'];
-# p = ['1','2','3','4'];
-# s = list(zip(a,p));
-# print(s);
-# print(len(s));
-# print(s[0][1]);
+class AllergyDb(Db):
+    def select(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.allergyselect);
+        result = cursor.fetchall();
+        all = [];
+        for a in result:
+            alg = Allergy(a[0],a[1],a[2],a[3]);
+            all.append(alg);
+        super().close(conn, cursor);
+        return all;
+
+    def allergylist(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.allergyselect);
+        result = cursor.fetchall();
+        all = [];
+        for a in result:
+            all.append(a[1]);
+        super().close(conn, cursor);
+        return all;
+
+    def delete(self,i_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.allergydelete % (i_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+class UsersAvoidDb(Db):
+    def insert(self,u_id,i_id):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.allergyinsert % (u_id,i_id));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
+def allergyselect_test(name):
+    result = PopIngrDb().selectone(name);
+    for i in result:
+        print(i);
+    # for i in result:
+    #     print(i);
+
+if __name__=='__main__':
+    allergyselect_test('올리');
+
+
+# def selectone_test(iname):
+#     result = PopIngrDb().selectone(iname)
+#     return result;
+#
+# if __name__=='__main__':
+#     rs = selectone_test('올리');
+#
+# for r in rs:
+#     print(r);

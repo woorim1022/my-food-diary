@@ -226,7 +226,7 @@
         <div class="container">
             <div class="section-title">
                 <h2>
-                     레시피 <span>등록하기</span>
+                    <span>{{request.session.snickname}}</span> 님 레시피 <span>등록하기</span>
                 </h2>
             </div>
             <form action="{% url 'myrecipeaddimpl' %}" enctype="multipart/form-data" method="post" runat="server" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
@@ -280,9 +280,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-6 form-group mt-3" style="display: inline-block; text-align:center;" accept-charset="utf-8">
-                        <label class="input-file-button" for="pic0">레시피 사진 등록</label>
                         <img id="msection" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
                         <input type="file" id="pic0" name="img0" style="display: none;" class="pic" multiple />
+                        <label class="input-file-button" for="pic0">레시피 사진 등록</label>
                     </div>
                 </div>
                 <div class="row">
@@ -303,9 +303,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic1">사진 미리보기 1</label>
                         <input type="file" id="pic1" name="img01" style="display: none;" class="pic" />
                         <img id="ssection1" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic1">사진 미리보기 1</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail1" style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
@@ -313,9 +313,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic2">사진 미리보기 2</label>
                         <input type="file" id="pic2" name="img02" style="display: none;" class="pic" />
                         <img id="ssection2" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic2">사진 미리보기 2</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail2"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
@@ -323,9 +323,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-3">
-                        <label class="input-file-button" for="pic3">사진 미리보기 3</label>
                         <input type="file" id="pic3" name="img03" style="display: none;" class="pic" />
                         <img id="ssection3" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic3">사진 미리보기 3</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail3"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
@@ -333,9 +333,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic4">사진 미리보기 4</label>
                         <input type="file" id="pic4" name="img04" style="display: none;" class="pic" />
                         <img id="ssection4" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic4">사진 미리보기 4</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail4"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
@@ -343,9 +343,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic5">사진 미리보기 5</label>
                         <input type="file" id="pic5" name="img05" style="display: none;" class="pic" />
                         <img id="ssection5" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic5">사진 미리보기 5</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail5"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>
@@ -353,9 +353,9 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 form-group mt-4">
-                        <label class="input-file-button" for="pic6">사진 미리보기 6</label>
                         <input type="file" id="pic6" name="img06" style="display: none;" class="pic" />
                         <img id="ssection6" class="psect" src="static/img/myrecipe/altimg01.jpg" alt="your image" width="150" height="150" />
+                        <label class="input-file-button" for="pic6">사진 미리보기 6</label>
                     </div>
                     <div class="col-lg-8 col-md-6 form-group mt-3">
                         <textarea name="myrecdetail6"  style="width:315px; height: 55px; resize : both; overflow:visible; text-overflow:ellipsis;" placeholder="모든 레시피 사진은 등록에 올려주세요"></textarea>

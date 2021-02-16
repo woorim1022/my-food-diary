@@ -11,6 +11,9 @@
     .section-title {
         margin-top: 125px;
     }
+    #recipeingrcheck{
+        color: #fff;
+    }
     button{
         background: #ffb03b;
         border: 0;
@@ -22,13 +25,28 @@
     button:hover{
         background: #ffa012;
     }
-    td, tr {
+    th, td, tr {
         padding: 15px;
+        text-align: left;
+        font-weight: 600;
+    }
+    #showringr{
+        background:#F3E2A9;
+        opacity:0.9;
+    }
+    thead{
+        vertical-align:middle;
+        border-bottom:5px solid #FFBF00;
     }
 </style>
+<script>
+    $(document).ready(function(){
+        $('tr:even').css("background","#F7D358");
+    });
+</script>
 <body>
     <section>
-        <div class="container" >
+        <div class="container" style="box-shadow: 5px 5px 5px 5px gray; padding:30px;">
             <div class="section-title" >
                 <h2>
                     <span>{{request.session.snickname}}</span> 님께서 작성하신 <span>레시피 식재료</span>를 등록합니다.
@@ -36,28 +54,24 @@
             </div>
             <div class="col-lg-12 col-md-6">
                 <table style="margin-left: auto; margin-right: auto;">
-                <th>
-                    <tr><td><h3 style="font-weight:700;">식재료 이름</h3></td>
-                        <td><h3 style="font-weight:700;">계량</h3></td>
-                    </tr>
-                </th>
-                <tr class="rcont">
-                    {% for ri in ritem %}
-                    <td>{{ri}}</td>
-                    {% endfor %}
-                </tr>
-                <tr class="rcont">
-                    {% for ra in ramt %}
-                    <td>{{ra}}</td>
-                    {% endfor %}
-                </tr>
+                    <thead>
+                        <th><h5 style="font-weight:700;">식재료 이름</h5></th>
+                        <th><h5 style="font-weight:700;">계량</h5></th>
+                    </thead>
+                    <tbody>
+                        {% for r in rzip %}
+                        <tr id="showringr">
+                            <td style="color:#190707;">{{r.0}}</td>
+                            <td style="color:#190707;">{{r.1}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
-            <div class="text-center">
-                <button type="button"><a href="{% url 'recipeingradd' %}?iid={{iid}}&?ramt={{ramt}}">레시피 식재료 확인</a></button>
+            <div class="text-center" style="padding: 15px;">
+                <button type="button"><a id="recipeingrcheck" href="{% url 'recipeingradd' %}?iid={{iid}}&?ramt={{ramt}}">레시피 식재료 확인</a></button>
             </div>
         </div>
-
     </section>
 </body>
 {% endblock %}
