@@ -26,13 +26,17 @@ def myrecipe(request):
         if request.session['suser']:
             # 전체
             recipes = RecipeDb().selectall(request.session['suser'], (page-1)*12)
+            r = RecipeDb().selectall_2(request.session['suser'])
+            print('@@@@@@@@@@@@@@@@@@@')
+            print(r)
             recipepage = (RecipeDb().recipepage(request.session['suser'])+1)
-            # 최근등록
-            maxregdate = RecipeDb().select_maxregdate(request.session['suser'])[0]
-            # 최다 추천
-            maxrecommend = RecipeDb().select_maxrecommend(request.session['suser'])[0]
-            # 최다 조회
-            maxview = RecipeDb().select_maxview(request.session['suser'])[0]
+            if r != []:
+                # 최근등록
+                maxregdate = RecipeDb().select_maxregdate(request.session['suser'])[0]
+                # 최다 추천
+                maxrecommend = RecipeDb().select_maxrecommend(request.session['suser'])[0]
+                # 최다 조회
+                maxview = RecipeDb().select_maxview(request.session['suser'])[0]
 
             if recipepage // 5 == 0:  # 하단 페이지 링크바 생성을 5개로 지정. 링크바 묶음(1,2,3,4,5),(6,7,8,9,10)
                 allpagepart = 1;  # 링크바 묶음 초기값 설정
