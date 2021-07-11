@@ -29,52 +29,35 @@ def recipe_detail(request):
     RecipeDb().update_r_view(int(r_id))
     # ==========================우림 추가코드============================
 
-    recipe = RecipeDb().selectall2(int(r_id));
+    #레시피 리뷰
     review = ReviewDb().select(int(r_id));
-    details = {}
-    # for i in review:
-    #     u_id = i.u_id
-    #     rv_regdate = i.rv_regdate
-    #     r_num = i.r_num
-    #     rv_review = i.rv_review
+    #레시피 상세페이지 식재료목록
     ingr = IngrDb().select(int(r_id));
-    for i in ingr:
-        i_name = i.i_name
-        ri_q = i.ri_q
-        r_regdate = i.r_regdate
-        r_view = i.r_view
-        r_recommend = i.r_recommend
-        r_cooktime = i.r_cooktime
-        r_name = i.r_name
-        rc_name = i.rc_name
+    #레시피 상세페이지 레시피관련내용
+    recipe = RecipeDb().selectall2(int(r_id));
     for i in recipe:
-        r_detail = eval(i.r_detail)
-        lenth = len(r_detail)+1
-    # for x in r_detail:
-    #     details[r_detail[str(x)]] = r_dimage[str(x)]
+        r_name = i.r_name # 레시피 이름
+        rc_name = i.rc_name # 레시피대표항목이름 ex)한식,중식
+        r_regdate = i.r_regdate # 레시피 작성일
+        r_view = i.r_view # 레시피 조회수
+        r_recommend = i.r_recommend # 레시피 즐겨찾기수
+        r_detail = eval(i.r_detail) # 레시피 이미지
+        r_cooktime = i.r_cooktime  # 레시피 조리시간
+        r_mimage = i.r_mimage # 레시피 메인 이미지
+
     context = {
-        'details': details,
         'recipe_detail': recipe,
         'review': review,
         'ingr': ingr,
         'r_detail': r_detail,
-        'lenth' : lenth,
-        # 'r_detail': r_detail,
-
-        # 'u_id' :u_id,
-        # 'rv_regdate' : rv_regdate,
-        # 'r_num' : r_num,
-        # 'rv_review' : rv_review,
-
-        'i_name' : i_name,
-        'r_cooktime' : r_cooktime,
-        'ri_q' : ri_q,
+        'recent':recent,
+        'r_name' : r_name,
+        'rc_name' : rc_name,
         'r_regdate' : r_regdate,
         'r_view' : r_view,
         'r_recommend' : r_recommend,
-        'rc_name' : rc_name,
-        'r_name' : r_name,
-        'recent':recent
+        'r_cooktime' : r_cooktime,
+        'r_mimage' : r_mimage
     }
     return render(request, 'recipeapp/recipe_detail.html', context)
 # ==================================송현님코드==========================================================================

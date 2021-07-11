@@ -1,7 +1,10 @@
 class Sql:
     # ================================================송현님코드======================================
-    recipe_selectall = """SELECT * FROM recipe
-                                    WHERE r_id = %d"""
+
+    # 레시피 테이블에 있는 것과 레시피 대표항목 가져오기
+    recipe_selectall = """SELECT r.*, rc.rc_name FROM recipe AS r
+                        INNER JOIN recipe_ct rc ON rc.rc_id = r.rc_id
+                        WHERE r_id = %d"""
 
     # 레시피 리뷰
     review = """SELECT r.rc_id, r.r_name, rv.* FROM recipe AS r
@@ -9,31 +12,10 @@ class Sql:
                     WHERE r.r_id=%d"""
 
     # 레시피 식재료
-    ingr = """SELECT re.*, ig.i_name, r.rc_id, r.r_name, r.r_regdate, r.r_cooktime, r.r_view, r.r_recommend, rc.rc_name from recipe_ingr as re
+    # ig.i_name = 레시피식재료 이름 re.ri_q = 레시피재료 량
+    ingr = """SELECT ig.i_name,re.ri_q from recipe_ingr as re
                     INNER JOIN ingr ig ON re.i_id = ig.i_id
-                    INNER JOIN recipe r ON re.r_id = r.r_id
-                    INNER JOIN recipe_ct rc ON rc.rc_id = r.rc_id
                     WHERE re.r_id=%d"""
-
-    # JSON
-    # json = """SELECT p.id, p.img, r.r_image1 FROM productdb p
-    #               INNER JOIN recipe r ON p.id = r.r_id
-    #               WHERE p.id=%d"""
-    # json1 = """SELECT JSON_VALUE(img,"$.'%s'") FROM productdb"""
-
-    # userlist = "SELECT * FROM users";
-    # userlistone = "SELECT * FROM users WHERE id='%s'";
-    # userinsert = "INSERT INTO users VALUE ('%s','%s','%s','%s',%d)";
-    # ================================================송현님코드===================================
-
-
-
-
-
-
-
-
-
 
     # ======================================================우림코드================================================
     # 현재 디비에 있는 모든 레시피 목록을 가져오는 쿼리문

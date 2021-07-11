@@ -95,16 +95,14 @@ table.type06 .even {
                                         <td width="520">{{r_view}}</td>
                                     </tr>
                                     <tr>
-                                        <td class="c_left">추천수</td>
+                                        <td class="c_left">즐겨찾기수</td>
                                         <td width="520">{{r_recommend}}</td>
                                     </tr>
                                 </tbody>
                                 </table>
                             </div>
                         </div><br>
-                        {% for r in recipe_detail %}
-                        <img src="{{r.r_mimage}}" alt="" class="img-fluid" width="500" height="400"><br>
-                        {% endfor %}
+                        <img src="{{r_mimage}}" alt="" class="img-fluid" width="500" height="400"><br>
 
                       </div>
                     </p>
@@ -215,7 +213,8 @@ table.type06 .even {
               </div>
             </div>
           </div>
-        </section><!-- End Specials Section -->
+      </div>
+    </section><!-- End Specials Section -->
 
 
          {% if 'suser' in request.session %}
