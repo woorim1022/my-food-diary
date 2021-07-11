@@ -22,7 +22,8 @@ class ReviewDb(Db):
         super().close(conn,cursor);
         return all;
 
-
+# 레시피 상세 페이지에 쓰일 식재료
+# re.ri_q = 레시피재료 량 ig.i_name = 레시피식재료 이름
 class IngrDb(Db):
     def select(self, r_id):
         conn = super().getConnection();
@@ -31,13 +32,13 @@ class IngrDb(Db):
         result = cursor.fetchall();
         all = [];
         for r in result:
-            ingr = Ingr(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8],r[9],r[10]);
+            ingr = Ingr(r[0],r[1]);
             all.append(ingr);
         super().close(conn, cursor);
         return all;
 
 
-
+# 레시피 테이블 목록과 레시피에 해당하는 대표항목이름 가져오기
 class RecipeDb(Db):
     def selectall2(self,r_id):
         conn = super().getConnection();
@@ -46,7 +47,7 @@ class RecipeDb(Db):
         result = cursor.fetchall();
         all = [];
         for u in result:
-            user_ingr = Recipe(u[0], u[1], u[2], u[3], u[4], u[5],u[6],u[7],u[8],u[9],u[10],u[11]);
+            user_ingr = Recipe(u[0], u[1], u[2], u[3], u[4], u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12]);
             all.append(user_ingr);
         super().close(conn, cursor);
         return all;
@@ -235,16 +236,3 @@ class IngredientDb(Db):
         return all;
 # ==================================================우림코드=================================================
 # ==================================================우림코드=================================================
-
-
-
-# =============================송현님 코드======================================================
-# =============================송현님 코드======================================================
-# def review_test():
-#     # RecipeDb().insert_fav('id01', 1);
-#     IngredientDb().select_checked_ingr([1,2,3,4,5,6,7,8]);
-#
-# if __name__ == '__main__':
-#      review_test();
-# =================================송현님 코드===========================================================
-# =================================송현님 코드===========================================================
