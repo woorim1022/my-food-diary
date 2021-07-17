@@ -205,6 +205,7 @@ table.type06 .even {
                                     </div>
                                 </div>
                             </div>
+
                     </p>
                       </div>
                     </div>
@@ -214,6 +215,16 @@ table.type06 .even {
             </div>
           </div>
       </div>
+        <div style="text-align: center;">
+            <h3>　</h3>
+        <form method="POST" action="{% url 'review_impl' %}">
+            {% csrf_token %}
+            <input type="hidden" name="r_id" value="{{r_id}}">
+            <input type="number" name="r_num" id="r_num" placeholder="별점" />
+            <input type="text" name="rv_review"  placeholder="리뷰 입력" >
+            <input type="submit" value="등록">
+            </form>
+        </div>
     </section><!-- End Specials Section -->
 
 

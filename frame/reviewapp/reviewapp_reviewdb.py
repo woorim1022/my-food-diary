@@ -39,3 +39,15 @@ class ReviewDb(Db):
             all= u[0];
         super().close(conn, cursor);
         return all;
+
+    def insert(self, u_id, r_id, r_num, rv_review):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.review_insert % (u_id, r_id, r_num, rv_review));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
