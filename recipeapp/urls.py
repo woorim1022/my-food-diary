@@ -22,6 +22,9 @@ urlpatterns = [
     path('recipe_detail', views.recipe_detail, name='recipe_detail'),
     path('filtering', views.filtering, name='filtering'),
 
+    #댓글 연결
+    path('review_impl', views.review_impl, name='review_impl'),
+
     path('fav_add/', views.fav_add, name='fav_add'),
     path('fav_cancel/', views.fav_cancel, name='fav_cancel'),
 

@@ -1,5 +1,4 @@
 import math
-from ast import literal_eval
 
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -7,11 +6,24 @@ from django.shortcuts import render, redirect
 from django.utils.http import urlencode
 from frame.recipeapp.recipeapp_userdb import RecipeDb, IngredientDb, ReviewDb, IngrDb
 import frame.mainapp.mainapp_userdb
+
 ingredients = None
 rid_global = None
 iid_global = None
 
+def review_impl(request):
+    r_id = request.POST['r_id']
+    rv_review = request.POST['rv_review']
+    r_num = request.POST['r_num']
+    if  'suser' in request.session:
+        u_id = request.session['suser']
+    try:
+        ReviewDb().insert(u_id,r_id,r_num,rv_review);
+    except:
+        return redirect('recipe.html');
+    return redirect('recipe_detail.html');
 
+#레시피 디테일 화면 연결
 def recipe_detail(request):
     # =========================우림 추가코드=====================
     recent = None
@@ -46,6 +58,7 @@ def recipe_detail(request):
         r_mimage = i.r_mimage # 레시피 메인 이미지
 
     context = {
+        'r_id' : r_id,
         'recipe_detail': recipe,
         'review': review,
         'ingr': ingr,

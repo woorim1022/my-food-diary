@@ -16,6 +16,11 @@ class Sql:
     # LIMIT으로 1페이지에 몇개 가져올지 지정
     # OFFSET으로 몇번째부터 가져올건지 지정(0일시 1~5,5일시 6~10)
 
+    #리뷰저장
+    review_insert = "INSERT INTO review VALUE ('%s',%d,%d,'%s',NOW())";
+
+
+
     #총 페이지 수 확인
     reviewpage = """SELECT COUNT(*) DIV 5 FROM review
                     WHERE u_id = '%s'"""
