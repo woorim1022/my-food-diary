@@ -84,6 +84,18 @@ class RecipeDb(Db):
         super().close(conn,cursor);
         return all;
 
+    def selectall_nopaging(self):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.selectall_nopaging);
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            recipe = Recipe_review(u[0],u[1],u[2],u[3],u[4],u[5],u[6],u[7],u[8],u[9],u[10],u[11],u[12],u[13]);
+            all.append(recipe);
+        super().close(conn,cursor);
+        return all;
+
     def recipepage(self):
         conn = super().getConnection();
         cursor = conn.cursor();

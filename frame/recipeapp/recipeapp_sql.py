@@ -81,5 +81,10 @@ class Sql:
 
 
     delete = "delete from recipe where r_id=%d;"
+
+
+    selectall_nopaging = """select r.*, ifnull(AVG(re.r_num),0), count(r.r_id) from recipe as r
+	                LEFT OUTER JOIN review re ON r.r_id = re.r_id group by r.r_id;"""
+
     # =====================================================우림코드=============================================
 

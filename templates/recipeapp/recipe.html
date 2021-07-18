@@ -40,14 +40,12 @@
     <script>
          $(document).ready(function(){
 
-
-
-
             // 얘를 클릭했을 때
             $('a[name="fav_add"]').click(function(){
                 //레시피 아이디
-                 r_id = $(this).find('p')[1];
-                 alert(r_id);
+                //전체 레시피에서 select해서 가져와야됨
+                 r_id = $(this).find('p').text();
+                 //alert(r_id);
                 // 즐찾추가
                 $.ajax({
                    url:{% url 'fav_add' %},
@@ -66,7 +64,8 @@
              // 얘를 클릭했을 때
             $('a[name="fav_cancel"]').click(function(){
                 //레시피 아이디
-                 r_id = $(this).find('p');
+                 r_id = $(this).find('p').text();
+                 // alert(r_id);
                 // 즐찾취소
                 $.ajax({
                    url:{% url 'fav_cancel' %},
@@ -89,6 +88,14 @@
             });
         });
     </script>
+
+<!--즐겨찾기를 위한 레시피 전체 가져오는 코드-->
+    {% for r in recipes_nopaging %}
+        <p name="recipe_nopaging{{ r.r_id }}" style="display:none">{{r.r_id}}</p>
+        <p style="display:none">{{r.r_name}}</p>
+    {% endfor %}
+
+
 
 <!--============================내가 가진 식재료==================================================-->
     <!-- ======= Menu Section ======= -->
@@ -182,30 +189,11 @@
                 <div style="height:258px"><img style="width:370px;height:260px;" src="{{r.r_mimage}}" alt="" class="img-fluid"></div>
                 <br></br>
                 </a>
-
-
-
-
-
-
-
-
-
                 {% if r.r_id in favorite %}
-                    <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
+                    <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a>
                 {% else %}
                     <a href="" name='fav_add' style="margin:0px 0px -4px 0px; font-size:21px; ">🤍<p style="display:none;">{{r.r_id}}</p></a>
                 {% endif %}
-
-
-
-
-
-
-
-
-
-
 
                 <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
                 <br>
@@ -281,9 +269,6 @@
                   </div>
 
     {% endif %}
-
-
-
 
 {% endblock %}
 
