@@ -11,17 +11,51 @@ ingredients = None
 rid_global = None
 iid_global = None
 
+#리뷰 입력값 저장
 def review_impl(request):
     r_id = request.POST['r_id']
     rv_review = request.POST['rv_review']
     r_num = request.POST['r_num']
     if  'suser' in request.session:
         u_id = request.session['suser']
+        recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
     try:
         ReviewDb().insert(u_id,int(r_id),int(r_num),rv_review)
     except:
-        return redirect('recipe.html');
-    redirect('recipe_detail');
+        return render(request, 'mainapp/login.html')
+
+    # 레시피 리뷰
+    review = ReviewDb().select(int(r_id));
+    # 레시피 상세페이지 식재료목록
+    ingr = IngrDb().select(int(r_id));
+    # 레시피 상세페이지 레시피관련내용
+    recipe = RecipeDb().selectall2(int(r_id));
+    for i in recipe:
+        r_name = i.r_name  # 레시피 이름
+        rc_name = i.rc_name  # 레시피대표항목이름 ex)한식,중식
+        r_regdate = i.r_regdate  # 레시피 작성일
+        r_view = i.r_view  # 레시피 조회수
+        r_recommend = i.r_recommend  # 레시피 즐겨찾기수
+        r_detail = eval(i.r_detail)  # 레시피 이미지
+        r_cooktime = i.r_cooktime  # 레시피 조리시간
+        r_mimage = i.r_mimage  # 레시피 메인 이미지
+
+    context = {
+        'r_id': r_id,
+        'recipe_detail': recipe,
+        'review': review,
+        'ingr': ingr,
+        'r_detail': r_detail,
+        'recent': recent,
+        'r_name': r_name,
+        'rc_name': rc_name,
+        'r_regdate': r_regdate,
+        'r_view': r_view,
+        'r_recommend': r_recommend,
+        'r_cooktime': r_cooktime,
+        'r_mimage': r_mimage
+    }
+    return render(request, 'recipeapp/recipe_detail.html', context)
 
 #레시피 디테일 화면 연결
 def recipe_detail(request):
