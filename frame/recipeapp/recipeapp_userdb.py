@@ -10,16 +10,27 @@ from frame.recipeapp.recipeapp_value import Recipe, Recipe_woorim, UserIngredien
 # ================================================송현님 코드==========================================
 
 class ReviewDb(Db):
-    def select(self, r_id):
+    def select(self, r_id , num):
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.review % (r_id));
+        cursor.execute(Sql.review % (r_id,num));
         result = cursor.fetchall();
         all = [];
         for u in result:
             review = Review(u[0],u[1],u[2],u[3],u[4],u[5],u[6]);
             all.append(review);
         super().close(conn,cursor);
+        return all;
+
+    def reviewpage(self,r_id):
+        conn = super().getConnection();
+        cursor = conn.cursor();
+        cursor.execute(Sql.reviewpage % (r_id));
+        result = cursor.fetchall();
+        all = [];
+        for u in result:
+            all= u[0];
+        super().close(conn, cursor);
         return all;
 
     # 리뷰글 추가

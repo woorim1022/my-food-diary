@@ -6,10 +6,23 @@ class Sql:
                         INNER JOIN recipe_ct rc ON rc.rc_id = r.rc_id
                         WHERE r_id = %d"""
 
-    # 레시피 리뷰
+    # 리뷰 데이터 가져오기
     review = """SELECT r.rc_id, r.r_name, rv.* FROM recipe AS r
                     INNER JOIN review rv ON r.r_id = rv.r_id
-                    WHERE r.r_id=%d"""
+                    WHERE r.r_id=%d
+                    ORDER BY rv_regdate DESC
+                    LIMIT 5
+                    OFFSET %d""";
+    # ORDER BY로 순서 지정(리뷰 작성날짜순)
+    # LIMIT으로 1페이지에 몇개 가져올지 지정
+    # OFFSET으로 몇번째부터 가져올건지 지정(0일시 1~5,5일시 6~10)
+
+    # 총 페이지 수 확인
+    reviewpage = """SELECT COUNT(*) DIV 5 FROM review
+                        WHERE r_id = %d"""
+    # COUNT로 로우 총 갯수 가져오기
+    # 5개 기준으로 1페이지이므로 DIV 5(나눈 정수값을 가져오는 함수)
+    # (시작값이 0이여서 추후에 +1 해줘야함)
 
     # 레시피 식재료
     # ig.i_name = 레시피식재료 이름 re.ri_q = 레시피재료 량

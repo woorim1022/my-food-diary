@@ -43,6 +43,32 @@ table.type06 .even {
 #recipeinfo{
     background: #fffaf3;
 }
+.page-review{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding: 50px;
+    }
+.page-review > a{
+    color: black;
+    text-align: center;
+    margin: 0 5px;
+    }
+
+#reviewButton{
+          display: inline-block;
+          padding: 5px 10px;
+          margin: 0 auto;
+          border: 1px solid #FFB03B;
+          border-radius: 10px;
+          background-color:#FFB03B;
+          color:white;
+          }
+#reviewButton:hover{
+          background-color:white;
+          color:#FFB03B;
+          border: 1px solid #FFB03B;
+          }
 </style>
 
 
@@ -208,26 +234,45 @@ table.type06 .even {
                       </div>
                     </div>
                   </div>
+                  <li class="page-review">
+                    {% if before %}
+                    <a class="page-link" href="?r_id={{r_id}}&page={{beforenum}}">이전</a>
+                    {% endif %}
+                    {% for l in pagelist %}
+                    <a class="page-link" href="?r_id={{r_id}}&page={{l}}">{{l}}</a>
+                    {% endfor %}
+                    {% if next %}
+                    <a class="page-link" href="?r_id={{r_id}}&page={{nextnum}}">다음</a>
+                    {% endif %}
+                  </li>
+
+                  <div style="text-align: center;">
+                    <form method="POST" action="{% url 'review_impl' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="r_id" value="{{r_id}}">
+                        <select class="form-control" name="r_num" id="r_num">
+                            <option value="none">평점</option>
+                            {% for i in "x"|rjust:"10" %}
+                            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                            {% endfor %}
+                        </select>
+                <!--            <input type="text" name="rv_review"  placeholder="리뷰 입력" >-->
+                        <div class="form-group mt-3">
+                        <textarea class="form-control" name="rv_review" rows="5" placeholder="리뷰 입력"></textarea>
+                        <div class="validate"></div>
+                        </div>
+                        <div class="text-center"><button id="reviewButton" type="submit">Send Message</button></div>
+                    <h3>　</h3>
+                    </form>
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
       </div>
-        <div style="text-align: center;">
-            <h3>　</h3>
-        <form method="POST" action="{% url 'review_impl' %}">
-            {% csrf_token %}
-            <input type="hidden" name="r_id" value="{{r_id}}">
-            <select name="r_num" id="r_num">
-                <option value="none">평점</option>
-                {% for i in "x"|rjust:"10" %}
-                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                {% endfor %}
-            </select>
-            <input type="text" name="rv_review"  placeholder="리뷰 입력" >
-            <input type="submit" value="등록">
-            </form>
-        </div>
+
+
     </section><!-- End Specials Section -->
 
 

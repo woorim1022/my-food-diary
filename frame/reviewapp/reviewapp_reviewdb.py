@@ -16,8 +16,8 @@ class RecipeDb(Db):
         super().close(conn, cursor);
         return all;
 
-class ReviewDb(Db):
-    def select(self,u_id,num):
+class ReviewPageDb(Db):
+    def select_user(self,u_id,num):
         conn = super().getConnection();
         cursor = conn.cursor();
         cursor.execute(Sql.review % (u_id,num));
@@ -39,3 +39,5 @@ class ReviewDb(Db):
             all= u[0];
         super().close(conn, cursor);
         return all;
+
+

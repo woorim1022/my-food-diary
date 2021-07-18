@@ -4,8 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 
 # Create your views here.
-from frame.reviewapp.reviewapp_reviewdb import ReviewDb, RecipeDb
-from frame.reviewapp.reviewapp_value import Review
+from frame.reviewapp.reviewapp_reviewdb import ReviewPageDb, RecipeDb
 
 import frame.mainapp.mainapp_userdb
 
@@ -13,8 +12,8 @@ def review(request):
     u_id = request.session['suser'] # 로그인된 user아이디 값 가져오기
     page = int(request.GET.get('page','1')) # 현재 페이지가 있을경우 페이지 값을 가져오고 아닐경우 1로 지정
 
-    review = ReviewDb().select(u_id,(page-1)*5);#리뷰데이터 가져와서 객체 생성 offset은 페이지당 5개씩 들어가서 (page-1)*5
-    reviewpage = (ReviewDb().reviewpage(u_id)+1); #전체페이지수 +1은 초기값이 0이여서 더해둠
+    review = ReviewPageDb().select_user(u_id,(page-1)*5);#리뷰데이터 가져와서 객체 생성 offset은 페이지당 5개씩 들어가서 (page-1)*5
+    reviewpage = (ReviewPageDb().reviewpage(u_id)+1); #전체페이지수 +1은 초기값이 0이여서 더해둠
 
     recipe = RecipeDb().select()
     for i in recipe:
