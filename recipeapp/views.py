@@ -178,6 +178,9 @@ def recipe(request):
         recipes = RecipeDb().selectall((page_r - 1) * 20);
         recipepage = (RecipeDb().recipepage() + 1);
 
+    #페이징 안한 전체 레시피
+    recipes_nopaging = RecipeDb().selectall_nopaging();
+
     # 즐겨찾기 출력 코드
     if 'suser' in request.session:
         if request.session['suser']:
@@ -231,7 +234,8 @@ def recipe(request):
         'ingr_checked':ingr_checked,
         'favorite':favorite,
         'recent':recent,
-        'filtered':filtered
+        'filtered':filtered,
+        'recipes_nopaging':recipes_nopaging
     }
     return render(request, 'recipeapp/recipe.html', context);
 
@@ -269,24 +273,25 @@ def fav_add(request):
         if request.session['suser']:
             u_id = request.session['suser']
             RecipeDb().insert_fav(u_id, int(r_id))
-            return HttpResponse('ok')
+            return HttpResponse('즐겨찾기 추가')
         else:
-            return HttpResponse('no')
+            return HttpResponse('로그인 해주세요')
     else:
-        return HttpResponse('no')
+        return HttpResponse('로그인 해주세요')
 
 
 def fav_cancel(request):
     # 로그인 안했으면 아무것도 안함
     # 로그인 했으면 favorite 테이블에서 delete
-    r_id = request.GET['r_id']
+    print("하아하하하하ㅏ하핳")
+    r_id = request.GET['r_id'] # r_id 잘 넘어오는 상태
     u_id = None
     if 'suser' in request.session:
         # suser이라는 key에 value가 존재하면(즉, 로그인이 되어있으면)
         if request.session['suser']:
             u_id = request.session['suser']
-            RecipeDb().insert_fav(u_id, int(r_id))
-            return HttpResponse('ok')
+            RecipeDb().delete_fav(u_id, int(r_id))
+            return HttpResponse('즐겨찾기 취소')
         else:
             return HttpResponse('no')
     else:
