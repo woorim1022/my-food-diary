@@ -22,6 +22,19 @@ class ReviewDb(Db):
         super().close(conn,cursor);
         return all;
 
+    # 리뷰글 추가
+    def insert(self, u_id, r_id, r_num, rv_review):
+        try:
+            conn = super().getConnection();
+            cursor = conn.cursor();
+            cursor.execute(Sql.review_insert % (u_id, r_id, r_num, rv_review));
+            conn.commit();
+        except:
+            conn.rollback();
+            raise Exception;
+        finally:
+            super().close(conn, cursor);
+
 # 레시피 상세 페이지에 쓰일 식재료
 # re.ri_q = 레시피재료 량 ig.i_name = 레시피식재료 이름
 class IngrDb(Db):

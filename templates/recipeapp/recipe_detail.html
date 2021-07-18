@@ -175,25 +175,23 @@ table.type06 .even {
                                                     평점: {{r.r_num}}점
                                                     {% if r.r_num == 10.0 %}
                                                         <img src="static/img/star5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 9.0 %}
+                                                    {% elif r.r_num == 9.0 %}
                                                         <img src="static/img/star4.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 8.0 %}
+                                                    {% elif r.r_num == 8.0 %}
                                                         <img src="static/img/star4.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 7.0 %}
+                                                    {% elif r.r_num == 7.0 %}
                                                         <img src="static/img/star3.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 6.0 %}
+                                                    {% elif r.r_num == 6.0 %}
                                                         <img src="static/img/star3.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 5.0 %}
+                                                    {% elif r.r_num == 5.0 %}
                                                         <img src="static/img/star2.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 4.0 %}
+                                                    {% elif r.r_num == 4.0 %}
                                                         <img src="static/img/star2.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 3.0 %}
+                                                    {% elif r.r_num == 3.0 %}
                                                         <img src="static/img/star1.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 2.0 %}
+                                                    {% elif r.r_num == 2.0 %}
                                                         <img src="static/img/star1.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% elif r.r_num > 1.0 %}
-                                                        <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
-                                                    {% else %}
+                                                    {% elif r.r_num == 1.0 %}
                                                         <img src="static/img/star0.5.jpg"><span style="font-size:15px; margin:0px 0px -4px 10px; color:#5f5950;"></span>
                                                     {% endif %}<br>
                                                </p>
@@ -220,7 +218,12 @@ table.type06 .even {
         <form method="POST" action="{% url 'review_impl' %}">
             {% csrf_token %}
             <input type="hidden" name="r_id" value="{{r_id}}">
-            <input type="number" name="r_num" id="r_num" placeholder="별점" />
+            <select name="r_num" id="r_num">
+                <option value="none">평점</option>
+                {% for i in "x"|rjust:"10" %}
+                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                {% endfor %}
+            </select>
             <input type="text" name="rv_review"  placeholder="리뷰 입력" >
             <input type="submit" value="등록">
             </form>

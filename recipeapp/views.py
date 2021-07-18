@@ -18,10 +18,10 @@ def review_impl(request):
     if  'suser' in request.session:
         u_id = request.session['suser']
     try:
-        ReviewDb().insert(u_id,r_id,r_num,rv_review);
+        ReviewDb().insert(u_id,int(r_id),int(r_num),rv_review)
     except:
         return redirect('recipe.html');
-    return redirect('recipe_detail.html');
+    redirect('recipe_detail');
 
 #레시피 디테일 화면 연결
 def recipe_detail(request):
