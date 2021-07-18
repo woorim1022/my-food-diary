@@ -183,11 +183,28 @@
                 <br></br>
                 </a>
 
+
+
+
+
+
+
+
+
                 {% if r.r_id in favorite %}
                     <a href="" name='fav_cancel' style="margin:0px 0px -4px 0px; font-size:21px; ">💗<p style="display:none;">{{r.r_id}}</p></a href="">
                 {% else %}
                     <a href="" name='fav_add' style="margin:0px 0px -4px 0px; font-size:21px; ">🤍<p style="display:none;">{{r.r_id}}</p></a>
                 {% endif %}
+
+
+
+
+
+
+
+
+
 
 
                 <a href="{% url 'recipe_detail' %}?r_id={{ r.r_id }}"><span style="margin:30px 0px 0px 0px; font-size:21px; color:#000000;">{{r.r_name}} </span></a>
