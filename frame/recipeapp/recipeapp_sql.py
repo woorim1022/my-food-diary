@@ -17,6 +17,9 @@ class Sql:
                     INNER JOIN ingr ig ON re.i_id = ig.i_id
                     WHERE re.r_id=%d"""
 
+    # 리뷰저장
+    review_insert = "INSERT INTO review VALUE ('%s',%d,%d,'%s',NOW())";
+
     # ======================================================우림코드================================================
     # 현재 디비에 있는 모든 레시피 목록을 가져오는 쿼리문
     # recipe.html에서 레시피 리스트에 레시피를 뿌려주기 위해 사용된다
