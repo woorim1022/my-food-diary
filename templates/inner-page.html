@@ -41,16 +41,14 @@
 <body>
 
   <!-- ======= Top Bar ======= -->
-  <section id="topbar" class="d-none d-lg-flex align-items-center fixed-top ">
+  <section id="topbar" style="background-color:rgba(26, 24, 22, 0.85);" class="d-none d-lg-flex align-items-center fixed-top ">
     <div class="container text-right">
-      <span>My Food Diary</span>
     </div>
   </section>
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex align-items-center">
-
       <div class="logo mr-auto">
         <h1 class="text-light"><a href="{% url 'main' %}"><span>My Food Diary</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
@@ -95,12 +93,14 @@
       </nav><!-- .nav-menu -->
 
     </div>
-  </header><!-- End Header -->
+  </header>
+  <!-- End Header -->
+
+
+
+
 
   <main id="main">
-
-
-
 <!--    &lt;!&ndash; ======= Breadcrumbs Section ======= &ndash;&gt;-->
 <!--    <section class="breadcrumbs">-->
 <!--      <div class="container">-->
@@ -115,16 +115,6 @@
 
 <!--      </div>-->
 <!--    </section>&lt;!&ndash; End Breadcrumbs Section &ndash;&gt;-->
-
-
-
-
-
-
-
-
-
-
 
       {% block content %}
       {% endblock %}
@@ -160,11 +150,13 @@
         </div>
       </section><!-- End Chefs Section -->
 
-
-
-
-
   </main><!-- End #main -->
+
+
+
+
+
+
 <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container">
