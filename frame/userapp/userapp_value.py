@@ -43,6 +43,7 @@ class Recipe:
         self.r_view = r_view;
         self.r_public = r_public;
 
+
     def __str__(self):
         return str(self.r_id) + ' ' + str(self.rc_id) + ' ' + \
                self.u_id + ' ' + str(self.r_regdate) + ' ' + self.r_name + ' ' + \
