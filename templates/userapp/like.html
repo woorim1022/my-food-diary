@@ -1,0 +1,114 @@
+{% extends "inner-page.html" %}
+
+{% load static %}
+{% block content %}
+
+<style>
+
+  .about {
+    background: white;
+  }
+
+  .row {
+    padding : 50px;
+    background: #fffaf3;
+    position: relative;
+    border: 10px solid white;
+  }
+  #title {
+    color:#FFB03B;
+    }
+  #recipeclick {
+    display: block;
+    font-size: 20px;
+    color:#ffb03b;
+    border-bottom: 2px solid #FFB03B;
+    }
+.about .content ul li {
+  position: relative;
+  padding-left: 26px;
+}
+.page-review{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    padding: 50px;
+    }
+.page-review > a{
+    color: black;
+    text-align: center;
+    margin: 0 5px;
+    }
+
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>My Favorites list</h2>
+          <ol>
+            <li><a href="{% url 'main' %}">Home</a></li>
+            <li><a href="{% url 'ingredient' %}">Back</a></li>
+          </ol>
+        </div>
+
+      </div>
+   </section>
+
+<section id="about" class="about">
+    {% if request.session.snickname %}
+            <div class="section-title">
+    <!--      request.session.snickname : 현재 로그인한 사용자의 닉네임-->
+              <h2>{{request.session.snickname}}님의 <span>즐겨찾기 목록</span></h2>
+            </div>
+    {% endif %}
+      <div class="container-fluid">
+        {% for rv in recipe_list %}
+            <div class="row">
+              <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("{{rv.r_mimage}}"); cursor: pointer;'onclick="location.href='http://127.0.0.1/recipe_detail?r_id={{rv.r_id}}';">
+              </div>
+
+              <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
+
+                <div class="content">
+                  <h3 id="title"><strong>{{rv.r_name}}</strong></h3>
+                    <a id="recipeclick" href="{% url 'recipe_detail' %}?r_id={{ rv.r_id }}">레시피 바로가기</a>
+                    <h5>　</h5>
+
+                  <ul>
+                    <li><i class="bx bx-check-double"></i> 평점: {{rv.r_num}}점</li>
+                  </ul>
+                     <p>
+                    작성일 :　{{rv.rv_regdate}}
+                  </p>
+                  <p>
+                    {{rv.rv_review}}
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+        {% endfor %}
+
+      </div>
+
+    </section><!-- End About Section -->
+
+
+
+
+
+
+</body>
+</html>
+
+{% endblock %}
