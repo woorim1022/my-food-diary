@@ -34,7 +34,8 @@ urlpatterns = [
     path('popingr.html',views.UserView.popingr, name='popingr'),
     path('popsearch/',views.UserView.popsearch,name='popsearch'),
 
-    path('like',TemplateView.as_view(template_name='like.html'),name='like'),
+    # path('like',TemplateView.as_view(template_name='like.html'),name='like'),
+    path('like', views.UserView.like, name='like'),
 
     path('allergy',views.UserView.allergy,name='allergy'),
     path('allergyrem',views.UserView.allergyrem,name='allergyrem'),

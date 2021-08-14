@@ -47,3 +47,15 @@ class Sql:
     allergyinsert = """INSERT INTO users_avoid VALUES ('%s', %d)"""
 
     allergydelete = """DELETE FROM users_avoid WHERE i_id = %d"""
+
+    selectfavoritewithuid = """select r_id from favorite where u_id = '%s';"""
+
+    recipelist = """select * from recipe 
+                    where r_id IN (%s);"""
+
+    """select r.*, ifnull(AVG(re.r_num),0), count(re.r_id) from recipe as r
+    	                        LEFT OUTER JOIN review re ON r.r_id = re.r_id 
+    	                        where r.r_id IN (%s) group by r.r_id
+    	                        LIMIT 20
+                    	        OFFSET %d;"""
+

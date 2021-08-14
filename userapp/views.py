@@ -30,7 +30,6 @@ class UserView:
         }
         return render(request,'userapp/mypage.html', context)
 
-
     def profile(request):
         # ==================================================================
         # ==================================================================
@@ -339,3 +338,27 @@ class UserView:
                 'selectlist':selectlist
             }
             return render(request, 'userapp/popingr.html')
+
+
+    def like(request):
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # 최근 방문기록 가져와서 뿌려주는 코드
+        recent = None
+        if 'suser' in request.session:
+            if request.session['suser']:
+                recent = frame.mainapp.mainapp_userdb.RecipeDb().select_recent(request.session['suser'])
+        # ==================================================================
+        # ==================================================================
+        # ==================================================================
+        # r_id 로 즐겨찾기 리스트 select
+        u_id = request.session['suser']
+        rescipe_list = RecipeDb().rselect_fav(u_id)
+        # context에 담기
+        context = {
+            'recipe_list': rescipe_list,
+            'recent': recent
+        };
+
+        return render(request, 'userapp/like.html',context)
