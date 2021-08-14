@@ -7,6 +7,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
 </script>
 
+<!-- 부트스트랩 CDN 설정 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
     body{
       margin: 0;
@@ -84,15 +90,28 @@
     #inval:hover{
         background: #ffa012;
     }
+    #ingrSearch {
+        cursor:pointer;
+        background: #ffb03b;
+        padding: 10px 24px;
+        color: #fff;
+        transition: 0.4s;
+        border-radius: 50px;
+    }
     li {
         list-style:none;
     }
     .page-link {
         text-decoration: none;
-        color: #fff;
+        color: #ffa012;
+    }
+    #nonDbIngr {
+        border: none;
+        background: #F3E2A9;
     }
 </style>
 <script>
+    // 현재 페이지에 대한 검색 필터
     function filter(){
 
         var value, name, item, i;
@@ -108,11 +127,36 @@
             item[i].style.display = "none";
           }
         }
-      }
+    }
+
 </script>
 <script>
     $(document).ready(function(){
-        $('#ingrsearch').click(function(){
+
+        // decodeURI로 부모 창에서 보낸 URI를 해독
+        var rawId = decodeURI(window.location.search);
+        var testId, subRawId;
+
+        rawId = rawId.slice(1, rawId.length);
+        rawId = rawId.split('=');
+        rawId = rawId[2];
+
+        // 팝업 창에서 식재료를 검색하면 자동으로 새로고침을 하므로
+        // 부모 창 주소를 유지하기 위해 조건문을 적용
+        // 한글인 경우에는 substring 함수를 적용할 수 없어 오류가 발생하므로
+        // try ~ catch 제어문을 이용
+        try {
+            testId = rawId;
+            subRawId = testId.substring(0, 1);
+            if (subRawId == 'i') {
+                var text = rawId;
+                $('#parentLocal').val(rawId);
+            }
+        } catch (e) {
+        }
+
+
+        $('#ingrSearch').click(function(){
             ingr = $('input[name="value"]').val();
             $.ajax({
                 url: {% url "popsearch" %},
@@ -122,21 +166,38 @@
                     if(data.trim() == '0') {
                         alert('식재료 이름을 입력하세요');
                         $('input[name="value"]').focus();
-                    } else if (data.trim() == '1') {
-                        alert('등록되지 않은 식재료입니다');
-                    } else {
-                        $('.itemcontainer').append(
-                            `{% for i in selectlist%}\n
-                                <div class="item">\n
-                                    <span class="icon">{{i.ic_name}}</span>\n
-                                    <span class="name">{{i.i_name}}</span>\n
-                                </div>\n
-                            {% endfor %}`
-
-                        );
                     };
                 }
             });
+        });
+
+        // 페이징으로 나타낸 항목을 누르면 부모 창의 입력란에 해당 항목의 내용이 입력되고
+        // 팝업 창은 종료
+        $(document).on('click', '.name', function(){
+            var value, parentId, parentTag;
+
+            value = $(this).text();
+            parentId = $('#parentLocal').val();
+            parentTag = 'input[name=' + "'" + parentId + "'" + ']';
+
+            // 부모 창의 식재료 입력란에 데이터를 보내는 기능
+            $(parentTag, opener.document).val(value);
+
+            // 팝업 창을 종료하는 기능
+            window.close();
+        });
+
+        // DB에 등록되지 않은 식재료를 직접 입력하는 기능
+        $('#inval').click(function() {
+            var value, parentId, parentTag;
+
+            value = $('#nonDbIngr').val();
+            parentId = $('#parentLocal').val();
+            parentTag = 'input[name=' + "'" + parentId + "'" + ']';
+
+            $(parentTag, opener.document).val(value);
+
+            window.close();
         });
     });
 </script>
@@ -144,36 +205,65 @@
     <div class="searchbox">
         <div class="header">
             <h1>Search</h1>
-            <input onkeyup="filter()" type="text" id="value" name="value" class="recingr" placeholder="식재료 이름을 입력하세요">
-<!--            <button id="ingrsearch">식재료 찾기</button>-->
+            <form id="searchForm" action="{% url 'popingr' %}" method="get">
+                <div>
+                    <input type="hidden" id="parentLocal" name="parentLocal" value="{{parentLocal}}">
+                    <input onkeyup="filter()" type="text" value="{{ kw|default_if_none:''}}" id="value" name="value" class="recingr" placeholder="식재료 이름을 입력하세요">
+                </div>
+                <div style="padding:15px;">
+                    <button id="ingrSearch" style="border: 2px double; font-size:100%; font-weight:700;">식재료 검색</button>
+                </div>
+            </form>
         </div>
         <div class="itemcontainer">
-            {% for i in popingr%}
+            {% for item in page%}
                 <div class="item">
-                    <span class="icon">{{i.ic_name}}</span>
-                    <span class="name">{{i.i_name}}</span>
+                    <span class="icon">{{item.ic_name}}</span>
+                    <span class="name">{{item.i_name}}</span>
                 </div>
             {% endfor %}
         </div>
     </div>
     <div class="container">
-        <div id="footer" class="row">
-            <div class="class=col-lg-3 col-md-6 form-group mt-3">
-                <button id="inval" style="border: 2px double; font-size:100%; font-weight:700;" type="button" onclick="window.close()">검색 창 닫기</button>
+        <div class="row">
+            <div class="col">
+                <ul class="pagination justify-content-center">
+                    <!--이전 페이지-->
+                    {% if page.has_previous %}
+                    <li class = "page-item">
+                        <a class="page-link" href="{% url 'popingr' %}?&page={{page.previous_page_number}}">이전</a>
+                    </li>
+                    {% endif %}
+                    <!--페이지 목록-->
+                    {% for page_number in page.paginator.page_range %}
+                    {% if page_number >= page.number|add:-3 and page_number <= page.number|add:3 %}
+                        {% if page_number == page.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="{% url 'popingr' %}?&page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item ">
+                            <a class="page-link" href="{% url 'popingr' %}?&page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <!--다음 페이지-->
+                    {% if page.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{% url 'popingr' %}?&page={{page.next_page_number}}">다음</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
-        <div style="text-align:center; background:#ffa012;">
-            <li class="page-review">
-                {% if before %}
-                <a class="page-link" href="?&page={{beforenum}}">이전</a>
-                {% endif %}
-                {% for l in pagelist %}
-                <a class="page-link" href="?&page={{l}}">{{l}}</a>
-                {% endfor %}
-                {% if next %}
-                <a class="page-link" href="?&page={{nextnum}}">다음</a>
-                {% endif %}
-            </li>
+    </div>
+    <div id="footer" class="row">
+        <div class="class=col-lg-3 col-md-6 form-group mt-3">
+            <input id="nonDbIngr" type="text" placeholder="등록되지 않은 식재료는 여기에 입력하세요" class="form-control">
+        </div>
+        <div class="class=col-lg-3 col-md-6 form-group mt-3">
+            <button id="inval" style="border: 2px double; font-size:100%; font-weight:700;" type="button">식재료 입력</button>
         </div>
     </div>
 </body>

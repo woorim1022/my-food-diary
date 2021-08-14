@@ -130,6 +130,7 @@ class PopIngrDb(Db):
 
     def selectone(self, iname):
         iname = iname + '%';
+
         conn = super().getConnection();
         cursor = conn.cursor();
         cursor.execute(Sql.ingrselectone % iname);
@@ -220,33 +221,3 @@ def allergyselect_test(name):
     result = PopIngrDb().selectone(name);
     for i in result:
         print(i);
-    # for i in result:
-    #     print(i);
-
-
-if __name__ == '__main__':
-    allergyselect_test('올리');
-
-# class Favorite(Db):
-#     def select(self, u_id):
-#         conn = super().getConnection();
-#         cursor = conn.cursor();
-#         cursor.execute(Sql.allergyselect % (u_id));
-#         result = cursor.fetchall();
-#         all = [];
-#         for a in result:
-#             alg = Favorite(a[0], a[1]);
-#             all.append(alg);
-#         super().close(conn, cursor);
-#         return all;
-
-
-# def selectone_test(iname):
-#     result = PopIngrDb().selectone(iname)
-#     return result;
-#
-# if __name__=='__main__':
-#     rs = selectone_test('올리');
-#
-# for r in rs:
-#     print(r);

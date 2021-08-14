@@ -2,6 +2,7 @@ import json
 import math
 from datetime import datetime
 
+from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -28,7 +29,9 @@ class UserView:
         context = {
             'recent': recent
         }
-        return render(request,'userapp/mypage.html', context)
+
+        return render(request, 'userapp/mypage.html', context)
+
 
     def profile(request):
         # ==================================================================
@@ -46,7 +49,7 @@ class UserView:
         context = {
             'recent': recent
         }
-        return render(request,'userapp/profile.html', context)
+        return render(request, 'userapp/profile.html', context)
 
     def userupdateimple(request):
         u_id = request.POST['id'];
@@ -75,7 +78,7 @@ class UserView:
             # ==================================================================
             # ==================================================================
             # ==================================================================
-            return render(request,'userapp/profile.html', context);
+            return render(request, 'userapp/profile.html', context);
         # ==================================================================
         # ==================================================================
         # ==================================================================
@@ -91,7 +94,7 @@ class UserView:
         # ==================================================================
         # ==================================================================
         # ==================================================================
-        return render(request,'userapp/mypage.html', context);
+        return render(request, 'userapp/mypage.html', context);
 
     def ncheck(request):
         nick = request.GET['nck'];
@@ -118,7 +121,7 @@ class UserView:
         # ==================================================================
         context = {
             'itemlist': itemlist,
-            'recent':recent
+            'recent': recent
         }
         return render(request, 'userapp/myrecipe_reg.html', context)
 
@@ -130,7 +133,6 @@ class UserView:
         r_regdate = NowDateTime;
         r_name = request.POST['myrtitle'];
         r_cooktime = request.POST['ctime'];
-        r_mimage = '';
 
         r_kimage = [];
         r_simage = [];
@@ -145,28 +147,29 @@ class UserView:
         r_mimage = r_simage[0];
 
         del r_simage[0];
-        for i in range(1, len(r_simage)+1):
+        for i in range(1, len(r_simage) + 1):
             r_kimage.append(i);
-        r_dimage = dict(zip(r_kimage,r_simage));
+        r_dimage = dict(zip(r_kimage, r_simage));
         r_dimage = json.dumps(r_dimage);
 
+        totalImgCnt = request.POST['totalImgCnt'];
+
         r_detail = {};
-        for i in range(1,7):
-            mydi = 'myd' + str(i);
-            mydi = request.POST['myrecdetail'+str(i)];
+        for i in range(1, int(totalImgCnt)):
+            mydi = request.POST['myrecdetail' + str(i)];
             r_detail[str(i)] = mydi;
-        r_detail = json.dumps(r_detail,ensure_ascii=False);
+        r_detail = json.dumps(r_detail, ensure_ascii=False);
 
         r_recommend = 0;
         r_view = 0;
         r_public = request.POST['public'];
 
-        RecipeDb().insert(int(rc_id),u_id,r_regdate,r_name,r_cooktime,r_mimage,r_detail,r_dimage,int(r_recommend),int(r_view),int(r_public));
+        RecipeDb().insert(int(rc_id), u_id, r_regdate, r_name, r_cooktime, r_mimage, r_detail, r_dimage,
+                          int(r_recommend), int(r_view), int(r_public));
 
         cnt = request.POST['cnt'];
         item = request.POST['iname1'];
         amt = request.POST['iamt1'];
-
 
         # ==================================================================
         # ==================================================================
@@ -180,26 +183,23 @@ class UserView:
         # ==================================================================
         # ==================================================================
 
-
         if item == None or amt == None:
             ritem = [];
             ramt = [];
             context = {
-                'ritem':ritem,
-                'ramt':ramt,
-                'recent':recent
+                'ritem': ritem,
+                'ramt': ramt,
+                'recent': recent
             }
         else:
             iid = [];
             ritem = [];
             ramt = [];
-            for i in range(1,int(cnt)+1):
-                item = 'item' + str(i);
-                amt = 'amt' + str(i);
-                item = request.POST['iname'+str(i)];
+            for i in range(1, int(cnt) + 1):
+                item = request.POST['iname' + str(i)];
                 item = item.strip();
 
-                amt = request.POST['iamt'+str(i)];
+                amt = request.POST['iamt' + str(i)];
                 amt = amt.strip();
 
                 ingrid = IngrDb().selectone(item);
@@ -207,24 +207,24 @@ class UserView:
                 iid.append(ingrid);
                 ritem.append(item);
                 ramt.append(amt);
-            rzip = list(zip(ritem,ramt));
+            rzip = list(zip(ritem, ramt));
             context = {
-                'iid':iid,
-                'rzip':rzip,
-                'ritem':ritem,
-                'ramt':ramt,
+                'iid': iid,
+                'rzip': rzip,
+                'ritem': ritem,
+                'ramt': ramt,
                 'recent': recent
             }
-        return render(request, 'userapp/recipeingrcheck.html',context);
+        return render(request, 'userapp/recipeingrcheck.html', context);
 
     def recipeingradd(request):
         u_id = request.session['suser'];
         iid = request.GET['iid'];
         ramt = request.GET['?ramt'];
         rid = RecipeDb().rselectone(u_id);
-        ilist = list(zip(eval(iid),eval(ramt)));
+        ilist = list(zip(eval(iid), eval(ramt)));
         for i in ilist:
-            RecipeIngrDb().insert(rid,i[0],i[1]);
+            RecipeIngrDb().insert(rid, i[0], i[1]);
         # ==================================================================
         # ==================================================================
         # ==================================================================
@@ -239,73 +239,48 @@ class UserView:
         context = {
             'recent': recent
         }
-        return render(request, 'mainapp/main.html',context);
+        return render(request, 'mainapp/main.html', context);
 
+    # 팝업창 항목 페이징 기능
     def popingr(request):
 
-        page = int(request.GET.get('page',1));
+        # 입력 모수
+        # request 요청 중 GET 방식으로 받은 사전식 자료형에서 page에 대한 값을 가져오기
+        # 해당 값이 없을 경우에는 1로 설정
+        page_num = request.GET.get('page', 1)
+        value = request.GET.get('value', '')
+        parentLocal = request.GET.get('parentLocal', '0')
 
-        popingr = PopIngrDb().popselect((page-1)*15);
-        popuppage = (PopIngrDb().poppage()+1);
-
-        if popuppage//5 == 0:
-            allpagepart = 1;
+        # 데이터 객체 목록을 저장하는 변수 선언
+        if value == '':
+            ingr = PopIngrDb().select()
         else:
-            allpagepart = math.ceil(popuppage/5);
+            ingr = PopIngrDb().selectone(value)
 
-        if page//5 == 0:
-            pagepart = 1;
-        else:
-            pagepart = math.ceil(page/5);
+        # Paginator 객체 선언
+        paginator = Paginator(ingr, 15)
 
-        pagelist = [];
-        if allpagepart > pagepart:
-            for l in range(4,-1,-1):
-                pagelist.append(5*pagepart-l);
-        elif allpagepart == pagepart:
-            if popuppage % 5 == 0:
-                for l in range(4, -1, -1):
-                    pagelist.append(5 * pagepart - l);
-            else:
-                a = popuppage % 5;
-                for l in range(1,a+1):
-                    pagelist.append(5*(pagepart-1)+l);
+        # page_num의 값이 DB 데이터에서 나타낼 수 있는 범위를 넘어설 경우에는 오류가 발생
+        # try ~ except로 예외를 처리: 범위를 넘어선 값에 대해선 첫 페이지로 이동
 
-        if allpagepart > pagepart:
-            next = True;
-        else:
-            next = False;
+        try:
+            page = paginator.page(page_num)
+        except EmptyPage:
+            page = paginator.page(1)
 
-        if pagepart > 1 and allpagepart > 1:
-            before = True;
-        else:
-            before = False;
-        nextnum = (pagepart * 5) + 1;
-        beforenum = (pagepart - 1) * 5;
-        itemlist = PopIngrDb().select();
-        context = {
-            'itemlist':itemlist,
-            'popingr':popingr,
-            'pagelist':pagelist,
-            'popuppage':popuppage,
-            'pagepart': pagepart,
-            'next': next,
-            'nextnum': nextnum,
-            'before': before,
-            'beforenum': beforenum
-        }
-        return render(request,'userapp/popingr.html',context)
+        context = {'page': page, 'parentLocal': parentLocal}
+        return render(request, 'userapp/popingr.html', context)
 
     def allergy(request):
         algylist = AllergyDb().select();
         algychecklist = PopIngrDb().select();
         algyset = AllergyDb().allergylist();
         context = {
-            'algylist':algylist,
-            'algychecklist':algychecklist,
-            'algyset':algyset
+            'algylist': algylist,
+            'algychecklist': algychecklist,
+            'algyset': algyset
         };
-        return render(request,'userapp/allergy.html',context)
+        return render(request, 'userapp/allergy.html', context)
 
     def allergyrem(request):
         i_id = request.POST['aid'];
@@ -317,10 +292,10 @@ class UserView:
 
     def allergyadd(request):
         u_id = request.session['suser'];
-        i_ids = request.GET.getlist('check',None);
+        i_ids = request.GET.getlist('check', None);
         try:
             for i in i_ids:
-                UsersAvoidDb().insert(u_id,int(i));
+                UsersAvoidDb().insert(u_id, int(i));
         except:
             return redirect('allergy');
         return redirect('allergy');
@@ -335,7 +310,7 @@ class UserView:
             return HttpResponse('1');
         else:
             context = {
-                'selectlist':selectlist
+                'selectlist': selectlist
             }
             return render(request, 'userapp/popingr.html')
 
@@ -362,3 +337,4 @@ class UserView:
         };
 
         return render(request, 'userapp/like.html',context)
+
